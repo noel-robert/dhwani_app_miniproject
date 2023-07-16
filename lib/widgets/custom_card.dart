@@ -54,7 +54,7 @@ class _CardWidgetState extends State<CardWidget> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              SvgPicture.asset(
+              Image.asset(
                 widget.imagePath,
                 height: MediaQuery.of(context).size.width * (1 / 4),
                 width: MediaQuery.of(context).size.width,

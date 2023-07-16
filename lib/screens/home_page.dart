@@ -20,11 +20,11 @@ final BottomBarController controller = Get.put(BottomBarController());
 class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   // int _selectedBottomBarIndex = 0;
   List<String> image = [
-    'assets/images/A.svg',
-    'assets/images/B.svg',
-    'assets/images/C.svg',
-    'assets/images/D.svg',
-    'assets/images/E.svg'
+    'assets/PNG/C__Users_abhiv_speech_assets_images_A.png',
+    'assets/PNG/C__Users_abhiv_speech_assets_images_B.png',
+    'assets/PNG/C__Users_abhiv_speech_assets_images_C.png',
+    'assets/PNG/C__Users_abhiv_speech_assets_images_D.png',
+    'assets/PNG/C__Users_abhiv_speech_assets_images_E.png'
   ];
   List<String> title = ['A', 'B', 'C', 'D', 'E'];
 
