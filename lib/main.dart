@@ -1,6 +1,6 @@
 import 'package:dhwani_app_miniproject/screens/home_page.dart';
+import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DhwaniApp_HomePage(),
+      home: DhwaniApp_QuestionnairePage(),
       theme: ThemeData(primarySwatch: Colors.orange),
     );
   }
