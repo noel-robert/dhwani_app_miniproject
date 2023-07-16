@@ -11,16 +11,16 @@ class CardWidget extends StatefulWidget {
   String malluDescription;
   List<String> tags = [];
 
-  CardWidget({
-    Key? key,
-    required this.imagePath,
-    required this.title,
-    required this.isFav,
-    required this.onUpdate, // Added onUpdate parameter
-    required this.description,
-    required this.malluDescription,
-    required this.tags
-  }) : super(key: key);
+  CardWidget(
+      {Key? key,
+      required this.imagePath,
+      required this.title,
+      required this.isFav,
+      required this.onUpdate, // Added onUpdate parameter
+      required this.description,
+      required this.malluDescription,
+      required this.tags})
+      : super(key: key);
 
   @override
   _CardWidgetState createState() => _CardWidgetState();
@@ -68,7 +68,7 @@ class _CardWidgetState extends State<CardWidget> {
               const SizedBox(height: 8.0),
               Text(widget.title),
               const SizedBox(height: 8.0),
-              Text('Tapped $counter times'),
+              Text('Tapped $counter times'), // for demo purposes
             ],
           ),
         ),
