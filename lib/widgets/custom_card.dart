@@ -5,8 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CardWidget extends StatefulWidget {
   final String imagePath;
   final String title;
-  bool isFav;
   final Function onUpdate; // Added onUpdate callback function
+  bool isFav;
+  String description;
+  String malluDescription;
+  List<String> tags = [];
 
   CardWidget({
     Key? key,
@@ -14,6 +17,9 @@ class CardWidget extends StatefulWidget {
     required this.title,
     required this.isFav,
     required this.onUpdate, // Added onUpdate parameter
+    required this.description,
+    required this.malluDescription,
+    required this.tags
   }) : super(key: key);
 
   @override

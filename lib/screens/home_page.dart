@@ -19,14 +19,21 @@ final BottomBarController controller = Get.put(BottomBarController());
 
 class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   // int _selectedBottomBarIndex = 0;
-  List<String> image = [
-    'assets/PNG/C__Users_abhiv_speech_assets_images_A.png',
-    'assets/PNG/C__Users_abhiv_speech_assets_images_B.png',
-    'assets/PNG/C__Users_abhiv_speech_assets_images_C.png',
-    'assets/PNG/C__Users_abhiv_speech_assets_images_D.png',
-    'assets/PNG/C__Users_abhiv_speech_assets_images_E.png'
+  // List<String> image = [
+  //   'assets/PNG/C__Users_abhiv_speech_assets_images_A.png',
+  //   'assets/PNG/C__Users_abhiv_speech_assets_images_B.png',
+  //   'assets/PNG/C__Users_abhiv_speech_assets_images_C.png',
+  //   'assets/PNG/C__Users_abhiv_speech_assets_images_D.png',
+  //   'assets/PNG/C__Users_abhiv_speech_assets_images_E.png'
+  // ];
+  // List<String> title = ['A', 'B', 'C', 'D', 'E'];
+  List<CardWidget> cards = [
+    CardWidget(imagePath: 'assets/PNG/A.png', title: 'A', isFav: false, onUpdate: () {}, description: 'temp_placeholder', malluDescription: 'temp_placeholder', tags: ['temp_placeholder']),
+    CardWidget(imagePath: 'assets/PNG/B.png', title: 'B', isFav: false, onUpdate: () {}, description: 'temp_placeholder', malluDescription: 'temp_placeholder', tags: ['temp_placeholder']),
+    CardWidget(imagePath: 'assets/PNG/C.png', title: 'C', isFav: false, onUpdate: () {}, description: 'temp_placeholder', malluDescription: 'temp_placeholder', tags: ['temp_placeholder']),
+    CardWidget(imagePath: 'assets/PNG/D.png', title: 'D', isFav: false, onUpdate: () {}, description: 'temp_placeholder', malluDescription: 'temp_placeholder', tags: ['temp_placeholder']),
+    CardWidget(imagePath: 'assets/PNG/E.png', title: 'E', isFav: false, onUpdate: () {}, description: 'temp_placeholder', malluDescription: 'temp_placeholder', tags: ['temp_placeholder'])
   ];
-  List<String> title = ['A', 'B', 'C', 'D', 'E'];
 
   List<int> clickCounts = [];
 
@@ -36,11 +43,19 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     _loadClickCounts();
   }
 
+  // Future<void> _loadClickCounts() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     clickCounts = title.map((t) {
+  //       return prefs.getInt('${t}_clickCount') ?? 0;
+  //     }).toList();
+  //   });
+  // }
   Future<void> _loadClickCounts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      clickCounts = title.map((t) {
-        return prefs.getInt('${t}_clickCount') ?? 0;
+      clickCounts = cards.map((card) {
+        return prefs.getInt('${card.title}_clickCount') ?? 0;
       }).toList();
     });
   }
@@ -48,8 +63,8 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   void _updateClickCounts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      clickCounts = title.map((t) {
-        return prefs.getInt('${t}_clickCount') ?? 0;
+      clickCounts = cards.map((card) {
+        return prefs.getInt('${card.title}_clickCount') ?? 0;
       }).toList();
     });
   }
@@ -71,11 +86,8 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     List.generate(clickCounts.length, (index) => index)
       ..sort((a, b) => clickCounts[b].compareTo(clickCounts[a]));
 
-    List<String> sortedImages =
-    sortedIndexes.map((index) => image[index]).toList();
-    List<String> sortedTitles =
-    sortedIndexes.map((index) => title[index]).toList();
-
+    List<CardWidget> sortedCards =
+      sortedIndexes.map((index) => cards[index]).toList();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -135,13 +147,8 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
-                itemCount: sortedImages.length,
-                itemBuilder: (context, index) => CardWidget(
-                  imagePath: sortedImages[index],
-                  title: sortedTitles[index],
-                  isFav: false,
-                  onUpdate: _updateClickCounts,
-                ),
+                itemCount: sortedCards.length,
+                itemBuilder: (context, index) => sortedCards[index],
               ),
           )
         ],
