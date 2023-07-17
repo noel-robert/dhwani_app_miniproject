@@ -20,7 +20,7 @@ class _DhwaniApp_QuestionnairePageState
       ['Option 1.1', 'Option 1.2', 'Option 1.3', 'Option 1.4'],
     ),
     Question(
-      'Question 2',
+      'What is your favourite drink?',
       ['Option 2.1', 'Option 2.2', 'Option 2.3', 'Option 2.4'],
     ),
     Question(
