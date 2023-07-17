@@ -69,8 +69,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.white,
@@ -79,7 +79,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             color: Colors.grey.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -88,19 +88,19 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         children: [
           Text(
             widget.question.questionText,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18.0,
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           DropdownButton<String>(
             value: widget.question.selectedOption,
             isExpanded: true,
-            icon: Icon(Icons.arrow_drop_down),
+            icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24.0,
             elevation: 16,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16.0,
               color: Colors.black,
             ),
@@ -121,7 +121,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               );
             }).toList(),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
         ],
       ),
     );
