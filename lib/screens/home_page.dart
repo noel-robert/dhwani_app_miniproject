@@ -7,7 +7,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/bottom_bar_controller.dart';
-import '../widgets/custom_card.dart';
+import '../widgets/custom_card_widget.dart';
 
 class DhwaniApp_HomePage extends StatefulWidget {
   const DhwaniApp_HomePage({Key? key}) : super(key: key);
