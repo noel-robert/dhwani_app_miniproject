@@ -1,35 +1,35 @@
 [
   {
-    "imagePath": "assets/PNG/sleep_male_,_to.png",
-    "title": "Sleep",
+    "imagePath": "assets/PNG/noodles.png",
+    "title": "Noodles",
     "isFav": false,
-    "description": "I am feeling sleepy",
-    "malluDescription": "എനിക്ക് ഉറക്കം വരുന്നു",
-    "tags": ["sleep", "sleepy", "nap", "rest"]
+    "description": "I want to eat noodles",
+    "malluDescription": "എനിക്ക് നൂഡിൽസ് കഴിക്കണം",
+    "tags": ["Food"]
   },
   {
-    "imagePath": "assets/PNG/eat_,_to.png",
-    "title": "Eat",
+    "imagePath": "assets/PNG/rice.png",
+    "title": "Rice",
     "isFav": false,
-    "description": "I am hungry",
-    "malluDescription": "എനിക്ക് വിശക്കുന്നു",
-    "tags": ["Hungry", "food"]
+    "description": "I want to eat Rice",
+    "malluDescription": "എനിക്ക് ചോറ് കഴിക്കണം",
+    "tags": ["Food"]
   },
   {
-    "imagePath": "assets/PNG/stomach_ache.png",
-    "title": "Sick",
+    "imagePath": "assets/PNG/sandwich.png",
+    "title": "Sandwich",
     "isFav": false,
-    "description": "I am sick",
-    "malluDescription": "എനിക്ക് സുഖമില്ല",
-    "tags": ["Sick", "not feeling well", "ill", "illness"]
+    "description": "I want to eat sandwich",
+    "malluDescription": "എനിക്ക് സാൻഡ്‌വിച്ച് കഴിക്കണം",
+    "tags": ["Food"]
   },
   {
-    "imagePath": "assets/PNG/play_area.png",
-    "title": "Play",
+    "imagePath": "assets/PNG/pancakes.png",
+    "title": "Pancake",
     "isFav": false,
-    "description": "I want to go to play",
-    "malluDescription": "എനിക്ക് കളിക്കാൻ പോകണം",
-    "tags": ["play", "running", "go outside"]
+    "description": "I want to eat pancakes",
+    "malluDescription": "എനിക്ക് പാൻകേക്കുകൾ കഴിക്കണം",
+    "tags": ["Food"]
   },
   {
     "imagePath": "assets/PNG/comedy_tv.png",
@@ -37,6 +37,190 @@
     "isFav": false,
     "description": "I want to watch TV",
     "malluDescription": "എനിക്ക് ടിവി കാണണം",
-    "tags": ["TV", "television", "watch"]
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/read_book_,_to.png",
+    "title": "Books",
+    "isFav": false,
+    "description": "I want to read books",
+    "malluDescription": "എനിക്ക് പുസ്തകങ്ങൾ വായിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/playstation.png",
+    "title": "Video games",
+    "isFav": false,
+    "description": "I want to play video games",
+    "malluDescription": "എനിക്ക് വീഡിയോ ഗെയിമുകൾ കളിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/play_,_to.png",
+    "title": "Play outside",
+    "isFav": false,
+    "description": "I want to play outside",
+    "malluDescription": "എനിക്ക് പുറത്ത് കളിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/cake.png",
+    "title": "Cake",
+    "isFav": false,
+    "description": "I want to eat cake",
+    "malluDescription": "എനിക്ക് കേക്ക് കഴിക്കണം",
+    "tags": ["Snack"]
+  },
+  {
+    "imagePath": "assets/PNG/chocolate.png",
+    "title": "Chocolate",
+    "isFav": false,
+    "description": "I want to eat chocolate",
+    "malluDescription": "എനിക്ക് ചോക്കലേറ്റ് കഴിക്കണം",
+    "tags": ["Snack"]
+  },
+  {
+    "imagePath": "assets/PNG/crisps.png",
+    "title": "Chips",
+    "isFav": false,
+    "description": "I want to eat chips",
+    "malluDescription": "എനിക്ക് ചിപ്സ് കഴിക്കണം",
+    "tags": ["Snack"]
+  },
+  {
+    "imagePath": "assets/PNG/biscuits.png",
+    "title": "Biscuits",
+    "isFav": false,
+    "description": "I want to eat biscuits",
+    "malluDescription": "എനിക്ക് ബിസ്‌ക്കറ്റ് കഴിക്കണം",
+    "tags": ["Snack"]
+  },
+  {
+    "imagePath": "assets/PNG/water.png",
+    "title": "Water",
+    "isFav": false,
+    "description": "I want to drink water",
+    "malluDescription": "എനിക്ക് വെള്ളം കുടിക്കണം",
+    "tags": ["Drinks"]
+  },
+  {
+    "imagePath": "assets/PNG/apple_juice.png",
+    "title": "Juice",
+    "isFav": false,
+    "description": "I want to drink juice",
+    "malluDescription": "എനിക്ക് ജ്യൂസ് കുടിക്കണം",
+    "tags": ["Drinks"]
+  },
+  {
+    "imagePath": "assets/PNG/tea.png",
+    "title": "Tea",
+    "isFav": false,
+    "description": "I want to drink tea",
+    "malluDescription": "എനിക്ക് ചായ കുടിക്കണം",
+    "tags": ["Drinks"]
+  },
+  {
+    "imagePath": "assets/PNG/milk_carton.png",
+    "title": "Milk",
+    "isFav": false,
+    "description": "I want to drink milk",
+    "malluDescription": "എനിക്ക് പാൽ കുടിക്കണം",
+    "tags": ["Drinks"]
+  },
+  {
+    "imagePath": "assets/PNG/dog.png",
+    "title": "Dog",
+    "isFav": false,
+    "description": "I want to see my dog",
+    "malluDescription": "എനിക്ക് എന്റെ പട്ടിയെ കാണണം",
+    "tags": ["Pets"]
+  },
+  {
+    "imagePath": "assets/PNG/cat.png",
+    "title": "Cat",
+    "isFav": false,
+    "description": "I want to see my cat",
+    "malluDescription": "എനിക്ക് എന്റെ പൂച്ചയെ കാണണം",
+    "tags": ["Pets"]
+  },
+  {
+    "imagePath": "assets/PNG/fish_tank.png",
+    "title": "Fish",
+    "isFav": false,
+    "description": "I want to see my fish",
+    "malluDescription": "എനിക്ക് എന്റെ മീനിനെ കാണണം",
+    "tags": ["Pets"]
+  },
+  {
+    "imagePath": "assets/PNG/parrot.png",
+    "title": "Parrot",
+    "isFav": false,
+    "description": "I want to see my parrot",
+    "malluDescription": "എനിക്ക് എന്റെ തത്തയെ കാണണം",
+    "tags": ["Pets"]
+  },
+  {
+    "imagePath": "assets/PNG/school.png",
+    "title": "School",
+    "isFav": false,
+    "description": "I want to go to school",
+    "malluDescription": "എനിക്ക് സ്കൂളിൽ പോകണം",
+    "tags": ["Places"]
+  },
+  {
+    "imagePath": "assets/PNG/bookcase.png",
+    "title": "Library",
+    "isFav": false,
+    "description": "I want to go to the library",
+    "malluDescription": "എനിക്ക് ലൈബ്രറിയിൽ പോകണം",
+    "tags": ["Places"]
+  },
+  {
+    "imagePath": "assets/PNG/play_area.png",
+    "title": "Playground",
+    "isFav": false,
+    "description": "I want to go to the playground",
+    "malluDescription": "എനിക്ക് കളിസ്ഥലത്തേക്ക് പോകണം",
+    "tags": ["Places"]
+  },
+  {
+    "imagePath": "assets/PNG/shop_2.png",
+    "title": "Restaurant",
+    "isFav": false,
+    "description": "I want to go to the restaurant",
+    "malluDescription": "എനിക്ക് റെസ്റ്റോറന്റിലേക്ക് പോകണം",
+    "tags": ["Places"]
+  },
+  {
+    "imagePath": "assets/PNG/baseball_bat.png",
+    "title": "Bat",
+    "isFav": false,
+    "description": "I want to play with my bat",
+    "malluDescription": "എനിക്ക് എന്റെ ബാറ്റിൽ കളിക്കണം",
+    "tags": ["Toys"]
+  },
+  {
+    "imagePath": "assets/PNG/doll.png",
+    "title": "Doll",
+    "isFav": false,
+    "description": "I want to play with my doll",
+    "malluDescription": "എനിക്ക് എന്റെ പാവയുമായി കളിക്കണം",
+    "tags": ["Toys"]
+  },
+  {
+    "imagePath": "assets/PNG/lego.png",
+    "title": "Lego",
+    "isFav": false,
+    "description": "I want to play with my lego",
+    "malluDescription": "എനിക്ക് എന്റെ ലെഗോ ഉപയോഗിച്ച് കളിക്കണം",
+    "tags": ["Toys"]
+  },
+  {
+    "imagePath": "assets/PNG/toy_car.png",
+    "title": "Toy car",
+    "isFav": false,
+    "description": "I want to play with my toy car",
+    "malluDescription": "എനിക്ക് എന്റെ കളിപ്പാട്ട കാർ ഉപയോഗിച്ച് കളിക്കണം",
+    "tags": ["Toys"]
   }
 ]
