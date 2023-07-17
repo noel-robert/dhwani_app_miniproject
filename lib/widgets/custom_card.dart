@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CardWidget extends StatefulWidget {
@@ -19,8 +18,8 @@ class CardWidget extends StatefulWidget {
       required this.onUpdate, // Added onUpdate parameter
       required this.description,
       required this.malluDescription,
-      required this.tags})
-      : super(key: key);
+      required this.tags}
+  ) : super(key: key);
 
   @override
   _CardWidgetState createState() => _CardWidgetState();
@@ -66,8 +65,22 @@ class _CardWidgetState extends State<CardWidget> {
                 width: MediaQuery.of(context).size.width,
               ),
               const SizedBox(height: 8.0),
-              Text(widget.title),
-              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(fontSize: 18.0),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Icon(
+                    widget.isFav ? Icons.favorite : Icons.favorite_border,
+                    color: widget.isFav ? Colors.red : null,
+                  )
+                ],
+              ),
               Text('Tapped $counter times'), // for demo purposes
             ],
           ),
