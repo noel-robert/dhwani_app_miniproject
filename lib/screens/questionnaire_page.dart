@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/question_widget.dart';
@@ -12,59 +13,29 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
       _DhwaniApp_QuestionnairePageState();
 }
 
-class _DhwaniApp_QuestionnairePageState
-    extends State<DhwaniApp_QuestionnairePage> {
-  List<Question> questions = [
-    Question(
-      'What is your favourite food?',
-      ['Option 1.1', 'Option 1.2', 'Option 1.3', 'Option 1.4'],
-    ),
-    Question(
-      'What is your favourite drink?',
-      ['Option 2.1', 'Option 2.2', 'Option 2.3', 'Option 2.4'],
-    ),
-    Question(
-      'Question 3',
-      ['Option 3.1', 'Option 3.2', 'Option 3.3', 'Option 3.4'],
-    ),
-    Question(
-      'Question 4',
-      ['Option 4.1', 'Option 4.2', 'Option 4.3', 'Option 4.4'],
-    ),
-    Question(
-      'Question 5',
-      ['Option 5.1', 'Option 5.2', 'Option 5.3', 'Option 5.4'],
-    ),
-    Question(
-      'Question 6',
-      ['Option 6.1', 'Option 6.2', 'Option 6.3', 'Option 6.4'],
-    ),
-    Question(
-      'Question 7',
-      ['Option 7.1', 'Option 7.2', 'Option 7.3', 'Option 7.4'],
-    ),
-    Question(
-      'Question 8',
-      ['Option 8.1', 'Option 8.2', 'Option 8.3', 'Option 8.4'],
-    ),
-    Question(
-      'Question 9',
-      ['Option 9.1', 'Option 9.2', 'Option 9.3', 'Option 9.4'],
-    ),
-    Question(
-      'Question 10',
-      ['Option 10.1', 'Option 10.2', 'Option 10.3', 'Option 10.4'],
-    ),
-  ];
-
+class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
+  List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
 
   @override
   void initState() {
     super.initState();
-    selectedAnswers = List<List<String>>.filled(questions.length, []);
+    _loadQuestions();
   }
 
+  Future<void> _loadQuestions() async {
+    String jsonContent = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/questionnaire_Data.json');
+    List<dynamic> jsonData = jsonDecode(jsonContent);
+
+    setState(() {
+      questions = jsonData.map((data) => Question(
+        data['questionText'],
+        List<String>.from(data['options']),
+      )).toList();
+      selectedAnswers = List<List<String>>.filled(questions.length, []);
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +55,7 @@ class _DhwaniApp_QuestionnairePageState
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // submit the questionnaire
+          // on submitting the questionnaire
           print(selectedAnswers);
 
           // redirect to Home_Page

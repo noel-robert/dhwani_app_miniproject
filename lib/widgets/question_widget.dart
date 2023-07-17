@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Question {
   final String questionText;
   final List<String> options;
+  String? selectedOption; // Add selectedOption property
 
   Question(this.questionText, this.options);
 }
@@ -65,8 +66,6 @@ class QuestionWidget extends StatefulWidget {
 // }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
-  String? selectedOption;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +95,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ),
           SizedBox(height: 16.0),
           DropdownButton<String>(
-            value: selectedOption,
+            value: widget.question.selectedOption,
             isExpanded: true,
             icon: Icon(Icons.arrow_drop_down),
             iconSize: 24.0,
@@ -111,7 +110,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             ),
             onChanged: (value) {
               setState(() {
-                selectedOption = value;
+                widget.question.selectedOption = value;
                 widget.onAnswerSelected([value!]);
               });
             },
@@ -122,6 +121,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               );
             }).toList(),
           ),
+          SizedBox(height: 16.0),
         ],
       ),
     );
