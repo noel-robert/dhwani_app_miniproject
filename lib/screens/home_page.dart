@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -17,97 +19,34 @@ class DhwaniApp_HomePage extends StatefulWidget {
 final BottomBarController controller = Get.put(BottomBarController());
 
 class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
-  List<CardWidget> cards = [
-    CardWidget(
-        imagePath: 'assets/PNG/sleep_male_,_to.png',
-        title: 'Sleep',
-        isFav: false,
-        onUpdate: () {},
-        description: 'I am feeling sleepy',
-        malluDescription: 'എനിക്ക് ഉറക്കം വരുന്നു',
-        tags: ['sleep', 'sleepy', 'nap', 'rest']),
-    CardWidget(
-        imagePath: 'assets/PNG/eat_,_to.png',
-        title: 'Eat',
-        isFav: false,
-        onUpdate: () {},
-        description: 'I am hungry',
-        malluDescription: 'എനിക്ക് വിശക്കുന്നു',
-        tags: ['Hungry', 'food']),
-    CardWidget(
-        imagePath: 'assets/PNG/stomach_ache.png',
-        title: 'Sick',
-        isFav: false,
-        onUpdate: () {},
-        description: 'I am sick',
-        malluDescription: 'എനിക്ക് സുഖമില്ല',
-        tags: ['Sick', 'not feeling well', 'ill', 'illness']),
-    CardWidget(
-        imagePath: 'assets/PNG/play_area.png',
-        title: 'Play',
-        isFav: false,
-        onUpdate: () {},
-        description: 'I want to go to play',
-        malluDescription: 'എനിക്ക് കളിക്കാൻ പോകണം',
-        tags: ['play', 'running', 'go outside']),
-    CardWidget(
-        imagePath: 'assets/PNG/comedy_tv.png',
-        title: 'Televisison',
-        isFav: false,
-        onUpdate: () {},
-        description: 'I want to watch tv',
-        malluDescription: 'എനിക്ക് ടിവി കാണണം',
-        tags: ['tv', 'television', 'watch']),
-    CardWidget(
-        imagePath: 'assets/PNG/A.png',
-        title: 'A',
-        isFav: false,
-        onUpdate: () {},
-        description: 'temp_placeholder',
-        malluDescription: 'temp_placeholder',
-        tags: ['temp_placeholder']),
-    CardWidget(
-        imagePath: 'assets/PNG/B.png',
-        title: 'B',
-        isFav: false,
-        onUpdate: () {},
-        description: 'temp_placeholder',
-        malluDescription: 'temp_placeholder',
-        tags: ['temp_placeholder']),
-    CardWidget(
-        imagePath: 'assets/PNG/C.png',
-        title: 'C',
-        isFav: false,
-        onUpdate: () {},
-        description: 'temp_placeholder',
-        malluDescription: 'temp_placeholder',
-        tags: ['temp_placeholder']),
-    CardWidget(
-        imagePath: 'assets/PNG/D.png',
-        title: 'D',
-        isFav: false,
-        onUpdate: () {},
-        description: 'temp_placeholder',
-        malluDescription: 'temp_placeholder',
-        tags: ['temp_placeholder']),
-    CardWidget(
-        imagePath: 'assets/PNG/E.png',
-        title: 'E',
-        isFav: false,
-        onUpdate: () {},
-        description: 'temp_placeholder',
-        malluDescription: 'temp_placeholder',
-        tags: ['temp_placeholder'])
-  ];
-
+  List<CardWidget> cards = [];
   List<int> clickCounts = [];
+
 
   @override
   void initState() {
     super.initState();
+    _loadData();
     _loadClickCounts();
   }
 
+  Future<void> _loadData() async {
+    String jsonContent = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
+    List<dynamic> jsonData = jsonDecode(jsonContent);
+
+    setState(() {
+      cards = jsonData.map((data) => CardWidget(
+          imagePath: data['imagePath'],
+          title: data['title'],
+          isFav: data['isFav'],
+          onUpdate: _updateClickCounts,
+          description: data['description'],
+          malluDescription: data['malluDescription'],
+          tags: List<String>.from(data['tags']),
+      )).toList();
+    });
+  }
+  
   Future<void> _loadClickCounts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -131,11 +70,11 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   @override
   Widget build(BuildContext context) {
     List<int> sortedIndexes =
-        List.generate(clickCounts.length, (index) => index)
-          ..sort((a, b) => clickCounts[b].compareTo(clickCounts[a]));
+    List.generate(clickCounts.length, (index) => index)
+      ..sort((a, b) => clickCounts[b].compareTo(clickCounts[a]));
 
     List<CardWidget> sortedCards =
-        sortedIndexes.map((index) => cards[index]).toList();
+    sortedIndexes.map((index) => cards[index]).toList();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -206,7 +145,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         child: SafeArea(
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
