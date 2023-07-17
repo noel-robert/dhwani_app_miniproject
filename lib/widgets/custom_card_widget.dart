@@ -46,7 +46,7 @@ class _CardWidgetState extends State<CardWidget> {
     setState(() {
       counter++;
       _prefs.setInt('${widget.title}_clickCount', counter);
-      //widget.onUpdate(); // Call the onUpdate callback function (real time re sorting)
+      widget.onUpdate(); // Call the onUpdate callback function (real time re sorting)
     });
   }
 

@@ -10,7 +10,9 @@ import '../controllers/bottom_bar_controller.dart';
 import '../widgets/custom_card_widget.dart';
 
 class DhwaniApp_HomePage extends StatefulWidget {
-  const DhwaniApp_HomePage({Key? key}) : super(key: key);
+  final List<List<String>> selectedAnswers;
+
+  const DhwaniApp_HomePage({Key? key, required this.selectedAnswers}) : super(key: key);
 
   @override
   _DhwaniApp_HomePageState createState() => _DhwaniApp_HomePageState();
@@ -64,6 +66,19 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       }).toList();
     });
   }
+  // void _updateClickCounts() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     for (var card in cards) {
+  //       int clickCount = prefs.getInt('${card.title}_clickCount') ?? 0;
+  //       if (card.isFav) { clickCount += 10; }
+  //       prefs.setInt('${card.title}_clickCount', clickCount);
+  //     }
+  //     clickCounts = cards.map((card) {
+  //       return prefs.getInt('${card.title}_clickCount') ?? 0;
+  //     }).toList();
+  //   });
+  // }
 
   bool _languageSwitchState = false; // language is malayalam | english
 
@@ -75,6 +90,23 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
 
     List<CardWidget> sortedCards =
     sortedIndexes.map((index) => cards[index]).toList();
+
+    // update isFav value from selectedAnswers
+    for (int i=0; i<widget.selectedAnswers.length; i++) {
+      List<String> selectedOptions = widget.selectedAnswers[i];
+      if (selectedOptions.isNotEmpty) {
+        String selectedOption = selectedOptions.first;
+
+        for (int j=0; j<sortedCards.length; j++) {
+          if (sortedCards[j].title == selectedOption) {
+            setState(() {
+              sortedCards[j].isFav = true;
+            });
+            break;
+          }
+        }
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
