@@ -1,0 +1,42 @@
+[
+  {
+    "imagePath": "assets/PNG/sleep_male_,_to.png",
+    "title": "Sleep",
+    "isFav": false,
+    "description": "I am feeling sleepy",
+    "malluDescription": "എനിക്ക് ഉറക്കം വരുന്നു",
+    "tags": ["sleep", "sleepy", "nap", "rest"]
+  },
+  {
+    "imagePath": "assets/PNG/eat_,_to.png",
+    "title": "Eat",
+    "isFav": false,
+    "description": "I am hungry",
+    "malluDescription": "എനിക്ക് വിശക്കുന്നു",
+    "tags": ["Hungry", "food"]
+  },
+  {
+    "imagePath": "assets/PNG/stomach_ache.png",
+    "title": "Sick",
+    "isFav": false,
+    "description": "I am sick",
+    "malluDescription": "എനിക്ക് സുഖമില്ല",
+    "tags": ["Sick", "not feeling well", "ill", "illness"]
+  },
+  {
+    "imagePath": "assets/PNG/play_area.png",
+    "title": "Play",
+    "isFav": false,
+    "description": "I want to go to play",
+    "malluDescription": "എനിക്ക് കളിക്കാൻ പോകണം",
+    "tags": ["play", "running", "go outside"]
+  },
+  {
+    "imagePath": "assets/PNG/comedy_tv.png",
+    "title": "Television",
+    "isFav": false,
+    "description": "I want to watch TV",
+    "malluDescription": "എനിക്ക് ടിവി കാണണം",
+    "tags": ["TV", "television", "watch"]
+  }
+]
