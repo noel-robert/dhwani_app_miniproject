@@ -16,7 +16,7 @@ class _DhwaniApp_QuestionnairePageState
     extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [
     Question(
-      'Question 1',
+      'What is your favourite food?',
       ['Option 1.1', 'Option 1.2', 'Option 1.3', 'Option 1.4'],
     ),
     Question(
