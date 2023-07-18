@@ -10,16 +10,16 @@ class CardWidget extends StatefulWidget {
   String malluDescription;
   List<String> tags = [];
 
-  CardWidget(
-      {Key? key,
-      required this.imagePath,
-      required this.title,
-      required this.isFav,
-      required this.onUpdate, // Added onUpdate parameter
-      required this.description,
-      required this.malluDescription,
-      required this.tags}
-  ) : super(key: key);
+  CardWidget({
+    Key? key,
+    required this.imagePath,
+    required this.title,
+    required this.isFav,
+    required this.onUpdate, // Added onUpdate parameter
+    required this.description,
+    required this.malluDescription,
+    required this.tags,
+  }) : super(key: key);
 
   @override
   _CardWidgetState createState() => _CardWidgetState();
@@ -38,7 +38,10 @@ class _CardWidgetState extends State<CardWidget> {
   void initSharedPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      counter = _prefs.getInt('${widget.title}_clickCount') ?? 0;
+      counter = widget.isFav
+          ? 1
+          : (_prefs.getInt('${widget.title}_clickCount') ??
+              0); //edited here to initialise to 1
     });
   }
 
@@ -46,7 +49,7 @@ class _CardWidgetState extends State<CardWidget> {
     setState(() {
       counter++;
       _prefs.setInt('${widget.title}_clickCount', counter);
-      widget.onUpdate(); // Call the onUpdate callback function (real time re sorting)
+      //widget.onUpdate(); // Call the onUpdate callback function (real-time re-sorting)
     });
   }
 
