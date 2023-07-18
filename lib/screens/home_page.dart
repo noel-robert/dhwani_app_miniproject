@@ -24,6 +24,7 @@ final BottomBarController controller = Get.put(BottomBarController());
 class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   List<CardWidget> cards = [];
   List<int> clickCounts = [];
+  bool _languageSwitchState = false; // language is malayalam | english
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                 description: data['description'],
                 malluDescription: data['malluDescription'],
                 tags: List<String>.from(data['tags']),
+                languageSwitchState: _languageSwitchState,
               ))
           .toList();
     });
@@ -95,7 +97,11 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   //   }
   // }
 
-  bool _languageSwitchState = false; // language is malayalam | english
+  void _toggleLanguageSwitch() {
+    setState(() {
+      _languageSwitchState = !_languageSwitchState;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,11 +158,12 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                       borderRadius: BorderRadius.circular(25.0),
                       color: _languageSwitchState ? Colors.green : Colors.red),
                   child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _languageSwitchState = !_languageSwitchState;
-                      });
-                    },
+                    // onTap: () {
+                    //   setState(() {
+                    //     _languageSwitchState = !_languageSwitchState;
+                    //   });
+                    // },
+                    onTap: _toggleLanguageSwitch,
                     borderRadius: BorderRadius.circular(25.0),
                     child: Center(
                       child: Text(

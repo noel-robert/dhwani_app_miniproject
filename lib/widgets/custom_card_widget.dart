@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CardWidget extends StatefulWidget {
@@ -9,6 +10,7 @@ class CardWidget extends StatefulWidget {
   String description;
   String malluDescription;
   List<String> tags = [];
+  final bool languageSwitchState;
 
   CardWidget({
     Key? key,
@@ -19,6 +21,7 @@ class CardWidget extends StatefulWidget {
     required this.description,
     required this.malluDescription,
     required this.tags,
+    required this.languageSwitchState,
   }) : super(key: key);
 
   @override
@@ -44,6 +47,12 @@ class _CardWidgetState extends State<CardWidget> {
               0); //edited here to initialise to 1
     });
   }
+  // void initSharedPreferences() async {
+  //   _prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     counter = _prefs.getInt('${widget.title}_clickCount') ?? 0;
+  //   });
+  // }
 
   void _incrementCounter() {
     setState(() {
@@ -53,11 +62,25 @@ class _CardWidgetState extends State<CardWidget> {
     });
   }
 
+  FlutterTts flutterTts = FlutterTts();
+  Future<void> _speakDescription() async {
+    String text = widget.languageSwitchState ? widget.malluDescription : widget.description;
+    String language = widget.languageSwitchState ? 'ml-IN' : 'en-US';
+
+    print(language);  // debug
+    await flutterTts.setLanguage(language);
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: _incrementCounter,
+        onTap: () {
+          _incrementCounter();
+          _speakDescription();
+        },
         // onTap: () {
         //   setState(() {
         //     counter++;
