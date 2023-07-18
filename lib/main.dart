@@ -1,5 +1,4 @@
 import 'package:dhwani_app_miniproject/screens/login_page.dart';
-import 'package:dhwani_app_miniproject/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

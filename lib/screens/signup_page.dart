@@ -1,4 +1,4 @@
-import 'package:dhwani_app_miniproject/screens/login_page.dart';
+import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:flutter/material.dart';
 
 class DhwaniApp_SignupPage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                 child: const Text('SignUp'),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DhwaniApp_LoginPage()));
+                      MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
                 },
               ),
             ),

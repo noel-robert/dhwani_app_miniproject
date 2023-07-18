@@ -1,5 +1,4 @@
 import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:dhwani_app_miniproject/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -69,8 +68,11 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
               child: ElevatedButton(
                 child: const Text('Login'),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
+                  Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => DhwaniApp_HomePage(selectedAnswers: []))
+                  );
                 },
               ),
             ),
