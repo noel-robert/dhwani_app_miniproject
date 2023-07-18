@@ -12,7 +12,8 @@ import '../widgets/custom_card_widget.dart';
 class DhwaniApp_HomePage extends StatefulWidget {
   final List<List<String>> selectedAnswers;
 
-  const DhwaniApp_HomePage({Key? key, required this.selectedAnswers}) : super(key: key);
+  const DhwaniApp_HomePage({Key? key, required this.selectedAnswers})
+      : super(key: key);
 
   @override
   _DhwaniApp_HomePageState createState() => _DhwaniApp_HomePageState();
@@ -24,7 +25,6 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   List<CardWidget> cards = [];
   List<int> clickCounts = [];
 
-
   @override
   void initState() {
     super.initState();
@@ -33,22 +33,25 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   }
 
   Future<void> _loadData() async {
-    String jsonContent = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
+    String jsonContent = await DefaultAssetBundle.of(context)
+        .loadString('assets/dataFiles/card_Data.json');
     List<dynamic> jsonData = jsonDecode(jsonContent);
 
     setState(() {
-      cards = jsonData.map((data) => CardWidget(
-          imagePath: data['imagePath'],
-          title: data['title'],
-          isFav: data['isFav'],
-          onUpdate: _updateClickCounts,
-          description: data['description'],
-          malluDescription: data['malluDescription'],
-          tags: List<String>.from(data['tags']),
-      )).toList();
+      cards = jsonData
+          .map((data) => CardWidget(
+                imagePath: data['imagePath'],
+                title: data['title'],
+                isFav: data['isFav'],
+                onUpdate: _updateClickCounts,
+                description: data['description'],
+                malluDescription: data['malluDescription'],
+                tags: List<String>.from(data['tags']),
+              ))
+          .toList();
     });
   }
-  
+
   Future<void> _loadClickCounts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -97,19 +100,19 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   @override
   Widget build(BuildContext context) {
     List<int> sortedIndexes =
-    List.generate(clickCounts.length, (index) => index)
-      ..sort((a, b) => clickCounts[b].compareTo(clickCounts[a]));
+        List.generate(clickCounts.length, (index) => index)
+          ..sort((a, b) => clickCounts[b].compareTo(clickCounts[a]));
 
     List<CardWidget> sortedCards =
-    sortedIndexes.map((index) => cards[index]).toList();
+        sortedIndexes.map((index) => cards[index]).toList();
 
     // update isFav value from selectedAnswers
-    for (int i=0; i<widget.selectedAnswers.length; i++) {
+    for (int i = 0; i < widget.selectedAnswers.length; i++) {
       List<String> selectedOptions = widget.selectedAnswers[i];
       if (selectedOptions.isNotEmpty) {
         String selectedOption = selectedOptions.first;
 
-        for (int j=0; j<sortedCards.length; j++) {
+        for (int j = 0; j < sortedCards.length; j++) {
           if (sortedCards[j].title == selectedOption) {
             setState(() {
               sortedCards[j].isFav = true;
@@ -189,7 +192,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         child: SafeArea(
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
