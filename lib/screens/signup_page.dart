@@ -1,6 +1,6 @@
 import 'package:dhwani_app_miniproject/screens/login_page.dart';
+import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:flutter/material.dart';
-import 'package:dhwani_app_miniproject/screens/login_page.dart';
 
 class DhwaniApp_SignupPage extends StatefulWidget {
   const DhwaniApp_SignupPage({Key? key}) : super(key: key);
@@ -150,7 +150,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DhwaniApp_LoginPage()));
+                          builder: (context) => DhwaniApp_QuestionnairePage()));
                 },
               ),
             ),
