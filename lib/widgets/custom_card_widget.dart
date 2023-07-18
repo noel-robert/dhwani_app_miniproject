@@ -38,21 +38,21 @@ class _CardWidgetState extends State<CardWidget> {
     initSharedPreferences();
   }
 
-  void initSharedPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      counter = widget.isFav
-          ? 1
-          : (_prefs.getInt('${widget.title}_clickCount') ??
-              0); //edited here to initialise to 1
-    });
-  }
   // void initSharedPreferences() async {
   //   _prefs = await SharedPreferences.getInstance();
   //   setState(() {
-  //     counter = _prefs.getInt('${widget.title}_clickCount') ?? 0;
+  //     counter = widget.isFav
+  //         ? 1
+  //         : (_prefs.getInt('${widget.title}_clickCount') ??
+  //             0); //edited here to initialise to 1
   //   });
   // }
+  void initSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      counter = _prefs.getInt('${widget.title}_clickCount') ?? 0;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
