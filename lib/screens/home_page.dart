@@ -82,6 +82,18 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   //     }).toList();
   //   });
   // }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //       _updateClickCounts();
+  // }
+  // @override
+  // void didUpdateWidget(DhwaniApp_HomePage oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if(oldWidget.selectedAnswers != widget.selectedAnswers) {
+  //     _updateClickCounts();
+  //   }
+  // }
 
   bool _languageSwitchState = false; // language is malayalam | english
 

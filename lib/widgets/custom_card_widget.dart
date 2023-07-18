@@ -49,7 +49,7 @@ class _CardWidgetState extends State<CardWidget> {
     setState(() {
       counter++;
       _prefs.setInt('${widget.title}_clickCount', counter);
-      //widget.onUpdate(); // Call the onUpdate callback function (real-time re-sorting)
+      // widget.onUpdate(); // Call the onUpdate callback function (real time re sorting)
     });
   }
 
@@ -58,6 +58,12 @@ class _CardWidgetState extends State<CardWidget> {
     return Card(
       child: InkWell(
         onTap: _incrementCounter,
+        // onTap: () {
+        //   setState(() {
+        //     counter++;
+        //     _prefs.setInt('${widget.title}_clickCount', counter);
+        //   });
+        // },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
