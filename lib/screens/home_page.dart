@@ -71,32 +71,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       }).toList();
     });
   }
-  // void _updateClickCounts() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     for (var card in cards) {
-  //       int clickCount = prefs.getInt('${card.title}_clickCount') ?? 0;
-  //       if (card.isFav) { clickCount += 10; }
-  //       prefs.setInt('${card.title}_clickCount', clickCount);
-  //     }
-  //     clickCounts = cards.map((card) {
-  //       return prefs.getInt('${card.title}_clickCount') ?? 0;
-  //     }).toList();
-  //   });
-  // }
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //       _updateClickCounts();
-  // }
-  // @override
-  // void didUpdateWidget(DhwaniApp_HomePage oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   if(oldWidget.selectedAnswers != widget.selectedAnswers) {
-  //     _updateClickCounts();
-  //   }
-  // }
-
+  
   void _toggleLanguageSwitch() {
     setState(() {
       _languageSwitchState = !_languageSwitchState;
