@@ -124,7 +124,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: nameController,
+                controller: gnameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Guardian Name',
