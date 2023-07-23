@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dhwani_app_miniproject">
    <application
-        android:label="dhwani_app_miniproject"
+        android:label="DhwaniApp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
