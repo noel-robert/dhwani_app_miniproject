@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/bottom_bar_controller.dart';
@@ -34,23 +36,43 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   }
 
   Future<void> _loadData() async {
-    String jsonContent = await DefaultAssetBundle.of(context)
-        .loadString('assets/dataFiles/card_Data.json');
+    // get app documents directory
+    Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    String cardDataPath = '${appDocumentsDirectory.path}/card_Data_updated.json';
+
+    String jsonContent = await File(cardDataPath).readAsString();
+    print(jsonContent);
     List<dynamic> jsonData = jsonDecode(jsonContent);
 
+    // setState(() {
+    //   cards = jsonData
+    //       .map((data) => CardWidget(
+    //             imagePath: data['imagePath'],
+    //             title: data['title'],
+    //             isFav: data['isFav'],
+    //             onUpdate: _updateClickCounts,
+    //             description: data['description'],
+    //             malluDescription: data['malluDescription'],
+    //             tags: List<String>.from(data['tags']),
+    //             languageSwitchState: _languageSwitchState,
+    //           ))
+    //       .toList();
+    // });
+    List<CardWidget> tempCards = jsonData.map((data) {
+      return CardWidget(
+        imagePath: data['imagePath'],
+        title: data['title'],
+        isFav: data['isFav'],
+        onUpdate: _updateClickCounts,
+        description: data['description'],
+        malluDescription: data['malluDescription'],
+        tags: List<String>.from(data['tags']),
+        languageSwitchState: _languageSwitchState,
+      );
+    }).toList();
+
     setState(() {
-      cards = jsonData
-          .map((data) => CardWidget(
-                imagePath: data['imagePath'],
-                title: data['title'],
-                isFav: data['isFav'],
-                onUpdate: _updateClickCounts,
-                description: data['description'],
-                malluDescription: data['malluDescription'],
-                tags: List<String>.from(data['tags']),
-                languageSwitchState: _languageSwitchState,
-              ))
-          .toList();
+      cards = tempCards;
     });
   }
 

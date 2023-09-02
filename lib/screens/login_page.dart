@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
 import 'package:dhwani_app_miniproject/screens/home_page.dart';
 import 'package:dhwani_app_miniproject/screens/signup_page.dart';
-import 'package:flutter/material.dart';
+
 
 class DhwaniApp_LoginPage extends StatefulWidget {
   const DhwaniApp_LoginPage({Key? key}) : super(key: key);
@@ -10,8 +13,9 @@ class DhwaniApp_LoginPage extends StatefulWidget {
 }
 
 class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: nameController,
+                controller: usernameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
@@ -46,35 +50,55 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: TextField(
-                obscureText: true,
+                obscureText: !isPasswordVisible,
                 controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
             TextButton(
-              onPressed: () {
-                //forgot password screen
-              },
-              child: const Text(
-                'Forgot Password',
-              ),
-            ),
-            Container(
-              height: 50,
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: ElevatedButton(
-                child: const Text('Login'),
-                onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
-                  Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => DhwaniApp_HomePage(selectedAnswers: []))
+              onPressed: () async {
+                final username = usernameController.text;
+                final password = passwordController.text;
+
+                // verify from HIVE database
+                final userBox = await Hive.openBox('users');
+                if (userBox.containsKey(username) && userBox.get(username) == password) {
+                  // authorized user
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
+                } else {
+                  // unauthorized access
+                  BuildContext currentContext = context;
+                  showDialog(
+                    context: currentContext, // Use the captured context
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Login Failed'),
+                        content: const Text('Invalid username or password.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(currentContext).pop(); // Dismiss the dialog
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
                   );
-                },
-              ),
+                }
+              },
+              child: const Text('Login'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
