@@ -1,4 +1,3 @@
-import 'package:dhwani_app_miniproject/models/userData_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -6,6 +5,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:dhwani_app_miniproject/screens/login_page.dart';
 import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
+import 'package:dhwani_app_miniproject/models/userData_model.dart';
 
 
 class DhwaniApp_SignupPage extends StatefulWidget {
