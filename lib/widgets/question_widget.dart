@@ -18,53 +18,6 @@ class QuestionWidget extends StatefulWidget {
   _QuestionWidgetState createState() => _QuestionWidgetState();
 }
 
-// class _QuestionWidgetState extends State<QuestionWidget> {
-//   List<String> selectedOptions = [];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Padding(
-//           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-//           child: Text(
-//             widget.question.questionText,
-//             style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//               fontSize: 18.0,
-//             ),
-//           ),
-//         ),
-//         ListView.builder(
-//           shrinkWrap: true,
-//           physics: NeverScrollableScrollPhysics(),
-//           itemCount: widget.question.options.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final option = widget.question.options[index];
-//             return ListTile(
-//               leading: Checkbox(
-//                 value: selectedOptions.contains(option),
-//                 onChanged: (bool? value) {
-//                   setState(() {
-//                     if (value != null && value) {
-//                       selectedOptions.add(option);
-//                     } else {
-//                       selectedOptions.remove(option);
-//                     }
-//                     widget.onAnswerSelected(selectedOptions);
-//                   });
-//                 },
-//               ),
-//               title: Text(option),
-//             );
-//           }
-//         )
-//       ],
-//     );
-//   }
-// }
-
 class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
@@ -100,14 +53,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24.0,
             elevation: 16,
-            style: const TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
-            ),
-            underline: Container(
-              height: 1,
-              color: Colors.grey,
-            ),
+            style: const TextStyle(fontSize: 16.0, color: Colors.black,),
+            underline: Container(height: 1, color: Colors.grey,),
             onChanged: (value) {
               setState(() {
                 widget.question.selectedOption = value;
