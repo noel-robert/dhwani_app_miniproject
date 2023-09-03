@@ -75,7 +75,7 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
 
           // redirect to Home_Page
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DhwaniApp_HomePage(selectedAnswers: selectedAnswers)));
+              MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
         },
         child: const Icon(Icons.check),
       ),
