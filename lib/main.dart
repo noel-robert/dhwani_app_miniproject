@@ -1,3 +1,4 @@
+import 'package:dhwani_app_miniproject/models/card_model.dart';
 import 'package:dhwani_app_miniproject/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -5,6 +6,8 @@ import 'package:hive_flutter/adapters.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(CardModelAdapter());
+
   runApp(const MyApp());
 }
 
