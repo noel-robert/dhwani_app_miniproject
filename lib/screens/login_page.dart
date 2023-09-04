@@ -73,11 +73,15 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
 
                 // verify from HIVE database
                 final userBox = await Hive.openBox('users');
-                if (userBox.containsKey(username) && userBox.get(username) == password) {
-                  // authorized user
+                final storedData = userBox.get(username, defaultValue: '');
+                var storedPassword = null;
+                if (userBox.containsKey(username)) storedPassword = storedData['password'];
+
+                if (storedPassword != null && storedPassword == password) {
+                  // authorized
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
                 } else {
-                  // unauthorized access
+                  // not authorized
                   BuildContext currentContext = context;
                   showDialog(
                     context: currentContext, // Use the captured context
