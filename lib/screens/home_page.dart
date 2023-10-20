@@ -79,7 +79,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       updatedCard?.clickCount++;
       updatedCard?.save();
     }
-    setState(() {});
+    //setState(() {});
   }
 
   void _toggleLanguageSwitch() {
