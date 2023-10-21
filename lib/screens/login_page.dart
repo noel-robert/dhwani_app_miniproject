@@ -1,12 +1,11 @@
+import 'package:dhwani_app_miniproject/screens/home_page.dart';
+import 'package:dhwani_app_miniproject/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:dhwani_app_miniproject/screens/signup_page.dart';
-
 
 class DhwaniApp_LoginPage extends StatefulWidget {
-  const DhwaniApp_LoginPage({Key? key}) : super(key: key);
+  const DhwaniApp_LoginPage({super.key});
 
   @override
   _DhwaniApp_LoginPageState createState() => _DhwaniApp_LoginPageState();
@@ -16,6 +15,36 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  late final Box userBox;
+
+  @override
+  void initState() {
+    super.initState();
+    _openBox();
+  }
+
+  @override
+  void dispose() {
+    userBox.close();
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  _openBox() async {
+    userBox = await Hive.openBox('users');
+  }
+
+  Future<bool> _performLogin() async {
+    final username = usernameController.text;
+    final password = passwordController.text;
+
+    var userData = userBox.get(username, defaultValue: '');
+    var userData_Password = userBox.containsKey(username) ? userData['password'] : null;
+
+    if (userData_Password != null && userData_Password == password) return true;
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,20 +97,9 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             ),
             TextButton(
               onPressed: () async {
-                final username = usernameController.text;
-                final password = passwordController.text;
-
-                // verify from HIVE database
-                final userBox = await Hive.openBox('users');
-                final storedData = userBox.get(username, defaultValue: '');
-                var storedPassword = null;
-                if (userBox.containsKey(username)) storedPassword = storedData['password'];
-
-                if (storedPassword != null && storedPassword == password) {
-                  // authorized
+                if (await _performLogin()) {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
                 } else {
-                  // not authorized
                   BuildContext currentContext = context;
                   showDialog(
                     context: currentContext, // Use the captured context
