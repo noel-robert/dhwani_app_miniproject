@@ -1,15 +1,13 @@
+import 'package:dhwani_app_miniproject/models/userData_model.dart';
+import 'package:dhwani_app_miniproject/screens/login_page.dart';
+import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
-
-import 'package:dhwani_app_miniproject/screens/login_page.dart';
-import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
-import 'package:dhwani_app_miniproject/models/userData_model.dart';
 
 
 class DhwaniApp_SignupPage extends StatefulWidget {
-  const DhwaniApp_SignupPage({Key? key}) : super(key: key);
+  const DhwaniApp_SignupPage({super.key});
 
   @override
   _DhwaniApp_SignupPageState createState() => _DhwaniApp_SignupPageState();
@@ -33,77 +31,146 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
-  final _formKey = GlobalKey<FormState>();
+  late final Box userBox;
 
-  @override
-  void dispose() {
-    Hive.close(); // close HIVE box
-    super.dispose();
-  }
-
-  Future<void> _initializeHive() async {
-    final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
-    Hive.init(appDocumentDirectory.path);
-  }
+  // final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _initializeHive();
+    _openBox();
+    // _initializeHive();
   }
 
-  Future<void> _handleSignUp() async {
-    if(_formKey.currentState!.validate()) {
-      final username = usernameController.text;
-      final password = passwordController.text;
-      final email = emailController.text;
-      final gender = selectedGender;
-      final bloodGroup = selectedBloodGroup;
-      final contactNumber = contactnumberController.text;
-      final disabilityType = disabilitytypeController.text;
-      final guardianName = guardiannameController.text;
-      final guardianRelation = guardianrelationController.text;
+  @override
+  void dispose() {
+    userBox.close();
+    usernameController.dispose();
+    guardiannameController.dispose();
+    guardianrelationController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    passwordconfirmationController.dispose();
+    disabilitytypeController.dispose();
+    bloodgroupController.dispose();
+    contactnumberController.dispose();
+    genderController.dispose();
+    super.dispose();
+  }
 
-      final userData = UserData(
-        username: username,
-        password: password,
-        email: email,
-        gender: gender,
-        bloodGroup: bloodGroup,
-        contactNumber: contactNumber,
-        disabilityType: disabilityType,
-        guardianName: guardianName,
-        guardianRelation: guardianRelation,
-      );
+  // Future<void> _initializeHive() async {
+  //   // final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  //   // Hive.init(appDocumentDirectory.path);
+  // }
+  //
+  // Future<void> _handleSignUp() async {
+  //   if(_formKey.currentState!.validate()) {
+  //     final username = usernameController.text;
+  //     final password = passwordController.text;
+  //     final email = emailController.text;
+  //     final gender = selectedGender;
+  //     final bloodGroup = selectedBloodGroup;
+  //     final contactNumber = contactnumberController.text;
+  //     final disabilityType = disabilitytypeController.text;
+  //     final guardianName = guardiannameController.text;
+  //     final guardianRelation = guardianrelationController.text;
+  //
+  //     final userData = UserData(
+  //       username: username,
+  //       password: password,
+  //       email: email,
+  //       gender: gender,
+  //       bloodGroup: bloodGroup,
+  //       contactNumber: contactNumber,
+  //       disabilityType: disabilityType,
+  //       guardianName: guardianName,
+  //       guardianRelation: guardianRelation,
+  //     );
+  //
+  //     // check is a user with same username already exists
+  //     final userBox = await Hive.openBox('users');
+  //     if (userBox.containsKey(username)) {
+  //       // username already exists
+  //       BuildContext currentContext = context;
+  //       showDialog(
+  //         context: currentContext,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             title: const Text('Signup Failed'),
+  //             content: const Text('Username already exists'),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 onPressed: () {
+  //                   Navigator.of(currentContext).pop(); // Dismiss the dialog box
+  //                 },
+  //                 child: const Text('OK'),
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     } else {
+  //       // userBox.put(username, userData.toMap()); // add user to database
+  //
+  //       // goto questionnaire page
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
+  //     }
+  //   }
+  // }
 
-      // check is a user with same username already exists
-      final userBox = await Hive.openBox('users');
-      if (userBox.containsKey(username)) {
-        // username already exists
-        BuildContext currentContext = context;
-        showDialog(
-          context: currentContext,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Signup Failed'),
-              content: const Text('Username already exists'),
-              actions: <Widget>[
-                TextButton(
+  Future<void> _openBox() async {
+    userBox = await Hive.openBox('users');
+  }
+
+  void _handleSignUp() {
+    final username = usernameController.text;
+    final password = passwordController.text;
+    final email = emailController.text;
+    final gender = selectedGender;
+    final bloodGroup = selectedBloodGroup;
+    final contactNumber = contactnumberController.text;
+    final disabilityType = disabilitytypeController.text;
+    final guardianName = guardiannameController.text;
+    final guardianRelation = guardianrelationController.text;
+
+    final userData = UserDataModel(
+      username: username,
+      password: password,
+      email: email,
+      gender: gender,
+      bloodGroup: bloodGroup,
+      contactNumber: contactNumber,
+      disabilityType: disabilityType,
+      guardianName: guardianName,
+      guardianRelation: guardianRelation,
+    );
+
+    if (userBox.containsKey(username)) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Signup Failed'),
+            content: const Text('Username already exists'),
+            actions: <Widget>[
+              TextButton(
                   onPressed: () {
-                    Navigator.of(currentContext).pop(); // Dismiss the dialog box
+                    Navigator.of(context).pop();
                   },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        userBox.put(username, userData.toMap()); // add user to database
+                  child: const Text('OK')
+              ),
+            ],
+          );
+        }
+      );
+    } else {
+      userBox.put(username, userData);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_QuestionnairePage()));
 
-        // goto questionnaire page
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
-      }
+      // for validating
+      // print("checking");
+      // print(userData);
+      // print(userBox.get(username, defaultValue: ''));
     }
   }
 
@@ -117,7 +184,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Form(
-          key: _formKey,
+          // key: _formKey,
           child: ListView(
             children: <Widget>[
               Container(
@@ -205,6 +272,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
               ),
 
               DropdownButtonFormField<String>(
+                padding: const EdgeInsets.all(10),
                 value: selectedGender,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -229,6 +297,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
               ),
 
               DropdownButtonFormField<String>(
+                padding: const EdgeInsets.all(10),
                 value: selectedBloodGroup,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -318,7 +387,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  onPressed: _handleSignUp, // store data onto the HIVE database
+                  onPressed: () => _handleSignUp(),
                   child: const Text('SignUp'),
                 ),
               ),
