@@ -16,7 +16,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
   late final Box userBox;
-  bool isLoading = false;
+  // bool isLoading = false;
 
   @override
   void initState() {
@@ -37,22 +37,19 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
   }
 
   Future<bool> _performLogin() async {
-    setState(() {
-      isLoading = true;
-    });
 
     final username = usernameController.text;
     final password = passwordController.text;
 
     var userData = userBox.get(username, defaultValue: '');
-    var userData_Password = userBox.containsKey(username) ? userData['password'] : null;
+    // print(userData);
+    var userData_Password = userBox.containsKey(username) ? userData.password : null;
 
-    setState(() {
-      isLoading = false;
-    });
-
-    if (userData_Password != null && userData_Password == password) return true;
-    return false;
+    if (userData_Password == password) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -106,10 +103,6 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             ),
             TextButton(
               onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-
                 final currentContext = context;
                 if (await _performLogin()) {
                   Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
@@ -133,12 +126,9 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                   );
                 }
 
-                setState(() {
-                  isLoading = false;
-                });
               },
-              // child: const Text('Login'),
-              child: isLoading ? const CircularProgressIndicator() : const Text('Login'),
+              child: const Text('Login'),
+              // child: isLoading ? const CircularProgressIndicator() : const Text('Login'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
