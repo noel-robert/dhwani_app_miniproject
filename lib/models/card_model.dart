@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'card_model.g.dart';
 
 @HiveType(typeId: 0)
-class CardModel extends HiveObject {
+class CardModel {
   @HiveField(0)
   late String imagePath;
 
