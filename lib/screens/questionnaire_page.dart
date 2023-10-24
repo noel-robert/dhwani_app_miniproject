@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:dhwani_app_miniproject/models/question_model.dart';
-import 'package:dhwani_app_miniproject/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../models/card_model.dart';
+import '../models/question_model.dart';
+import '../screens/home_page.dart';
 import '../widgets/question_widget.dart';
 
 
@@ -19,9 +20,11 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
 class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
+  Map<String, String> selectedAnswersMap = {};
 
-  late Box questionBox;
+  late Box<QuestionModel> questionBox;
   late Box answersBox;
+  late Box<CardModel> cardBox;
 
   @override
   void initState() {
@@ -31,8 +34,34 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
 
   @override
   void dispose() {
-    questionBox.close();
     super.dispose();
+  }
+
+  Future<void> _loadCardDataToHiveAndUpdate() async {
+    final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
+    final jsonData = jsonDecode(jsonString);
+
+    cardBox = Hive.box('cards_HiveBox');
+    cardBox.clear();
+
+    // load card details to database
+    for (final cardData in jsonData) {
+      final cardTitle = cardData['title'];
+      final isFav = selectedAnswersMap[cardTitle] == 'Yes';
+
+      final card = CardModel(
+        imagePath: cardData['imagePath'],
+        title: cardTitle,
+        // isFav: cardData['isFav'],
+        isFav: isFav,
+        description: cardData['description'],
+        malluDescription: cardData['malluDescription'],
+        tags: List<String>.from(cardData['tags']),
+        clickCount: isFav ? 5 : 0,
+      );
+      cardBox.add(card);
+    }
+
   }
 
   Future<void> _loadQuestions() async {
@@ -41,7 +70,7 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
     // print((jsonData[0])['questionText']);
 
     // final questionBox = await Hive.openBox<Question>('questions');
-    questionBox = await Hive.openBox('questions');
+    questionBox = Hive.box('questions_HiveBox');
     questionBox.clear();  // clear all data in questionBox
 
     for (final questionData in jsonData) {
@@ -79,12 +108,12 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
   }
 
   void _updateSelectedAnswers() async {
-    answersBox = await Hive.openBox('selected_answers');
+    answersBox = Hive.box('selectedAnswers_HiveBox');
     answersBox.clear();  // clear all data in answersBox
 
     List<String> selectedAnswer;
     for (selectedAnswer in selectedAnswers) {
-      print(selectedAnswer);
+      // print(selectedAnswer);
       answersBox.add(selectedAnswer);
     }
   }
@@ -102,17 +131,41 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
             question: questions[index],
             onAnswerSelected: (List<String> selectedOptions) {
               selectedAnswers[index] = selectedOptions;
+              selectedAnswersMap[questions[index].questionText] = selectedOptions.isNotEmpty ? selectedOptions[0] : '';
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // on submitting the questionnaire
-          // print(selectedAnswers);
+        // onPressed: () {
+        //   // on submitting the questionnaire
+        //   _loadCardDataToHiveAndUpdateFavStatus();
+        //   // print(selectedAnswers);
+        //   _updateSelectedAnswers();
+        //
+        //   // redirect to Home_Page
+        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
+        //
+        //   for (var i = 0; i < cardBox.length; i++) {
+        //     final card = cardBox.getAt(i) as CardModel; // Assuming your model is named CardModel
+        //     print('Card $i: ${card.title}, IsFav: ${card.isFav}');
+        //   }
+        // },
+        onPressed: () async {
+          // Load card data to Hive and set isFav based on selected answers
+          print('Selected Answers Map: $selectedAnswersMap');
+          await _loadCardDataToHiveAndUpdate();
+
+          // Print contents of cardBox
+          for (var i = 0; i < cardBox.length; i++) {
+            final card = cardBox.getAt(i) as CardModel;
+            // print('Card $i: ${card.title}, IsFav: ${card.isFav}');
+          }
+
+          // Update selected answers
           _updateSelectedAnswers();
 
-          // redirect to Home_Page
+          // Redirect to Home_Page
           Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
         },
         child: const Icon(Icons.check),

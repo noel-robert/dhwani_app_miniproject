@@ -1,7 +1,9 @@
-import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:dhwani_app_miniproject/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+
+import '../models/userData_model.dart';
+import '../screens/home_page.dart';
+import '../screens/signup_page.dart';
 
 
 class DhwaniApp_LoginPage extends StatefulWidget {
@@ -15,7 +17,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
-  late final Box userBox;
+  late Box<UserDataModel> userBox;
   // bool isLoading = false;
 
   @override
@@ -26,24 +28,22 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
 
   @override
   void dispose() {
-    userBox.close();
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
-  _openBox() async {
-    userBox = await Hive.openBox('users');
+  void _openBox() {
+    userBox = Hive.box('users_HiveBox');
   }
 
   Future<bool> _performLogin() async {
-
     final username = usernameController.text;
     final password = passwordController.text;
 
-    var userData = userBox.get(username, defaultValue: '');
+    var userData = userBox.get(username);
     // print(userData);
-    var userData_Password = userBox.containsKey(username) ? userData.password : null;
+    var userData_Password = userBox.containsKey(username) ? userData?.password : null;
 
     if (userData_Password == password) {
       return true;

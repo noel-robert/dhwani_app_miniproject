@@ -1,9 +1,10 @@
-import 'package:dhwani_app_miniproject/models/userData_model.dart';
-import 'package:dhwani_app_miniproject/screens/login_page.dart';
-import 'package:dhwani_app_miniproject/screens/questionnaire_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+
+import '../models/userData_model.dart';
+import '../screens/login_page.dart';
+import '../screens/questionnaire_page.dart';
 
 
 class DhwaniApp_SignupPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
-  late final Box userBox;
+  late Box<UserDataModel> userBox;
 
   // final _formKey = GlobalKey<FormState>();
 
@@ -44,7 +45,6 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
 
   @override
   void dispose() {
-    userBox.close();
     usernameController.dispose();
     guardiannameController.dispose();
     guardianrelationController.dispose();
@@ -118,8 +118,8 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
   //   }
   // }
 
-  Future<void> _openBox() async {
-    userBox = await Hive.openBox('users');
+  void _openBox() {
+    userBox = Hive.box('users_HiveBox');
   }
 
   void _handleSignUp() {
