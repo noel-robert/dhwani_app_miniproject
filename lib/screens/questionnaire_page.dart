@@ -40,14 +40,17 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
   Future<void> _loadCardDataToHiveAndUpdate() async {
     final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
     final jsonData = jsonDecode(jsonString);
+    // print(jsonData);
 
     cardBox = Hive.box('cards_HiveBox');
     cardBox.clear();
 
-    // load card details to database
+    // load card details to database - debug
     for (final cardData in jsonData) {
+      // instead of below two lines, do this - if cardTitle in List<List<String>> selectedAnswers, then set a boolean variable to true
       final cardTitle = cardData['title'];
-      final isFav = selectedAnswersMap[cardTitle] == 'Yes';
+      // final isFav = selectedAnswersMap[cardTitle] == 'Yes';
+      final isFav = selectedAnswers.any((answer) => answer.contains(cardTitle)) ? true : false;
 
       final card = CardModel(
         imagePath: cardData['imagePath'],
@@ -61,6 +64,21 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
       );
       cardBox.add(card);
     }
+
+    // debugging
+    // if (cardBox.isEmpty) { print('The box is empty'); }
+    // for (var key in cardBox.keys) {
+    //   var card = cardBox.get(key) as CardModel;
+    //   print('Card $key:');
+    //   print('Image Path: ${card.imagePath}');
+    //   print('Title: ${card.title}');
+    //   print('Is Favorite: ${card.isFav}');
+    //   print('Description: ${card.description}');
+    //   print('Mallu Description: ${card.malluDescription}');
+    //   print('Tags: ${card.tags}');
+    //   print('Click Count: ${card.clickCount}');
+    //   print('-------------------');
+    // }
 
   }
 
@@ -107,16 +125,16 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
     });
   }
 
-  void _updateSelectedAnswers() async {
-    answersBox = Hive.box('selectedAnswers_HiveBox');
-    answersBox.clear();  // clear all data in answersBox
-
-    List<String> selectedAnswer;
-    for (selectedAnswer in selectedAnswers) {
-      // print(selectedAnswer);
-      answersBox.add(selectedAnswer);
-    }
-  }
+  // void _updateSelectedAnswers() async {
+  //   answersBox = Hive.box('selectedAnswers_HiveBox');
+  //   answersBox.clear();  // clear all data in answersBox
+  //
+  //   List<String> selectedAnswer;
+  //   for (selectedAnswer in selectedAnswers) {
+  //     // print(selectedAnswer);
+  //     answersBox.add(selectedAnswer);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +181,7 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
           }
 
           // Update selected answers
-          _updateSelectedAnswers();
+          // _updateSelectedAnswers();
 
           // Redirect to Home_Page
           Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
