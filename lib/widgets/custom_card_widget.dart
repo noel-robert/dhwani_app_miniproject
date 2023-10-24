@@ -124,20 +124,23 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:dhwani_app_miniproject/models/card_model.dart';
+import '../models/card_model.dart';
 
 
 class CustomCardWidget extends StatelessWidget {
   final CardModel card;
   final VoidCallback onTap;
 
-  CustomCardWidget({required this.card, required this.onTap, });
+  CustomCardWidget({required this.card, required this.onTap});
 
   @override
   Widget build(BuildContext  context) {
     return Card (
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          onTap();
+          print('Card tapped: ${card.title}');
+        },
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
