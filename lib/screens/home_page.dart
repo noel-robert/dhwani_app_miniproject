@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../widgets/custom_card_widget.dart';
-
-
 
 // class DhwaniApp_HomePage extends StatefulWidget {
 //   @override
@@ -183,7 +182,6 @@ import '../widgets/custom_card_widget.dart';
 //   }
 // }
 
-
 class DhwaniApp_HomePage extends StatefulWidget {
   @override
   _DhwaniApp_HomePageState createState() => _DhwaniApp_HomePageState();
@@ -246,10 +244,28 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       updatedCard.clickCount++;
       cardBox.putAt(cardIndex, updatedCard);
 
-      print('Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
+      print(
+          'Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
       // setState(() {});
     }
     //setState(() {});
+  }
+
+  FlutterTts flutterTts = FlutterTts();
+  Future<void> _speakDescription(CardModel card) async {
+    // String text = widget.languageSwitchState ? widget.malluDescription : widget.description;
+    // String language = widget.languageSwitchState ? 'ml-IN' : 'en-US';
+    String language = 'en-US';
+    print(language); // debug
+    final cardIndex = cardBox.values.toList().indexWhere((c) => c == card);
+
+    if (cardIndex >= 0) {
+      var selectedCard = cardBox.getAt(cardIndex) as CardModel;
+      String text = selectedCard.description;
+      await flutterTts.setLanguage(language);
+      await flutterTts.setPitch(1.0);
+      await flutterTts.speak(text);
+    }
   }
 
   // void _toggleLanguageSwitch() {
@@ -275,26 +291,28 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     // }
 
     if (cardBox != null) {
-      List<CardModel> cards = cardBox.values.toList()..sort((a, b) => b.clickCount.compareTo(a.clickCount));
+      List<CardModel> cards = cardBox.values.toList()
+        ..sort((a, b) => b.clickCount.compareTo(a.clickCount));
       return ValueListenableBuilder(
-          valueListenable: cardBox.listenable(),
-          builder: (context, box, widget) {
-            return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: cards.length,
-                itemBuilder: (context, index) {
-                  final card = cards[index];
-                  return CustomCardWidget(
+        valueListenable: cardBox.listenable(),
+        builder: (context, box, widget) {
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: cards.length,
+              itemBuilder: (context, index) {
+                final card = cards[index];
+                return CustomCardWidget(
                     card: card,
-                    onTap: () => _incrementCounter(card),
-                  );
-                }
-            );
-          },
+                    onTap: () => {
+                          _speakDescription(card),
+                          _incrementCounter(card),
+                        });
+              });
+        },
       );
     } else {
       return const Center(
@@ -302,7 +320,6 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -357,7 +374,7 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         child: SafeArea(
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
@@ -400,7 +417,6 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
           ),
         ),
       ),
-
     );
   }
 }
