@@ -14,10 +14,12 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
   const DhwaniApp_QuestionnairePage({super.key});
 
   @override
-  _DhwaniApp_QuestionnairePageState createState() => _DhwaniApp_QuestionnairePageState();
+  _DhwaniApp_QuestionnairePageState createState() =>
+      _DhwaniApp_QuestionnairePageState();
 }
 
-class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
+class _DhwaniApp_QuestionnairePageState
+    extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
   Map<String, String> selectedAnswersMap = {};
@@ -38,7 +40,8 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
   }
 
   Future<void> _loadCardDataToHiveAndUpdate() async {
-    final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
+    final jsonString = await DefaultAssetBundle.of(context)
+        .loadString('assets/dataFiles/card_Data.json');
     final jsonData = jsonDecode(jsonString);
     // print(jsonData);
 
@@ -50,7 +53,9 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
       // instead of below two lines, do this - if cardTitle in List<List<String>> selectedAnswers, then set a boolean variable to true
       final cardTitle = cardData['title'];
       // final isFav = selectedAnswersMap[cardTitle] == 'Yes';
-      final isFav = selectedAnswers.any((answer) => answer.contains(cardTitle)) ? true : false;
+      final isFav = selectedAnswers.any((answer) => answer.contains(cardTitle))
+          ? true
+          : false;
 
       final card = CardModel(
         imagePath: cardData['imagePath'],
@@ -79,23 +84,22 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
     //   print('Click Count: ${card.clickCount}');
     //   print('-------------------');
     // }
-
   }
 
   Future<void> _loadQuestions() async {
-    final jsonString = await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
+    final jsonString =
+        await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
     final jsonData = jsonDecode(jsonString);
     // print((jsonData[0])['questionText']);
 
     // final questionBox = await Hive.openBox<Question>('questions');
     questionBox = Hive.box('questions_HiveBox');
-    questionBox.clear();  // clear all data in questionBox
+    questionBox.clear(); // clear all data in questionBox
 
     for (final questionData in jsonData) {
       final questionModelTyped = QuestionModel(
           questionText: questionData['questionText'],
-          options: List<String>.from(questionData['options'])
-      );
+          options: List<String>.from(questionData['options']));
 
       final question = Question(
         questionModelTyped.questionText,
@@ -104,16 +108,12 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
       // print(questionData['questionText']);
       // print(List<String>.from(questionData['options']));
 
-      questionBox.add(questionModelTyped);  // added using index as key - automatically
+      questionBox
+          .add(questionModelTyped); // added using index as key - automatically
       // print(question.questionText);
       // print(question.options);
     }
 
-    // setState(() {
-    //   questions = questionBox.values.toList();
-    //   selectedAnswers = List<List<String>>.filled(questions.length, []);
-    // });
-    // print((questions[0]).questionText);
     setState(() {
       questions = questionBox.values.map((dynamic questionModelTyped) {
         return Question(
@@ -124,17 +124,6 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
       selectedAnswers = List<List<String>>.filled(questions.length, []);
     });
   }
-
-  // void _updateSelectedAnswers() async {
-  //   answersBox = Hive.box('selectedAnswers_HiveBox');
-  //   answersBox.clear();  // clear all data in answersBox
-  //
-  //   List<String> selectedAnswer;
-  //   for (selectedAnswer in selectedAnswers) {
-  //     // print(selectedAnswer);
-  //     answersBox.add(selectedAnswer);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -149,26 +138,13 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
             question: questions[index],
             onAnswerSelected: (List<String> selectedOptions) {
               selectedAnswers[index] = selectedOptions;
-              selectedAnswersMap[questions[index].questionText] = selectedOptions.isNotEmpty ? selectedOptions[0] : '';
+              selectedAnswersMap[questions[index].questionText] =
+                  selectedOptions.isNotEmpty ? selectedOptions[0] : '';
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        // onPressed: () {
-        //   // on submitting the questionnaire
-        //   _loadCardDataToHiveAndUpdateFavStatus();
-        //   // print(selectedAnswers);
-        //   _updateSelectedAnswers();
-        //
-        //   // redirect to Home_Page
-        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
-        //
-        //   for (var i = 0; i < cardBox.length; i++) {
-        //     final card = cardBox.getAt(i) as CardModel; // Assuming your model is named CardModel
-        //     print('Card $i: ${card.title}, IsFav: ${card.isFav}');
-        //   }
-        // },
         onPressed: () async {
           // Load card data to Hive and set isFav based on selected answers
           print('Selected Answers Map: $selectedAnswersMap');
@@ -180,11 +156,9 @@ class _DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePag
             // print('Card $i: ${card.title}, IsFav: ${card.isFav}');
           }
 
-          // Update selected answers
-          // _updateSelectedAnswers();
-
           // Redirect to Home_Page
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
         },
         child: const Icon(Icons.check),
       ),

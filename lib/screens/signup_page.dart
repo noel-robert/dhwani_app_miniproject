@@ -34,13 +34,10 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
 
   late Box<UserDataModel> userBox;
 
-  // final _formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
     _openBox();
-    // _initializeHive();
   }
 
   @override
@@ -57,66 +54,6 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
     genderController.dispose();
     super.dispose();
   }
-
-  // Future<void> _initializeHive() async {
-  //   // final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
-  //   // Hive.init(appDocumentDirectory.path);
-  // }
-  //
-  // Future<void> _handleSignUp() async {
-  //   if(_formKey.currentState!.validate()) {
-  //     final username = usernameController.text;
-  //     final password = passwordController.text;
-  //     final email = emailController.text;
-  //     final gender = selectedGender;
-  //     final bloodGroup = selectedBloodGroup;
-  //     final contactNumber = contactnumberController.text;
-  //     final disabilityType = disabilitytypeController.text;
-  //     final guardianName = guardiannameController.text;
-  //     final guardianRelation = guardianrelationController.text;
-  //
-  //     final userData = UserData(
-  //       username: username,
-  //       password: password,
-  //       email: email,
-  //       gender: gender,
-  //       bloodGroup: bloodGroup,
-  //       contactNumber: contactNumber,
-  //       disabilityType: disabilityType,
-  //       guardianName: guardianName,
-  //       guardianRelation: guardianRelation,
-  //     );
-  //
-  //     // check is a user with same username already exists
-  //     final userBox = await Hive.openBox('users');
-  //     if (userBox.containsKey(username)) {
-  //       // username already exists
-  //       BuildContext currentContext = context;
-  //       showDialog(
-  //         context: currentContext,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             title: const Text('Signup Failed'),
-  //             content: const Text('Username already exists'),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 onPressed: () {
-  //                   Navigator.of(currentContext).pop(); // Dismiss the dialog box
-  //                 },
-  //                 child: const Text('OK'),
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     } else {
-  //       // userBox.put(username, userData.toMap()); // add user to database
-  //
-  //       // goto questionnaire page
-  //       Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
-  //     }
-  //   }
-  // }
 
   void _openBox() {
     userBox = Hive.box('users_HiveBox');
@@ -147,27 +84,28 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
 
     if (userBox.containsKey(username)) {
       showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Signup Failed'),
-            content: const Text('Username already exists'),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK')
-              ),
-            ],
-          );
-        }
-      );
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Signup Failed'),
+              content: const Text('Username already exists'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK')),
+              ],
+            );
+          });
     } else {
       userBox.put(username, userData);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_QuestionnairePage()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const DhwaniApp_QuestionnairePage()));
 
-      // for validating
+      // debug
       // print("checking");
       // print(userData);
       // print(userBox.get(username, defaultValue: ''));
@@ -192,7 +130,6 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                 padding: const EdgeInsets.all(10),
                 child: const Text('SignUp', style: TextStyle(fontSize: 32)),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -202,12 +139,12 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'UserName',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter username';
+                    if (value == null || value.isEmpty)
+                      return 'Please enter username';
                     return null;
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -222,7 +159,6 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -232,7 +168,9 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     border: const OutlineInputBorder(),
                     labelText: 'Password',
                     suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                       onPressed: () {
                         setState(() {
                           isPasswordVisible = !isPasswordVisible;
@@ -241,12 +179,12 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter password';
+                    if (value == null || value.isEmpty)
+                      return 'Please enter password';
                     return null;
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -256,7 +194,9 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     border: OutlineInputBorder(),
                     labelText: 'Confirm Password',
                     suffixIcon: IconButton(
-                      icon: Icon(isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(isConfirmPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                       onPressed: () {
                         setState(() {
                           isConfirmPasswordVisible = !isConfirmPasswordVisible;
@@ -265,12 +205,14 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty || value != passwordController.text) return 'Passwords do not match';
+                    if (value == null ||
+                        value.isEmpty ||
+                        value != passwordController.text)
+                      return 'Passwords do not match';
                     return null;
                   },
                 ),
               ),
-
               DropdownButtonFormField<String>(
                 padding: const EdgeInsets.all(10),
                 value: selectedGender,
@@ -281,21 +223,21 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                 items: <String>['-select-', 'Male', 'Female', 'Other']
                     .map<DropdownMenuItem<String>>(
                         (String value) => DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        )
-                    ).toList(),
+                              value: value,
+                              child: Text(value),
+                            ))
+                    .toList(),
                 onChanged: (String? value) {
                   setState(() {
                     selectedGender = value;
                   });
                 },
                 validator: (String? value) {
-                  if (value == null || value.isEmpty || value == '-select-') return 'Please select a gender';
+                  if (value == null || value.isEmpty || value == '-select-')
+                    return 'Please select a gender';
                   return null;
                 },
               ),
-
               DropdownButtonFormField<String>(
                 padding: const EdgeInsets.all(10),
                 value: selectedBloodGroup,
@@ -306,21 +248,22 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                 items: <String>['-select-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
                     .map<DropdownMenuItem<String>>(
                         (String value) => DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        )
-                    ).toList(),
+                              value: value,
+                              child: Text(value),
+                            ))
+                    .toList(),
                 onChanged: (String? value) {
                   setState(() {
                     selectedBloodGroup = value;
                   });
                 },
                 validator: (String? value) {
-                  if (value == null || value.isEmpty || value == '-select-') return 'Please select a blood group';
+                  if (value == null || value.isEmpty || value == '-select-') {
+                    return 'Please select a blood group';
+                  }
                   return null;
                 },
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -330,14 +273,16 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'Contact Number',
                   ),
                   keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter a contact number';
+                    if (value == null || value.isEmpty)
+                      return 'Please enter a contact number';
                     return null;
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -352,7 +297,6 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -362,12 +306,12 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'Guardian Name',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter name of guardian';
+                    if (value == null || value.isEmpty)
+                      return 'Please enter name of guardian';
                     return null;
                   },
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -377,12 +321,12 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'How is Guardian related to the user?',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter relation of guardian';
+                    if (value == null || value.isEmpty)
+                      return 'Please enter relation of guardian';
                     return null;
                   },
                 ),
               ),
-
               Container(
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -391,15 +335,20 @@ class _DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   child: const Text('SignUp'),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text('Already have an account?'),
                   TextButton(
-                      child: const Text('Login', style: TextStyle(fontSize: 20),),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(fontSize: 20),
+                      ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_LoginPage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DhwaniApp_LoginPage()));
                       })
                 ],
               )

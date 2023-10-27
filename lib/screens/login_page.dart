@@ -18,6 +18,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
   TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
   late Box<UserDataModel> userBox;
+
   // bool isLoading = false;
 
   @override
@@ -43,7 +44,8 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
 
     var userData = userBox.get(username);
     // print(userData);
-    var userData_Password = userBox.containsKey(username) ? userData?.password : null;
+    var userData_Password =
+        userBox.containsKey(username) ? userData?.password : null;
 
     if (userData_Password == password) {
       return true;
@@ -91,7 +93,9 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                   border: const OutlineInputBorder(),
                   labelText: 'Password',
                   suffixIcon: IconButton(
-                    icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
                     onPressed: () {
                       setState(() {
                         isPasswordVisible = !isPasswordVisible;
@@ -105,7 +109,10 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
               onPressed: () async {
                 final currentContext = context;
                 if (await _performLogin()) {
-                  Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
+                  Navigator.push(
+                      currentContext,
+                      MaterialPageRoute(
+                          builder: (context) => DhwaniApp_HomePage()));
                 } else {
                   showDialog(
                     context: currentContext, // Use the captured context
@@ -116,7 +123,8 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
-                              Navigator.of(currentContext).pop(); // Dismiss the dialog
+                              Navigator.of(currentContext)
+                                  .pop(); // Dismiss the dialog
                             },
                             child: const Text('OK'),
                           ),
@@ -125,7 +133,6 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                     },
                   );
                 }
-
               },
               child: const Text('Login'),
               // child: isLoading ? const CircularProgressIndicator() : const Text('Login'),
@@ -140,8 +147,10 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DhwaniApp_SignupPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DhwaniApp_SignupPage()));
                   },
                 ),
               ],
