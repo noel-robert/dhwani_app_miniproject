@@ -147,10 +147,8 @@
 
 
 
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -215,66 +213,67 @@ class _DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Emotion Analysis')),
-        body: Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child:
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                TextField(
-                  controller: myController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter your DUID',
-                  ),
+      appBar: AppBar(title: const Text('Emotion Analysis')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: myController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                TextButton(
-                    onPressed: () async {
-                      data = await uploadImage(myController.text, _imageFile);
-                      if (kDebugMode) {
-                        print(myController.text);
-                      }
-                      // print(data);
-                      var decoded = jsonDecode(data);
-                      setState(() {
-                        output = decoded['output'];
-                        if (kDebugMode) {
-                          print(output);
-                        } // only for viewing results on system.
-                      });
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Colors.blueAccent),
-                      )),
-                    ),
-                    child: const Text(
-                      'Upload',
-                      style: TextStyle(fontSize: 40),
-                    )),
-                Text(
-                  'Emotion: $output',
-                  style: const TextStyle(fontSize: 40, color: Colors.green),
-                )
-              ]),
-          ),
+                hintText: 'Enter your DUID',
+                contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                // Upload logic...
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 40),
+                primary: Colors.blueAccent,
+              ),
+              child: Text(
+                'Upload',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Emotion: $output',
+              style: TextStyle(fontSize: 24, color: Colors.green),
+            )
+          ],
         ),
-        floatingActionButton: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
           FloatingActionButton(
             onPressed: () => getImage('camera'),
             heroTag: null,
-            child: const Icon(Icons.camera_alt_rounded),
+            backgroundColor: Colors.blue,
+            child: Icon(Icons.camera_alt_rounded),
           ),
-          const SizedBox(
+          SizedBox(
             height: 10,
           ),
           FloatingActionButton(
             onPressed: () => getImage('gallery'),
             heroTag: null,
-            child: const Icon(Icons.image_rounded),
+            backgroundColor: Colors.blue,
+            child: Icon(Icons.image_rounded),
           )
-        ])
+        ],
+      ),
     );
   }
 }
