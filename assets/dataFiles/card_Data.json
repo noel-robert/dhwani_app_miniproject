@@ -222,5 +222,581 @@
     "description": "I want to play with my toy car",
     "malluDescription": "എനിക്ക് എന്റെ കളിപ്പാട്ട കാർ ഉപയോഗിച്ച് കളിക്കണം",
     "tags": ["Toys"]
+  },
+  {
+    "imagePath": "assets/PNG/ice_cream.png",
+    "title": "Ice Cream",
+    "isFav": false,
+    "description": "I want to eat Ice Cream",
+    "malluDescription": "എനിക്ക് ഐസ് ക്രീം കഴിക്കണം",
+    "tags": ["Food"]
+  },
+  {
+    "imagePath": "assets/PNG/yogurt.png",
+    "title": "Yogurt",
+    "isFav": false,
+    "description": "I want to Yogurt",
+    "malluDescription": "എനിക്ക് തൈര് വേണം",
+    "tags": ["Food"]
+  },
+  {
+    "imagePath": "assets/PNG/coffee.png",
+    "title": "Coffee",
+    "isFav": false,
+    "description": "I want to have coffee",
+    "malluDescription": "എനിക്ക് കാപ്പി കുടിക്കണം",
+    "tags": ["Food","Drinks"]
+  },
+  {
+    "imagePath": "assets/PNG/omelette.png",
+    "title": "Omelette",
+    "isFav": false,
+    "description": "I want to have Omelette",
+    "malluDescription": "എനിക്ക് ഓംലെറ്റ് വേണം",
+    "tags": ["Food"]
+  },
+  {
+    "imagePath": "assets/PNG/eggs.png",
+    "title": "Eggs",
+    "isFav": false,
+    "description": "I want to have eggs",
+    "malluDescription": "എനിക്ക് മുട്ട കഴിക്കണം",
+    "tags": ["Food"]
+  },
+  {
+    "imagePath": "assets/PNG/cycle_,_to.png",
+    "title": "Cycle",
+    "isFav": false,
+    "description": "I want to ride Cycle",
+    "malluDescription": "എനിക്ക് സൈക്കിൾ ചെയ്യണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/basketball.png",
+    "title": "Basketball",
+    "isFav": false,
+    "description": "I want to play Basketball",
+    "malluDescription": "എനിക്ക് ബാസ്കറ്റ്ബോൾ കളിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/bathe_,_to.png",
+    "title": "Bath",
+    "isFav": false,
+    "description": "I want bath",
+    "malluDescription": "എനിക്ക് കുളിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/run_,_to.png",
+    "title": "Run",
+    "isFav": false,
+    "description": "I want to run",
+    "malluDescription": "എനിക്ക് ഓടണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/playing_cards.png",
+    "title": "Cards",
+    "isFav": false,
+    "description": "I want to play cards",
+    "malluDescription": "എനിക്ക് കാർഡ് കളിക്കണം",
+    "tags": ["Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/pencil.png",
+    "title": "Pencil",
+    "isFav": false,
+    "description": "I want a pencil",
+    "malluDescription": "പെൻസിൽ",
+    "tags": ["item","stationary"]
+  },
+  {
+    "imagePath": "assets/PNG/pen.png",
+    "title": "Pen",
+    "isFav": false,
+    "description": "I want a pen",
+    "malluDescription": "പേന",
+    "tags": ["item","stationary"]
+  },
+  {
+    "imagePath": "assets/PNG/colour.png",
+    "title": "Colour",
+    "isFav": false,
+    "description": "Colour",
+    "malluDescription": "നിറം",
+    "tags": ["color","word"]
+  },
+  {
+    "imagePath": "assets/PNG/towel.png",
+    "title": "Towel",
+    "isFav": false,
+    "description": "I want a Towel",
+    "malluDescription": "എനിക്ക് ഒരു ടവൽ വേണം",
+    "tags": ["item","Activity"]
+  },
+  {
+    "imagePath": "assets/PNG/tomato.png",
+    "title": "Tomato",
+    "isFav": false,
+    "description": "Tomato",
+    "malluDescription": "തക്കാളി",
+    "tags": ["Food","Fruit"]
+  },
+  {
+    "imagePath": "assets/PNG/potato.png",
+    "title": "Potato",
+    "isFav": false,
+    "description": "Potato",
+    "malluDescription": "ഉരുളക്കിഴങ്ങ്",
+    "tags": ["Food","Vegetable"]
+  },
+  {
+    "imagePath": "assets/PNG/rabbit.png",
+    "title": "Rabbit",
+    "isFav": false,
+    "description": "Rabbit",
+    "malluDescription": "മുയൽ",
+    "tags": ["Animal","pet"]
+  },
+  {
+    "imagePath": "assets/PNG/chicken_live.png",
+    "title": "Hen",
+    "isFav": false,
+    "description": "Hen",
+    "malluDescription": "കോഴി",
+    "tags": ["Animal","pet"]
+  },
+  {
+    "imagePath": "assets/PNG/fish.png",
+    "title": "Fish",
+    "isFav": false,
+    "description": "Fish",
+    "malluDescription": "മീൻ",
+    "tags": ["Animal","pet"]
+  },
+  {
+    "imagePath": "assets/PNG/pumpkin.png",
+    "title": "Pumpkin",
+    "isFav": false,
+    "description": "Pumpkin",
+    "malluDescription": "മത്തങ്ങ",
+    "tags": ["Food","Vegetable"]
+  },
+  {
+    "imagePath": "assets/PNG/strawberry.png",
+    "title": "Strawberry",
+    "isFav": false,
+    "description": "Strawberry",
+    "malluDescription": "സ്ട്രോബെറി",
+    "tags": ["Food","Fruit"]
+  },
+  {
+    "imagePath": "assets/PNG/house.png",
+    "title": "House",
+    "isFav": false,
+    "description": "House",
+    "malluDescription": "വീട്",
+    "tags": ["Places","Home"]
+  },
+  {
+    "imagePath": "assets/PNG/soap.png",
+    "title": "Soap",
+    "isFav": false,
+    "description": "Soap",
+    "malluDescription": "സോപ്പ്",
+    "tags": ["item","Toiletries"]
+  },
+  {
+    "imagePath": "assets/PNG/road.png",
+    "title": "Road",
+    "isFav": false,
+    "description": "Road",
+    "malluDescription": "റോഡ്",
+    "tags": ["Places","landmark"]
+  },
+  {
+    "imagePath": "assets/PNG/angry_man.png",
+    "title": "Anger",
+    "isFav": false,
+    "description": "Anger",
+    "malluDescription": "ദേഷ്യം",
+    "tags": ["Emotion"]
+  },
+  {
+    "imagePath": "assets/PNG/Moon.png",
+    "title": "Moon",
+    "isFav": false,
+    "description": "Moon",
+    "malluDescription": "ചന്ദ്രൻ",
+    "tags": ["Places","Space","Night"]
+  },
+  {
+    "imagePath": "assets/PNG/bird.png",
+    "title": "Bird",
+    "isFav": false,
+    "description": "Bird",
+    "malluDescription": "കിളി",
+    "tags": ["Animal","Pets","Bird"]
+  },
+  {
+    "imagePath": "assets/PNG/sun.png",
+    "title": "Sun",
+    "isFav": false,
+    "description": "Sun",
+    "malluDescription": "സൂര്യൻ",
+    "tags": ["Star","Day","Planet"]
+  },
+  {
+    "imagePath": "assets/PNG/beach.png",
+    "title": "Beach",
+    "isFav": false,
+    "description": "Beach",
+    "malluDescription": "ബീച്ച്",
+    "tags": ["Planet"]
+  },
+  {
+    "imagePath": "assets/PNG/train.png",
+    "title": "Train",
+    "isFav": false,
+    "description": "Train",
+    "malluDescription": "തീവണ്ടി",
+    "tags": ["Travel","Places"]
+  },
+  {
+    "imagePath": "assets/PNG/cheetah.png",
+    "title": "Cheetah",
+    "isFav": false,
+    "description": "Cheetah",
+    "malluDescription": "ചീറ്റ",
+    "tags": ["Animal","Wild"]
+  },
+  {
+    "imagePath": "assets/PNG/pink_bright.png",
+    "title": "Pink",
+    "isFav": false,
+    "description": "Pink",
+    "malluDescription": "പിങ്ക്",
+    "tags": ["Color","word"]
+  },
+  {
+    "imagePath": "assets/PNG/work_book.png",
+    "title": "Book",
+    "isFav": false,
+    "description": "Book",
+    "malluDescription": "പുസ്തകം",
+    "tags": ["item","stationary"]
+  },
+  {
+    "imagePath": "assets/PNG/chimpanzee.png",
+    "title": "Monkey",
+    "isFav": false,
+    "description": "Monkey",
+    "malluDescription": "കുരങ്ങൻ",
+    "tags": ["Wild","Animal"]
+  },
+  {
+    "imagePath": "assets/PNG/single_bed.png",
+    "title": "Bed",
+    "isFav": false,
+    "description": "Bed",
+    "malluDescription": "കിടക്ക",
+    "tags": ["item","sleep","Furniture"]
+  },
+  {
+    "imagePath": "assets/PNG/sleep_male_,_to.png",
+    "title": "Sleep",
+    "isFav": false,
+    "description": "Sleep",
+    "malluDescription": "ഉറക്കം",
+    "tags": ["Activity","sleep"]
+  },
+  {
+    "imagePath": "assets/PNG/chair.png",
+    "title": "Chair",
+    "isFav": false,
+    "description": "Chair",
+    "malluDescription": "കസേര",
+    "tags": ["item","Furniture"]
+  },
+  {
+    "imagePath": "assets/PNG/banana.png",
+    "title": "Banana",
+    "isFav": false,
+    "description": "Banana",
+    "malluDescription": "വാഴക്കാര",
+    "tags": ["Fruit", "Food"]
+  },
+  {
+    "imagePath": "assets/PNG/wake_up_,_to.png",
+    "title": "Wake up",
+    "isFav": false,
+    "description": "Wake up",
+    "malluDescription": "എഴുന്നേറ്റു",
+    "tags": ["Activity", "Morning"]
+  },
+  {
+    "imagePath": "assets/PNG/mobile_phone.png",
+    "title": "Phone",
+    "isFav": false,
+    "description": "Phone",
+    "malluDescription": "ഫോൺ",
+    "tags": ["Communication", "Gadget"]
+  },
+  {
+    "imagePath": "assets/PNG/clap_hands_,_to.png",
+    "title": "Hand",
+    "isFav": false,
+    "description": "Hand",
+    "malluDescription": "കൈ",
+    "tags": ["Body Part"]
+  },
+  {
+    "imagePath": "assets/PNG/tongue.png",
+    "title": "Tongue",
+    "isFav": false,
+    "description": "Tongue",
+    "malluDescription": "നാക്",
+    "tags": ["Body Part"]
+  },
+  {
+    "imagePath": "assets/PNG/pineapple.png",
+    "title": "Pineapple",
+    "isFav": false,
+    "description": "Pineapple",
+    "malluDescription": "പൈനാപ്പിൾ",
+    "tags": ["Fruit", "Food"]
+  },
+  {
+    "imagePath": "assets/PNG/zebra.png",
+    "title": "Zebra",
+    "isFav": false,
+    "description": "Zebra",
+    "malluDescription": "സെബ്ര",
+    "tags": ["Wild", "Animal"]
+  },
+  {
+    "imagePath": "assets/PNG/knife.png",
+    "title": "Knife",
+    "isFav": false,
+    "description": "Knife",
+    "malluDescription": "കത്തി",
+    "tags": ["Tool", "Kitchen"]
+  },
+  {
+    "imagePath": "assets/PNG/giraffe.png",
+    "title": "Giraffe",
+    "isFav": false,
+    "description": "Giraffe",
+    "malluDescription": "ഗിറാഫ്",
+    "tags": ["Wild", "Animal"]
+  },
+  {
+    "imagePath": "assets/PNG/tiger.png",
+    "title": "Tiger",
+    "isFav": false,
+    "description": "Tiger",
+    "malluDescription": "കടുവ",
+    "tags": ["Wild", "Animal"]
+  },
+  {
+    "imagePath": "assets/PNG/baby.png",
+    "title": "Baby",
+    "isFav": false,
+    "description": "Baby",
+    "malluDescription": "കുഞ്ഞ്",
+    "tags": ["Human", "Family"]
+  },
+  {
+    "imagePath": "assets/PNG/onion.png",
+    "title": "Onion",
+    "isFav": false,
+    "description": "Onion",
+    "malluDescription": "സവോള",
+    "tags": ["Vegetable", "Food"]
+  },
+  {
+    "imagePath": "assets/PNG/toilet.png",
+    "title": "Toilet",
+    "isFav": false,
+    "description": "Toilet",
+    "malluDescription": "ടോയ്ലറ്റ്",
+    "tags": ["Bathroom", "Utility"]
+  },
+  {
+    "imagePath": "assets/PNG/doctor_1b.png",
+    "title": "Doctor",
+    "isFav": false,
+    "description": "Doctor",
+    "malluDescription": "ഡോക്ടർ",
+    "tags": ["Profession", "Health"]
+  },
+  {
+    "imagePath": "assets/PNG/cherry.png",
+    "title": "Cherry",
+    "isFav": false,
+    "description": "Cherry",
+    "malluDescription": "ചെറി",
+    "tags": ["Fruit", "Food"]
+  },
+  {
+    "imagePath": "assets/PNG/umbrella.png",
+    "title": "Umbrella",
+    "isFav": false,
+    "description": "Umbrella",
+    "malluDescription": "കുട",
+    "tags": ["Accessory", "Weather"]
+  },
+  {
+    "imagePath": "assets/PNG/fire.png",
+    "title": "Fire",
+    "isFav": false,
+    "description": "Fire",
+    "malluDescription": "തീ",
+    "tags": ["Element", "Nature"]
+  },
+  {
+    "imagePath": "assets/PNG/green.png",
+    "title": "Green",
+    "isFav": false,
+    "description": "Green",
+    "malluDescription": "പച്ച",
+    "tags": ["Color"]
+  },
+  {
+    "imagePath": "assets/PNG/blue.png",
+    "title": "Blue",
+    "isFav": false,
+    "description": "Blue",
+    "malluDescription": "നീല",
+    "tags": ["Color"]
+  },
+  {
+    "imagePath": "assets/PNG/yellow.png",
+    "title": "Yellow",
+    "isFav": false,
+    "description": "Yellow",
+    "malluDescription": "മഞ്ഞ",
+    "tags": ["Color"]
+  },
+  {
+    "imagePath": "assets/PNG/motorcycle.png",
+    "title": "Bike",
+    "isFav": false,
+    "description": "Bike",
+    "malluDescription": "ബൈക്ക്",
+    "tags": ["Vehicle", "Transportation"]
+  },
+  {
+    "imagePath": "assets/PNG/spoon.png",
+    "title": "Spoon",
+    "isFav": false,
+    "description": "Spoon",
+    "malluDescription": "സ്പൂൺ",
+    "tags": ["Utensil", "Kitchen"]
+  },
+  {
+    "imagePath": "assets/PNG/toothbrush.png",
+    "title": "Brush",
+    "isFav": false,
+    "description": "Brush",
+    "malluDescription": "ബ്രഷ്ഷ്",
+    "tags": ["Tool", "Personal Care"]
+  },
+  {
+    "imagePath": "assets/PNG/school_bag.png",
+    "title": "Bag",
+    "isFav": false,
+    "description": "Bag",
+    "malluDescription": "ബാഗ്",
+    "tags": ["Accessory", "Fashion"]
+  },
+  {
+    "imagePath": "assets/PNG/shoe_-_mans.png",
+    "title": "Shoe",
+    "isFav": false,
+    "description": "Shoe",
+    "malluDescription": "ഷൂ",
+    "tags": ["Footwear", "Fashion"]
+  },
+  {
+    "imagePath": "assets/PNG/one.png",
+    "title": "One",
+    "isFav": false,
+    "description": "One",
+    "malluDescription": "ഒന്ന്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/two.png",
+    "title": "Two",
+    "isFav": false,
+    "description": "Two",
+    "malluDescription": "രണ്ട്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/three.png",
+    "title": "Three",
+    "isFav": false,
+    "description": "Three",
+    "malluDescription": "മൂന്ന്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/four.png",
+    "title": "Four",
+    "isFav": false,
+    "description": "Four",
+    "malluDescription": "നാല്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/five.png",
+    "title": "Five",
+    "isFav": false,
+    "description": "Five",
+    "malluDescription": "അഞ്ച്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/six.png",
+    "title": "Six",
+    "isFav": false,
+    "description": "Six",
+    "malluDescription": "ആറ്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/seven.png",
+    "title": "Seven",
+    "isFav": false,
+    "description": "Seven",
+    "malluDescription": "ഏഴ്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/eight.png",
+    "title": "Eight",
+    "isFav": false,
+    "description": "Eight",
+    "malluDescription": "എട്ട്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/nine.png",
+    "title": "Nine",
+    "isFav": false,
+    "description": "Nine",
+    "malluDescription": "ഒമ്പത്",
+    "tags": ["Number"]
+  },
+  {
+    "imagePath": "assets/PNG/ten.png",
+    "title": "Ten",
+    "isFav": false,
+    "description": "Ten",
+    "malluDescription": "പത്ത്",
+    "tags": ["Number"]
   }
 ]
