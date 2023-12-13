@@ -1,3 +1,4 @@
+import 'package:dhwani_app_miniproject/screens/camera_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -7,8 +8,8 @@ import 'package:line_icons/line_icons.dart';
 
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
-import '../widgets/custom_card_widget.dart';
 import '../screens/search_page.dart';
+import '../widgets/custom_card_widget.dart';
 
 class DhwaniApp_HomePage extends StatefulWidget {
   @override
@@ -213,9 +214,11 @@ class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                   },
                 ),
                 GButton(
-                  icon: LineIcons.microphone,
-                  text: 'Speak',
-                  onPressed: () {},
+                  icon: LineIcons.camera,
+                  text: 'Camera',
+                  onPressed: () {
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_CameraPage()));
+                  },
                 ),
               ],
               selectedIndex: controller.selectedIndex,

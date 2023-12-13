@@ -5,10 +5,12 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:string_similarity/string_similarity.dart';
+
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
-import '../widgets/custom_card_widget.dart';
 import '../screens/home_page.dart';
+import '../widgets/custom_card_widget.dart';
+import 'camera_page.dart';
 
 class DhwaniApp_SearchPage extends StatefulWidget {
   @override
@@ -208,9 +210,11 @@ class _DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   onPressed: () {},
                 ),
                 GButton(
-                  icon: LineIcons.microphone,
-                  text: 'Speak',
-                  onPressed: () {},
+                  icon: LineIcons.camera,
+                  text: 'Camera',
+                  onPressed: () {
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_CameraPage()));
+                  },
                 ),
               ],
               selectedIndex: controller.selectedIndex,
