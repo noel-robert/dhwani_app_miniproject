@@ -13,12 +13,12 @@ import '../widgets/custom_card_widget.dart';
 
 class DhwaniApp_HomePage extends StatefulWidget {
   @override
-  _DhwaniApp_HomePageState createState() => _DhwaniApp_HomePageState();
+  State<DhwaniApp_HomePage> createState() => DhwaniApp_HomePageState();
 }
 
 final BottomBarController controller = Get.put(BottomBarController());
 
-class _DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
+class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   late Box<CardModel> cardBox;
   bool _languageSwitchState = false; // language is malayalam | english
   // bool _isNewUser = true;

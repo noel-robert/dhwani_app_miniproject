@@ -14,12 +14,10 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
   const DhwaniApp_QuestionnairePage({super.key});
 
   @override
-  _DhwaniApp_QuestionnairePageState createState() =>
-      _DhwaniApp_QuestionnairePageState();
+  State<DhwaniApp_QuestionnairePage> createState() => DhwaniApp_QuestionnairePageState();
 }
 
-class _DhwaniApp_QuestionnairePageState
-    extends State<DhwaniApp_QuestionnairePage> {
+class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
   Map<String, String> selectedAnswersMap = {};

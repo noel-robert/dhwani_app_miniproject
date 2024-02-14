@@ -14,12 +14,12 @@ import 'camera_page.dart';
 
 class DhwaniApp_SearchPage extends StatefulWidget {
   @override
-  _DhwaniApp_SearchPageState createState() => _DhwaniApp_SearchPageState();
+  State<DhwaniApp_SearchPage> createState() => DhwaniApp_SearchPageState();
 }
 
 final BottomBarController controller = Get.put(BottomBarController());
 
-class _DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
+class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   late Box<CardModel> cardBox;
   String searchValue = '';
   bool _languageSwitchState = false; // language is malayalam | english
