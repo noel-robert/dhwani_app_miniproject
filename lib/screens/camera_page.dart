@@ -282,10 +282,11 @@
 
 
 
-
-
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tflite_v2/tflite_v2.dart';
 
 
 class DhwaniApp_CameraPage extends StatefulWidget {
@@ -296,9 +297,114 @@ class DhwaniApp_CameraPage extends StatefulWidget {
 }
 
 class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
+  String output = '';
+  late File _imageFile;
+
+  @override
+  void initState() {
+    super.initState();
+    // loadCamera();
+    loadModel();
+  }
+
+  @override
+  void dispose() {
+    Tflite.close();
+    super.dispose();
+  }
+
+
+  Future getImage(var source) async {
+    XFile? imageFile;
+    if (source == 'camera') {
+      output = 'null';
+      imageFile = await ImagePicker().pickImage(source: ImageSource.camera); // to take from camera,
+    } else if (source == 'gallery') {
+      output = 'null';
+      imageFile = await ImagePicker().pickImage(source: ImageSource.gallery); // to take from gallery,
+    } else {
+      // don't know what happens here
+    }
+
+    setState(() {
+      if (imageFile != null) {
+        _imageFile = File(imageFile.path);
+      }
+    });
+  }
+
+  runModel() async {
+    var predictions = await Tflite.runModelOnImage(path: _imageFile.path);
+
+    for (var element in predictions!) {
+      setState(() {
+        output = element['label'];
+      });
+    }
+  }
+
+  loadModel() async {
+    await Tflite.loadModel(
+      model: "assets/cnnModels/fer_model.tflite",
+      labels: "assets/cnnModels/fer_labels.txt",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Emotion Analysis')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center( // Center the ElevatedButton and Text vertically and horizontally
+              child: ElevatedButton(
+                onPressed: () async {
+                  await runModel();
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                  backgroundColor: Colors.blueAccent,
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
+                ),
+                child: const Text(
+                  'Upload',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: Text(
+                'Emotion: $output',
+                style: const TextStyle(fontSize: 24, color: Colors.green),
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () => getImage('camera'),
+            heroTag: null,
+            backgroundColor: Colors.blue,
+            child: const Icon(Icons.camera_alt_rounded),
+          ),
+          const SizedBox(height: 10,),
+          FloatingActionButton(
+            onPressed: () => getImage('gallery'),
+            heroTag: null,
+            backgroundColor: Colors.blue,
+            child: const Icon(Icons.image_rounded),
+          )
+        ],
+      ),
+    );
   }
 }
