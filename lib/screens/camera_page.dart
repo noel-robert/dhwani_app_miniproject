@@ -237,9 +237,8 @@
 //               style: ElevatedButton.styleFrom(
 //                 shape: RoundedRectangleBorder(
 //                   borderRadius: BorderRadius.circular(18.0),
-//                 ),
+//                 ), backgroundColor: Colors.blueAccent,
 //                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-//                 primary: Colors.blueAccent,
 //               ),
 //               child: Text(
 //                 'Upload',
