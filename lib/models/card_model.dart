@@ -25,6 +25,9 @@ class CardModel {
   @HiveField(6)
   late int clickCount;
 
+  @HiveField(7)
+  late List<String> emotion;
+
   CardModel({
     required this.imagePath,
     required this.title,
@@ -33,5 +36,6 @@ class CardModel {
     required this.malluDescription,
     required this.tags,
     required this.clickCount,
+    required this.emotion,
   });
 }
