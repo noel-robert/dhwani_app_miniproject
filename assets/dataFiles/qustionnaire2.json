@@ -1,0 +1,18 @@
+[
+    {
+      "questionText": "What do you like to do when you're happy?",
+      "options": ["Noodles", "Rice", "Pancake", "Sandwich"]
+    },
+    {
+      "questionText": "What do you want to do when you're sad?",
+      "options": ["Water", "Tea", "Milk", "Juice"]
+    },
+    {
+      "questionText": "What do you do when you are angry?",
+      "options": ["Cake", "Chocolate", "Biscuits", "Chips"]
+    },
+    {
+      "questionText": "What do you do when you're scared?",
+      "options": ["Play outside", "Watch T.V", "Play videogames", "Read books"]
+    }
+  ]
