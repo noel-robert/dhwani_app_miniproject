@@ -24,13 +24,14 @@ class CardModelAdapter extends TypeAdapter<CardModel> {
       malluDescription: fields[4] as String,
       tags: (fields[5] as List).cast<String>(),
       clickCount: fields[6] as int,
+      emotion: (fields[7] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, CardModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.imagePath)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class CardModelAdapter extends TypeAdapter<CardModel> {
       ..writeByte(5)
       ..write(obj.tags)
       ..writeByte(6)
-      ..write(obj.clickCount);
+      ..write(obj.clickCount)
+      ..writeByte(7)
+      ..write(obj.emotion);
   }
 
   @override

@@ -52,20 +52,17 @@ class DhwaniApp_QuestionnairePageState
     for (final cardData in jsonData) {
       // instead of below two lines, do this - if cardTitle in List<List<String>> selectedAnswers, then set a boolean variable to true
       final cardTitle = cardData['title'];
-      // final isFav = selectedAnswersMap[cardTitle] == 'Yes';
-      final isFav = selectedAnswers.any((answer) => answer.contains(cardTitle))
-          ? true
-          : false;
+      final isFav = selectedAnswers.any((answer) => answer.contains(cardTitle)) ? true : false;
 
       final card = CardModel(
         imagePath: cardData['imagePath'],
         title: cardTitle,
-        // isFav: cardData['isFav'],
         isFav: isFav,
         description: cardData['description'],
         malluDescription: cardData['malluDescription'],
         tags: List<String>.from(cardData['tags']),
         clickCount: isFav ? 5 : 0,
+        emotion: ["null"],
       );
       cardBox.add(card);
     }
@@ -105,13 +102,8 @@ class DhwaniApp_QuestionnairePageState
         questionModelTyped.questionText,
         questionModelTyped.options,
       );
-      // print(questionData['questionText']);
-      // print(List<String>.from(questionData['options']));
 
-      questionBox
-          .add(questionModelTyped); // added using index as key - automatically
-      // print(question.questionText);
-      // print(question.options);
+      questionBox.add(questionModelTyped); // added using index as key - automatically
     }
 
     setState(() {
