@@ -13,6 +13,8 @@ import '../widgets/custom_card_widget.dart';
 import 'camera_page.dart';
 
 class DhwaniApp_SearchPage extends StatefulWidget {
+  const DhwaniApp_SearchPage({super.key});
+
   @override
   State<DhwaniApp_SearchPage> createState() => DhwaniApp_SearchPageState();
 }
@@ -44,8 +46,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
       updatedCard.clickCount++;
       cardBox.putAt(cardIndex, updatedCard);
 
-      print(
-          'Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
+      // print('Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
       // setState(() {});
     }
     //setState(() {});
@@ -57,7 +58,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
     // String text = widget.languageSwitchState ? widget.malluDescription : widget.description;
     String language = _languageSwitchState ? 'ml-IN' : 'en-US';
     // String language = 'en-US';
-    print(language); // debug
+    // print(language); // debug
     final cardIndex = cardBox.values.toList().indexWhere((c) => c == card);
 
     if (cardIndex >= 0) {
@@ -147,7 +148,8 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                               _speakDescription(card),
                               _incrementCounter(card),
                             });
-                  });
+                  }
+              );
             },
           ),
         )
@@ -193,10 +195,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   icon: LineIcons.home,
                   text: 'Home',
                   onPressed: () {
-                    Navigator.push(
-                        currentContext,
-                        MaterialPageRoute(
-                            builder: (context) => DhwaniApp_HomePage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
                   },
                 ),
                 GButton(
@@ -213,7 +212,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   icon: LineIcons.camera,
                   text: 'Camera',
                   onPressed: () {
-                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_CameraPage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
                   },
                 ),
               ],

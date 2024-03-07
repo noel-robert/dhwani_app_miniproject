@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/card_model.dart';
 import '../models/question_model.dart';
-import '../screens/home_page.dart';
 import '../screens/questionnaire_page2.dart';
 import '../widgets/question_widget.dart';
 
@@ -14,12 +12,10 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
   const DhwaniApp_QuestionnairePage({super.key});
 
   @override
-  State<DhwaniApp_QuestionnairePage> createState() =>
-      DhwaniApp_QuestionnairePageState();
+  State<DhwaniApp_QuestionnairePage> createState() => DhwaniApp_QuestionnairePageState();
 }
 
-class DhwaniApp_QuestionnairePageState
-    extends State<DhwaniApp_QuestionnairePage> {
+class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
   Map<String, String> selectedAnswersMap = {};
@@ -40,8 +36,7 @@ class DhwaniApp_QuestionnairePageState
   }
 
   Future<void> _loadCardDataToHiveAndUpdate() async {
-    final jsonString = await DefaultAssetBundle.of(context)
-        .loadString('assets/dataFiles/card_Data.json');
+    final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
     final jsonData = jsonDecode(jsonString);
     // print(jsonData);
 
@@ -84,8 +79,7 @@ class DhwaniApp_QuestionnairePageState
   }
 
   Future<void> _loadQuestions() async {
-    final jsonString =
-        await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
+    final jsonString = await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
     final jsonData = jsonDecode(jsonString);
     // print((jsonData[0])['questionText']);
 
@@ -98,10 +92,10 @@ class DhwaniApp_QuestionnairePageState
           questionText: questionData['questionText'],
           options: List<String>.from(questionData['options']));
 
-      final question = Question(
-        questionModelTyped.questionText,
-        questionModelTyped.options,
-      );
+      // final question = Question(
+      //   questionModelTyped.questionText,
+      //   questionModelTyped.options,
+      // );
 
       questionBox.add(questionModelTyped); // added using index as key - automatically
     }
@@ -131,8 +125,7 @@ class DhwaniApp_QuestionnairePageState
             onAnswerSelected: (List<String> selectedOptions) {
               debugPrint(selectedOptions.toString());
               selectedAnswers[index] = selectedOptions;
-              selectedAnswersMap[questions[index].questionText] =
-                  selectedOptions.isNotEmpty ? selectedOptions[0] : '';
+              selectedAnswersMap[questions[index].questionText] = selectedOptions.isNotEmpty ? selectedOptions[0] : '';
             },
           );
         },
@@ -140,20 +133,17 @@ class DhwaniApp_QuestionnairePageState
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           // Load card data to Hive and set isFav based on selected answers
-          print('Selected Answers Map: $selectedAnswersMap');
+          // print('Selected Answers Map: $selectedAnswersMap'); // debug
           await _loadCardDataToHiveAndUpdate();
 
           // Print contents of cardBox
-          for (var i = 0; i < cardBox.length; i++) {
-            final card = cardBox.getAt(i) as CardModel;
-            // print('Card $i: ${card.title}, IsFav: ${card.isFav}');
-          }
+          // for (var i = 0; i < cardBox.length; i++) {
+          //   final card = cardBox.getAt(i) as CardModel;
+          //   print('Card $i: ${card.title}, IsFav: ${card.isFav}');
+          // }
 
           // Redirect to Home_Page
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DhwaniApp_QuestionnairePage2()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_QuestionnairePage2()));
         },
         child: const Icon(Icons.check),
       ),

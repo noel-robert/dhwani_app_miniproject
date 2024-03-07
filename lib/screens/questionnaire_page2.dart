@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hive_flutter/hive_flutter.dart';
@@ -15,12 +14,10 @@ class DhwaniApp_QuestionnairePage2 extends StatefulWidget {
   const DhwaniApp_QuestionnairePage2({super.key});
 
   @override
-  State<DhwaniApp_QuestionnairePage2> createState() =>
-      DhwaniApp_QuestionnairePageState();
+  State<DhwaniApp_QuestionnairePage2> createState() => DhwaniApp_QuestionnairePageState();
 }
 
-class DhwaniApp_QuestionnairePageState
-    extends State<DhwaniApp_QuestionnairePage2> {
+class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage2> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
   Map<String, String> selectedAnswersMap = {};
@@ -41,15 +38,14 @@ class DhwaniApp_QuestionnairePageState
   }
 
   Future<void> _loadCardDataToHiveAndUpdate() async {
-    final jsonString = await DefaultAssetBundle.of(context)
-        .loadString('assets/dataFiles/card_Data.json');
+    final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
     final jsonData = jsonDecode(jsonString);
 
     cardBox = Hive.box('cards_HiveBox');
 
     // load card details to database - debug
     for (final cardData in jsonData) {
-      // Do code to save the emotions
+      // TODO: Do code to save the emotions
     }
   }
 
@@ -68,15 +64,14 @@ class DhwaniApp_QuestionnairePageState
           questionText: questionData['questionText'],
           options: List<String>.from(questionData['options']));
 
-      final question = Question(
-        questionModelTyped.questionText,
-        questionModelTyped.options,
-      );
+      // final question = Question(
+      //   questionModelTyped.questionText,
+      //   questionModelTyped.options,
+      // );
       // print(questionData['questionText']);
       // print(List<String>.from(questionData['options']));
 
-      questionBox
-          .add(questionModelTyped); // added using index as key - automatically
+      questionBox.add(questionModelTyped); // added using index as key - automatically
       // print(question.questionText);
       // print(question.options);
     }
@@ -114,18 +109,17 @@ class DhwaniApp_QuestionnairePageState
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           // Load card data to Hive and set isFav based on selected answers
-          print('Selected Answers Map: $selectedAnswersMap');
+          // print('Selected Answers Map: $selectedAnswersMap');
           await _loadCardDataToHiveAndUpdate();
 
           // Print contents of cardBox
-          for (var i = 0; i < cardBox.length; i++) {
-            final card = cardBox.getAt(i) as CardModel;
-            // print('Card $i: ${card.title}, IsFav: ${card.isFav}');
-          }
+          // for (var i = 0; i < cardBox.length; i++) {
+          //   final card = cardBox.getAt(i) as CardModel;
+          //   print('Card $i: ${card.title}, IsFav: ${card.isFav}');
+          // }
 
           // Redirect to Home_Page
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DhwaniApp_HomePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
         },
         child: const Icon(Icons.check),
       ),

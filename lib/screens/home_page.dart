@@ -1,4 +1,3 @@
-import 'package:dhwani_app_miniproject/screens/camera_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -9,9 +8,12 @@ import 'package:line_icons/line_icons.dart';
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/search_page.dart';
+import '../screens/camera_page.dart';
 import '../widgets/custom_card_widget.dart';
 
 class DhwaniApp_HomePage extends StatefulWidget {
+  const DhwaniApp_HomePage({super.key});
+
   @override
   State<DhwaniApp_HomePage> createState() => DhwaniApp_HomePageState();
 }
@@ -43,28 +45,6 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   //   }
   // }
 
-  // Future<void> _loadData() async {
-  //   final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
-  //   // print(jsonString);
-  //   final jsonData = jsonDecode(jsonString);
-  //
-  //   // Remove this line if you want to keep existing data in the box
-  //   cardBox.clear();
-  //
-  //   for (final cardData in jsonData) {
-  //     final card = CardModel(
-  //       imagePath: cardData['imagePath'],
-  //       title: cardData['title'],
-  //       isFav: cardData['isFav'],
-  //       description: cardData['description'],
-  //       malluDescription: cardData['malluDescription'],
-  //       tags: List<String>.from(cardData['tags']),
-  //       clickCount: 0,
-  //     );
-  //     cardBox.add(card);
-  //   }
-  // }
-
   void _incrementCounter(CardModel card) {
     final cardIndex = cardBox.values.toList().indexWhere((c) => c == card);
 
@@ -73,9 +53,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
       updatedCard.clickCount++;
       cardBox.putAt(cardIndex, updatedCard);
 
-      print(
-          'Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
-      // setState(() {});
+      // print('Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
     }
     //setState(() {});
   }
@@ -86,7 +64,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     // String text = widget.languageSwitchState ? widget.malluDescription : widget.description;
     String language = _languageSwitchState ? 'ml-IN' : 'en-US';
     // String language = 'en-US';
-    print(language); // debug
+    // print(language); // debug
     final cardIndex = cardBox.values.toList().indexWhere((c) => c == card);
 
     if (cardIndex >= 0) {
@@ -123,8 +101,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     // }
 
     if (cardBox != null) {
-      List<CardModel> cards = cardBox.values.toList()
-        ..sort((a, b) => b.clickCount.compareTo(a.clickCount));
+      List<CardModel> cards = cardBox.values.toList()..sort((a, b) => b.clickCount.compareTo(a.clickCount));
       return Column(children: [
         Switch(
           value: _languageSwitchState,
@@ -150,8 +127,10 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                         onTap: () => {
                               _speakDescription(card),
                               _incrementCounter(card),
-                            });
-                  });
+                            }
+                    );
+                  }
+              );
             },
           ),
         )
@@ -180,8 +159,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         ]),
         child: SafeArea(
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
@@ -217,7 +195,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                   icon: LineIcons.camera,
                   text: 'Camera',
                   onPressed: () {
-                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => DhwaniApp_CameraPage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
                   },
                 ),
               ],

@@ -5,7 +5,6 @@ import '../models/userData_model.dart';
 import '../screens/home_page.dart';
 import '../screens/signup_page.dart';
 
-
 class DhwaniApp_LoginPage extends StatefulWidget {
   const DhwaniApp_LoginPage({super.key});
 
@@ -44,10 +43,9 @@ class DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
 
     var userData = userBox.get(username);
     // print(userData);
-    var userData_Password =
-        userBox.containsKey(username) ? userData?.password : null;
+    var userdataPassword = userBox.containsKey(username) ? userData?.password : null;
 
-    if (userData_Password == password) {
+    if (userdataPassword == password) {
       return true;
     } else {
       return false;
@@ -109,10 +107,7 @@ class DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
               onPressed: () async {
                 final currentContext = context;
                 if (await _performLogin()) {
-                  Navigator.push(
-                      currentContext,
-                      MaterialPageRoute(
-                          builder: (context) => DhwaniApp_HomePage()));
+                  Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
                 } else {
                   showDialog(
                     context: currentContext, // Use the captured context
@@ -147,10 +142,7 @@ class DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DhwaniApp_SignupPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_SignupPage()));
                   },
                 ),
               ],

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
-
 class DhwaniApp_CameraPage extends StatefulWidget {
   const DhwaniApp_CameraPage({super.key});
 

@@ -100,10 +100,7 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
           });
     } else {
       userBox.put(username, userData);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const DhwaniApp_QuestionnairePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_QuestionnairePage()));
 
       // debug
       // print("checking");
@@ -139,8 +136,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'UserName',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter username';
+                    }
                     return null;
                   },
                 ),
@@ -179,8 +177,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter password';
+                    }
                     return null;
                   },
                 ),
@@ -191,7 +190,7 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   obscureText: !isConfirmPasswordVisible,
                   controller: passwordconfirmationController,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     labelText: 'Confirm Password',
                     suffixIcon: IconButton(
                       icon: Icon(isConfirmPasswordVisible
@@ -207,8 +206,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   validator: (value) {
                     if (value == null ||
                         value.isEmpty ||
-                        value != passwordController.text)
+                        value != passwordController.text) {
                       return 'Passwords do not match';
+                    }
                     return null;
                   },
                 ),
@@ -233,8 +233,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                   });
                 },
                 validator: (String? value) {
-                  if (value == null || value.isEmpty || value == '-select-')
+                  if (value == null || value.isEmpty || value == '-select-') {
                     return 'Please select a gender';
+                  }
                   return null;
                 },
               ),
@@ -277,8 +278,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter a contact number';
+                    }
                     return null;
                   },
                 ),
@@ -306,8 +308,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'Guardian Name',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter name of guardian';
+                    }
                     return null;
                   },
                 ),
@@ -321,8 +324,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                     labelText: 'How is Guardian related to the user?',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter relation of guardian';
+                    }
                     return null;
                   },
                 ),
@@ -347,9 +351,9 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
                       onPressed: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => DhwaniApp_LoginPage()));
-                      })
+                            MaterialPageRoute(builder: (context) => const DhwaniApp_LoginPage()));
+                      }
+                  )
                 ],
               )
             ],
