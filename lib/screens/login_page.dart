@@ -1,17 +1,56 @@
-import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:dhwani_app_miniproject/screens/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+import '../models/userData_model.dart';
+import '../screens/home_page.dart';
+import '../screens/signup_page.dart';
 
 class DhwaniApp_LoginPage extends StatefulWidget {
-  const DhwaniApp_LoginPage({Key? key}) : super(key: key);
+  const DhwaniApp_LoginPage({super.key});
 
   @override
-  _DhwaniApp_LoginPageState createState() => _DhwaniApp_LoginPageState();
+  State<DhwaniApp_LoginPage> createState() => DhwaniApp_LoginPageState();
 }
 
-class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
-  TextEditingController nameController = TextEditingController();
+class DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isPasswordVisible = false;
+  late Box<UserDataModel> userBox;
+
+  // bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _openBox();
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _openBox() {
+    userBox = Hive.box('users_HiveBox');
+  }
+
+  Future<bool> _performLogin() async {
+    final username = usernameController.text;
+    final password = passwordController.text;
+
+    var userData = userBox.get(username);
+    // print(userData);
+    var userdataPassword = userBox.containsKey(username) ? userData?.password : null;
+
+    if (userdataPassword == password) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +75,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: nameController,
+                controller: usernameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
@@ -46,35 +85,52 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: TextField(
-                obscureText: true,
+                obscureText: !isPasswordVisible,
                 controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
             TextButton(
-              onPressed: () {
-                //forgot password screen
-              },
-              child: const Text(
-                'Forgot Password',
-              ),
-            ),
-            Container(
-              height: 50,
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: ElevatedButton(
-                child: const Text('Login'),
-                onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage()));
-                  Navigator.push(context, 
-                      MaterialPageRoute(builder: (context) => DhwaniApp_HomePage(selectedAnswers: []))
+              onPressed: () async {
+                final currentContext = context;
+                if (await _performLogin()) {
+                  Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
+                } else {
+                  showDialog(
+                    context: currentContext, // Use the captured context
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Login Failed'),
+                        content: const Text('Invalid username or password.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(currentContext)
+                                  .pop(); // Dismiss the dialog
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
                   );
-                },
-              ),
+                }
+              },
+              child: const Text('Login'),
+              // child: isLoading ? const CircularProgressIndicator() : const Text('Login'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,8 +142,7 @@ class _DhwaniApp_LoginPageState extends State<DhwaniApp_LoginPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DhwaniApp_SignupPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_SignupPage()));
                   },
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_dropdown/multiselect_dropdown.dart';
 
 class Question {
   final String questionText;
@@ -18,54 +19,8 @@ class QuestionWidget extends StatefulWidget {
   _QuestionWidgetState createState() => _QuestionWidgetState();
 }
 
-// class _QuestionWidgetState extends State<QuestionWidget> {
-//   List<String> selectedOptions = [];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Padding(
-//           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-//           child: Text(
-//             widget.question.questionText,
-//             style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//               fontSize: 18.0,
-//             ),
-//           ),
-//         ),
-//         ListView.builder(
-//           shrinkWrap: true,
-//           physics: NeverScrollableScrollPhysics(),
-//           itemCount: widget.question.options.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final option = widget.question.options[index];
-//             return ListTile(
-//               leading: Checkbox(
-//                 value: selectedOptions.contains(option),
-//                 onChanged: (bool? value) {
-//                   setState(() {
-//                     if (value != null && value) {
-//                       selectedOptions.add(option);
-//                     } else {
-//                       selectedOptions.remove(option);
-//                     }
-//                     widget.onAnswerSelected(selectedOptions);
-//                   });
-//                 },
-//               ),
-//               title: Text(option),
-//             );
-//           }
-//         )
-//       ],
-//     );
-//   }
-// }
-
 class _QuestionWidgetState extends State<QuestionWidget> {
+  final MultiSelectController<String> _controller = MultiSelectController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,33 +49,89 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             ),
           ),
           const SizedBox(height: 16.0),
-          DropdownButton<String>(
-            value: widget.question.selectedOption,
-            isExpanded: true,
-            icon: const Icon(Icons.arrow_drop_down),
-            iconSize: 24.0,
-            elevation: 16,
-            style: const TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
-            ),
-            underline: Container(
-              height: 1,
-              color: Colors.grey,
-            ),
-            onChanged: (value) {
-              setState(() {
-                widget.question.selectedOption = value;
-                widget.onAnswerSelected([value!]);
-              });
+          // DropdownButton<String>(
+          //   value: widget.question.selectedOption,
+          //   isExpanded: true,
+          //   icon: const Icon(Icons.arrow_drop_down),
+          //   iconSize: 24.0,
+          //   elevation: 16,
+          //   style: const TextStyle(fontSize: 16.0, color: Colors.black,),
+          //   underline: Container(height: 1, color: Colors.grey,),
+          //   onChanged: (value) {
+          //     setState(() {
+          //       widget.question.selectedOption = value;
+          //       widget.onAnswerSelected([value!]);
+          //     });
+          //   },
+          //   items: widget.question.options.map((option) {
+          //     return DropdownMenuItem<String>(
+          //       value: option,
+          //       child: Text(option),
+          //     );
+          //   }).toList(),
+          // ),
+          MultiSelectDropDown<String>(
+            controller: _controller,
+            clearIcon: const Icon(Icons.clear),
+            onOptionSelected: (options) {
+              debugPrint(options.toString());
+              List<String> value = [];
+              for (ValueItem i in options) {
+                value.add(i.label);
+              }
+              widget.onAnswerSelected(value);
             },
-            items: widget.question.options.map((option) {
-              return DropdownMenuItem<String>(
+            options: widget.question.options.map((option) {
+              return ValueItem<String>(
+                label: option,
                 value: option,
-                child: Text(option),
               );
             }).toList(),
+            maxItems: 4,
+            singleSelectItemStyle:
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            chipConfig: const ChipConfig(
+                wrapType: WrapType.wrap, backgroundColor: Colors.red),
+            optionTextStyle: const TextStyle(fontSize: 16),
+            selectedOptionIcon: const Icon(
+              Icons.check_circle,
+              color: Colors.pink,
+            ),
+            selectedOptionBackgroundColor: Colors.grey.shade300,
+            selectedOptionTextColor: Colors.blue,
+            dropdownMargin: 2,
+            onOptionRemoved: (index, option) {},
+            optionBuilder: (context, valueItem, isSelected) {
+              return ListTile(
+                title: Text(valueItem.label),
+                subtitle: Text(valueItem.value.toString()),
+                trailing: isSelected
+                    ? const Icon(Icons.check_circle)
+                    : const Icon(Icons.radio_button_unchecked),
+              );
+            },
           ),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: List.generate(widget.question.options.length, (index) {
+          //     final option = widget.question.options[index];
+          //     return CheckboxListTile(
+          //       title: Text(option),
+          //       value: _selectedOptions[index],
+          //       onChanged: (value) {
+          //         setState(() {
+          //           _selectedOptions[index] = value!;
+          //           widget.onAnswerSelected(_selectedOptions
+          //               .asMap()
+          //               .entries
+          //               .where((entry) => entry.value)
+          //               .map((entry) => widget.question.options[entry.key])
+          //               .toList());
+          //         });
+          //       },
+          //     );
+          //   }),
+          // ),
           const SizedBox(height: 16.0),
         ],
       ),
