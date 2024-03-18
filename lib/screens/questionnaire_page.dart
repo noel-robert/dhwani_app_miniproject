@@ -12,10 +12,12 @@ class DhwaniApp_QuestionnairePage extends StatefulWidget {
   const DhwaniApp_QuestionnairePage({super.key});
 
   @override
-  State<DhwaniApp_QuestionnairePage> createState() => DhwaniApp_QuestionnairePageState();
+  State<DhwaniApp_QuestionnairePage> createState() =>
+      DhwaniApp_QuestionnairePageState();
 }
 
-class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage> {
+class DhwaniApp_QuestionnairePageState
+    extends State<DhwaniApp_QuestionnairePage> {
   List<Question> questions = [];
   List<List<String>> selectedFavourites = [];
   Map<String, String> selectedFavouritesMap = {};
@@ -80,26 +82,27 @@ class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage
   // }
 
   Future<void> _loadQuestions() async {
-    final jsonString = await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
+    final jsonString =
+        await rootBundle.loadString('assets/dataFiles/questionnaire_Data.json');
     final jsonData = jsonDecode(jsonString);
     // print((jsonData[0])['questionText']);
 
     // final questionBox = await Hive.openBox<Question>('questions');
     questionBox = Hive.box('questions_HiveBox');
     questionBox.clear(); // clear all data in questionBox
-
+    print(questionBox.length);
     for (final questionData in jsonData) {
       final questionModelTyped = QuestionModel(
           questionText: questionData['questionText'],
-          options: List<String>.from(questionData['options'])
-      );
+          options: List<String>.from(questionData['options']));
 
       // final question = Question(
       //   questionModelTyped.questionText,
       //   questionModelTyped.options,
       // );
 
-      questionBox.add(questionModelTyped); // added using index as key - automatically
+      questionBox
+          .add(questionModelTyped); // added using index as key - automatically
     }
 
     setState(() {
@@ -127,7 +130,8 @@ class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage
             onAnswerSelected: (List<String> selectedOptions) {
               debugPrint(selectedOptions.toString());
               selectedFavourites[index] = selectedOptions;
-              selectedFavouritesMap[questions[index].questionText] = selectedOptions.isNotEmpty ? selectedOptions[0] : '';
+              selectedFavouritesMap[questions[index].questionText] =
+                  selectedOptions.isNotEmpty ? selectedOptions[0] : '';
             },
           );
         },
@@ -146,7 +150,12 @@ class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage
           // }
 
           // Redirect to Home_Page
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DhwaniApp_QuestionnairePage2(selectedFavourites: selectedFavourites,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DhwaniApp_QuestionnairePage2(
+                        selectedFavourites: selectedFavourites,
+                      )));
         },
         child: const Icon(Icons.check),
       ),
