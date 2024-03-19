@@ -51,6 +51,7 @@ dependencies:
   http: ^1.1.0
   tflite_v2: ^1.0.0
   multi_dropdown: ^2.1.4
+  provider: ^6.1.2
 
 
 dev_dependencies:
