@@ -26,7 +26,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   late Box<CardModel> cardBox;
   String searchValue = '';
   bool _languageSwitchState = false; // language is malayalam | english
-  final hf = HfInference('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');
+  final hf = HfInference('your token here');
   FlutterTts flutterTts = FlutterTts();
   List<String> completedSentences = [];
 
