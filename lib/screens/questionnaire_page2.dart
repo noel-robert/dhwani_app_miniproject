@@ -11,14 +11,13 @@ import '../screens/home_page.dart';
 import '../widgets/question_widget.dart';
 
 class DhwaniApp_QuestionnairePage2 extends StatefulWidget {
-  final List<List<String>> selectedFavourites;
-  const DhwaniApp_QuestionnairePage2({super.key, required this.selectedFavourites});
+  const DhwaniApp_QuestionnairePage2({super.key});
 
   @override
-  State<DhwaniApp_QuestionnairePage2> createState() => DhwaniApp_QuestionnairePage2State();
+  State<DhwaniApp_QuestionnairePage2> createState() => DhwaniApp_QuestionnairePageState();
 }
 
-class DhwaniApp_QuestionnairePage2State extends State<DhwaniApp_QuestionnairePage2> {
+class DhwaniApp_QuestionnairePageState extends State<DhwaniApp_QuestionnairePage2> {
   List<Question> questions = [];
   List<List<String>> selectedAnswers = [];
   Map<String, String> selectedAnswersMap = {};
@@ -38,106 +37,15 @@ class DhwaniApp_QuestionnairePage2State extends State<DhwaniApp_QuestionnairePag
     super.dispose();
   }
 
-  // Future<void> _updateCardData() async {
-  //   final jsonString = await rootBundle.loadString('assets/dataFiles/questionnaire2.json');
-  //   final jsonData = jsonDecode(jsonString);
-  //
-  //   cardBox = Hive.box('cards_HiveBox');
-  //   if (cardBox.isEmpty) { print('The box is empty'); }
-  //   List<CardModel> cards = cardBox.values.toList();
-  //   print(cards.length);
-  //
-  //   // load card details to database - debug
-  //   int index = 0;
-  //   for (final questionData in jsonData) {
-  //     String questionEmotion = questionData['questionText'].split(' ').last.trimRight();
-  //     // print(questionEmotion);
-  //     List<String> currentAnswerList = selectedAnswers[index];
-  //
-  //     // TODO: iterate through things in currentAnswerList and assign emotion for it
-  //     for (String searchValue in currentAnswerList) {
-  //       // print(searchValue);
-  //       for (CardModel card in cards) {
-  //         // print(card.title.toLowerCase());
-  //         if (card.title.toLowerCase().contains(searchValue.toLowerCase())) {
-  //           int cardIndex = cards.indexWhere((element) => element == card);
-  //           var updatedCard = cardBox.getAt(cardIndex) as CardModel;
-  //           updatedCard.emotion.add(questionEmotion);
-  //           cardBox.putAt(cardIndex, updatedCard);
-  //
-  //           print(updatedCard.emotion);
-  //         }
-  //       }
-  //     }
-  //
-  //     index++;
-  //   }
-  // }
-
   Future<void> _loadCardDataToHiveAndUpdate() async {
     final jsonString = await DefaultAssetBundle.of(context).loadString('assets/dataFiles/card_Data.json');
     final jsonData = jsonDecode(jsonString);
-    // print(jsonData);
 
     cardBox = Hive.box('cards_HiveBox');
-    cardBox.clear();
 
     // load card details to database - debug
     for (final cardData in jsonData) {
-      // instead of below two lines, do this - if cardTitle in List<List<String>> selectedAnswers, then set a boolean variable to true
-      final cardTitle = cardData['title'];
-      final isFav = widget.selectedFavourites.any((answer) => answer.contains(cardTitle)) ? true : false;
-
-      final card = CardModel(
-        imagePath: cardData['imagePath'],
-        title: cardTitle,
-        isFav: isFav,
-        description: cardData['description'],
-        malluDescription: cardData['malluDescription'],
-        tags: List<String>.from(cardData['tags']),
-        clickCount: isFav ? 5 : 0,
-        emotion: [],
-      );
-      cardBox.add(card);
-    }
-
-    print("Length of cardbox: ${cardBox.length}");
-
-
-
-    final jsonStringQuestionnaire2 = await rootBundle.loadString('assets/dataFiles/questionnaire2.json');
-    final jsonDataQuestionnaire2 = jsonDecode(jsonStringQuestionnaire2);
-
-    // cardBox = Hive.box('cards_HiveBox');
-    if (cardBox.isEmpty) { print('The box is empty'); }
-    List<CardModel> cards = cardBox.values.toList();
-    // print('Debug imp: ${cards.length}');
-
-    // load card details to database - debug
-    int index = 0;
-    for (final questionData in jsonDataQuestionnaire2) {
-      String questionEmotion = questionData['questionText'].split(' ').last.trimRight();
-      questionEmotion = questionEmotion.substring(0, questionEmotion.length-1);
-      print(questionEmotion);
-      List<String> currentAnswerList = selectedAnswers[index];
-
-      // TODO: iterate through things in currentAnswerList and assign emotion for it
-      for (String searchValue in currentAnswerList) {
-        // print(searchValue);
-        for (CardModel card in cards) {
-          // print(card.title.toLowerCase());
-          if (card.title.toLowerCase().contains(searchValue.toLowerCase())) {
-            int cardIndex = cards.indexWhere((element) => element == card);
-            var updatedCard = cardBox.getAt(cardIndex) as CardModel;
-            updatedCard.emotion.add(questionEmotion);
-            cardBox.putAt(cardIndex, updatedCard);
-
-            print(updatedCard.emotion);
-          }
-        }
-      }
-
-      index++;
+      // TODO: Do code to save the emotions
     }
   }
 
@@ -211,7 +119,6 @@ class DhwaniApp_QuestionnairePage2State extends State<DhwaniApp_QuestionnairePag
           // }
 
           // Redirect to Home_Page
-
           Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
         },
         child: const Icon(Icons.check),
