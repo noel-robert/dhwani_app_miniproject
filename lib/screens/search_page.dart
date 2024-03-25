@@ -14,7 +14,7 @@ import '../widgets/custom_card_widget.dart';
 import 'camera_page.dart';
 
 class DhwaniApp_SearchPage extends StatefulWidget {
-  const DhwaniApp_SearchPage({super.key});
+  const DhwaniApp_SearchPage({Key? key}) : super(key: key);
 
   @override
   State<DhwaniApp_SearchPage> createState() => DhwaniApp_SearchPageState();
@@ -80,12 +80,27 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
     if (completions.isEmpty) {
       print('No completion found.');
     } else {
+      List<String> filteredSentences = [];
+      for (var completion in completions) {
+        String sentence = capitalize(completion['sequence'].toString());
+        if (!_containsBlacklistedWords(sentence)) {
+          filteredSentences.add(sentence);
+        }
+      }
       setState(() {
-        completedSentences = completions
-            .map((completion) => capitalize(completion['sequence'].toString()))
-            .toList();
+        completedSentences = filteredSentences;
       });
     }
+  }
+
+  bool _containsBlacklistedWords(String sentence) {
+    List<String> blacklistedWords = ['alcohol','kill','die', 'wank', 'cry', 'depress', 'bomb', 'blood']; 
+    for (var word in blacklistedWords) {
+      if (sentence.toLowerCase().contains(word)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   Future<void> _speak(String text) async {
