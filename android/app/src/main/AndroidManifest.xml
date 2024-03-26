@@ -10,7 +10,7 @@
     </queries>
     
     <application
-        android:label="DhwaniApp"
+        android:label="dhwani_app_miniproject"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
