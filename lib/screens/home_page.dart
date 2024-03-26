@@ -4,10 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:dhwani_app_miniproject/main.dart';
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/search_page.dart';
@@ -27,7 +24,6 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   late Box<CardModel> cardBox;
   bool _languageSwitchState = false; // language is malayalam | english
   // bool _isNewUser = true;
-  String currentEmotion = "";
 
   @override
   void initState() {
@@ -88,15 +84,6 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     });
   }
 
-  int compareCards(CardModel a, CardModel b) {
-    if (a.emotion.contains(currentEmotion) !=
-        b.emotion.contains(currentEmotion)) {
-      return a.emotion.contains(currentEmotion) ? -1 : 1; // True before False
-    }
-    // If matching is the same, sort by click count (descending)
-    return b.clickCount - a.clickCount;
-  }
-
   Widget _buildCardList() {
     // debug
     // if (cardBox==null || cardBox.isEmpty) { print('The box is empty'); }
@@ -114,7 +101,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     // }
 
     if (cardBox != null) {
-      List<CardModel> cards = cardBox.values.toList()..sort(compareCards);
+      List<CardModel> cards = cardBox.values.toList()..sort((a, b) => b.clickCount.compareTo(a.clickCount));
       return Column(children: [
         Switch(
           value: _languageSwitchState,
@@ -140,8 +127,10 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                         onTap: () => {
                               _speakDescription(card),
                               _incrementCounter(card),
-                            });
-                  });
+                            }
+                    );
+                  }
+              );
             },
           ),
         )
@@ -156,9 +145,6 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   @override
   Widget build(BuildContext context) {
     final currentContext = context;
-    final prefsProvider = Provider.of<SharedPrefsProvider>(context);
-    currentEmotion = prefsProvider.prefs.getString('current_emotion') ?? '';
-    //print(currentEmotion);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -173,8 +159,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         ]),
         child: SafeArea(
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
@@ -210,11 +195,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                   icon: LineIcons.camera,
                   text: 'Camera',
                   onPressed: () {
-                    Navigator.push(
-                        currentContext,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const DhwaniApp_CameraPage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
                   },
                 ),
               ],
