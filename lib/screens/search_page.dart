@@ -26,7 +26,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   late Box<CardModel> cardBox;
   String searchValue = '';
   bool _languageSwitchState = false; // language is malayalam | english
-  final hf = HfInference('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');
+  final hf = HfInference('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');
   FlutterTts flutterTts = FlutterTts();
   List<String> completedSentences = [];
 
@@ -91,25 +91,6 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
         completedSentences = filteredSentences;
       });
     }
-  }
-
-  bool _containsBlacklistedWords(String sentence) {
-    List<String> blacklistedWords = [
-      'alcohol',
-      'kill',
-      'die',
-      'wank',
-      'cry',
-      'depress',
-      'bomb',
-      'blood'
-    ];
-    for (var word in blacklistedWords) {
-      if (sentence.toLowerCase().contains(word)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   Future<void> _speak(String text) async {
