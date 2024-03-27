@@ -1,20 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'dart:io';
 
 part 'card_model.g.dart';
 
 @HiveType(typeId: 0)
 class CardModel {
   @HiveField(0)
-  late String imagePath;
-
-  @HiveField(1)
   late String title;
 
+  @HiveField(1)
+  late String description;
+
   @HiveField(2)
-  late bool isFav;
+  late String imagePath;
 
   @HiveField(3)
-  late String description;
+  late bool isFav;
 
   @HiveField(4)
   late String malluDescription;
@@ -38,4 +40,14 @@ class CardModel {
     required this.clickCount,
     required this.emotion,
   });
+
+  Image getImage() {
+    if (imagePath.startsWith('/')) {
+      // The imagePath is a file path, not an asset path
+      return Image.file(File(imagePath));
+    } else {
+      // The imagePath is an asset path
+      return Image.asset(imagePath);
+    }
+  }
 }
