@@ -18,7 +18,7 @@ class _CreateCardPageState extends State<CreateCardPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  final hf = HfInference('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');
+  final hf = HfInference('your token here');
 
   String tag = 'none'; // Default tag is none
   bool isFav = false; // Default value for isFav
