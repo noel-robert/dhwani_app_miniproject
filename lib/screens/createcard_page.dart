@@ -108,11 +108,20 @@ class _CreateCardPageState extends State<CreateCardPage> {
               padding: const EdgeInsets.all(11.7),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Tag: $tag'),
+                child: Text(
+                  'Tag: $tag',
+                  style: TextStyle(
+                      fontSize:
+                          18), // Change the value to your desired font size
+                ),
               ),
             ),
             CheckboxListTile(
-              title: Text('Favorite'),
+              title: Text(
+                'Favorite',
+                style: TextStyle(
+                    fontSize: 18), // Change the value to your desired font size
+              ),
               value: isFav,
               onChanged: (value) {
                 setState(() {
