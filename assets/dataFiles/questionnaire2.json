@@ -12,7 +12,7 @@
       "options": ["Cake", "Chocolate", "Biscuits", "Chips"]
     },
     {
-      "questionText": "What do you do when you're scared?",
+      "questionText": "What do you do when you feel fear?",
       "options": ["Play outside", "Watch T.V", "Play videogames", "Read books"]
     }
   ]

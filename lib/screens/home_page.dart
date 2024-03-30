@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:dhwani_app_miniproject/main.dart';
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/search_page.dart';
@@ -24,6 +27,9 @@ final BottomBarController controller = Get.put(BottomBarController());
 class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   late Box<CardModel> cardBox;
   bool _languageSwitchState = false; // language is malayalam | english
+
+  // bool _isNewUser = true;
+  String currentEmotion = "";
 
   @override
   void initState() {
@@ -68,10 +74,20 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
     });
   }
 
+  int compareCards(CardModel a, CardModel b) {
+    if (a.emotion.contains(currentEmotion) !=
+        b.emotion.contains(currentEmotion)) {
+      return a.emotion.contains(currentEmotion) ? -1 : 1; // True before False
+    }
+    // If matching is the same, sort by click count (descending)
+    return b.clickCount - a.clickCount;
+  }
+
   Widget _buildCardList() {
     if (cardBox != null) {
-      List<CardModel> cards = cardBox.values.toList()
-        ..sort((a, b) => b.clickCount.compareTo(a.clickCount));
+
+      List<CardModel> cards = cardBox.values.toList()..sort(compareCards);
+
       return Column(children: [
         Switch(
           value: _languageSwitchState,
@@ -101,6 +117,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                   );
                 },
               );
+
             },
           ),
         )
@@ -115,6 +132,9 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   @override
   Widget build(BuildContext context) {
     final currentContext = context;
+    final prefsProvider = Provider.of<SharedPrefsProvider>(context);
+    currentEmotion = prefsProvider.prefs.getString('current_emotion') ?? '';
+    //print(currentEmotion);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -3,7 +3,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:huggingface_dart/huggingface_dart.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:string_similarity/string_similarity.dart';
 import '../controllers/bottom_bar_controller.dart';
@@ -13,7 +12,7 @@ import '../widgets/custom_card_widget.dart';
 import 'camera_page.dart';
 
 class DhwaniApp_SearchPage extends StatefulWidget {
-  const DhwaniApp_SearchPage({Key? key}) : super(key: key);
+  const DhwaniApp_SearchPage({super.key});
 
   @override
   State<DhwaniApp_SearchPage> createState() => DhwaniApp_SearchPageState();
@@ -25,9 +24,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   late Box<CardModel> cardBox;
   String searchValue = '';
   bool _languageSwitchState = false; // language is malayalam | english
-  final hf = HfInference('your token here');
-  FlutterTts flutterTts = FlutterTts();
-  List<String> completedSentences = [];
+  // bool _isNewUser = true;
 
   @override
   void initState() {
@@ -37,6 +34,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
 
   void _openCardBox() {
     cardBox = Hive.box('cards_HiveBox');
+    // _checkIfNewUser();
   }
 
   void _incrementCounter(CardModel card) {
@@ -46,11 +44,20 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
       var updatedCard = cardBox.getAt(cardIndex) as CardModel;
       updatedCard.clickCount++;
       cardBox.putAt(cardIndex, updatedCard);
+
+      // print('Incremented click count for ${updatedCard.title} to ${updatedCard.clickCount}');
+      // setState(() {});
     }
+    //setState(() {});
   }
 
+  FlutterTts flutterTts = FlutterTts();
+
   Future<void> _speakDescription(CardModel card) async {
+    // String text = widget.languageSwitchState ? widget.malluDescription : widget.description;
     String language = _languageSwitchState ? 'ml-IN' : 'en-US';
+    // String language = 'en-US';
+    // print(language); // debug
     final cardIndex = cardBox.values.toList().indexWhere((c) => c == card);
 
     if (cardIndex >= 0) {
@@ -122,6 +129,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
     }
   }
 
+
   Widget _buildCardList() {
     if (cardBox != null) {
       List<CardModel> cards = cardBox.values.toList()
@@ -146,7 +154,6 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   onChanged: (value) {
                     setState(() {
                       searchValue = value;
-                      _onTextChanged(); // Call the _onTextChanged method
                     });
                   },
                   decoration: InputDecoration(
@@ -193,34 +200,11 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                               _speakDescription(card),
                               _incrementCounter(card),
                             });
-                  });
-            },
-          ),
-        ),
-        SizedBox(height: 20),
-        Expanded(
-          child: ListView.builder(
-            itemCount: completedSentences.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  _speak(completedSentences[index]);
-                },
-                child: Card(
-                  elevation: 2,
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      completedSentences[index],
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
+                  }
               );
             },
           ),
-        ),
+        )
       ]);
     } else {
       return const Center(
@@ -236,6 +220,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('DhwaniApp SearchPage'),
+        // backgroundColor: Colors.transparent,
         elevation: 8,
       ),
       body: _buildCardList(),
@@ -262,10 +247,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   icon: LineIcons.home,
                   text: 'Home',
                   onPressed: () {
-                    Navigator.push(
-                        currentContext,
-                        MaterialPageRoute(
-                            builder: (context) => const DhwaniApp_HomePage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
                   },
                 ),
                 GButton(
@@ -282,11 +264,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                   icon: LineIcons.camera,
                   text: 'Camera',
                   onPressed: () {
-                    Navigator.push(
-                        currentContext,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const DhwaniApp_CameraPage()));
+                    Navigator.push(currentContext, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
                   },
                 ),
               ],
