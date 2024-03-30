@@ -93,16 +93,8 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   }
 
   bool _containsBlacklistedWords(String sentence) {
-    List<String> blacklistedWords = [
-      'alcohol',
-      'kill',
-      'die',
-      'wank',
-      'cry',
-      'depress',
-      'bomb',
-      'blood'
-    ];
+    List<String> blacklistedWords = ['alcohol','kill','die', 'wank', 'cry', 'depress', 'bomb', 'blood']; 
+
     for (var word in blacklistedWords) {
       if (sentence.toLowerCase().contains(word)) {
         return true;
