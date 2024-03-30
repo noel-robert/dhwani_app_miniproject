@@ -5,7 +5,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:string_similarity/string_similarity.dart';
-
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/home_page.dart';
@@ -77,6 +76,59 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
       _languageSwitchState = !_languageSwitchState;
     });
   }
+
+  Future<void> _fillMask(String inputText) async {
+    final List completions = await hf.fillMask(
+      model: 'bert-base-uncased',
+      inputs: ['$inputText [MASK] .'],
+    );
+
+    if (completions.isEmpty) {
+      print('No completion found.');
+    } else {
+      List<String> filteredSentences = [];
+      for (var completion in completions) {
+        String sentence = capitalize(completion['sequence'].toString());
+        if (!_containsBlacklistedWords(sentence)) {
+          filteredSentences.add(sentence);
+        }
+      }
+      setState(() {
+        completedSentences = filteredSentences;
+      });
+    }
+  }
+
+  bool _containsBlacklistedWords(String sentence) {
+    List<String> blacklistedWords = ['alcohol','kill','die', 'wank', 'cry', 'depress', 'bomb', 'blood']; 
+
+    for (var word in blacklistedWords) {
+      if (sentence.toLowerCase().contains(word)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> _speak(String text) async {
+    await flutterTts.speak(text);
+  }
+
+  String capitalize(String s) {
+    if (s.isEmpty) return s;
+
+    s = s.replaceAllMapped(RegExp(r'\bi\b'), (match) => 'I');
+
+    return s[0].toUpperCase() + s.substring(1);
+  }
+
+  void _onTextChanged() {
+    String inputText = searchValue;
+    if (inputText.isNotEmpty) {
+      _fillMask(inputText);
+    }
+  }
+
 
   Widget _buildCardList() {
     if (cardBox != null) {

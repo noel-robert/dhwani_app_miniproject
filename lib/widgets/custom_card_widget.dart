@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../models/card_model.dart';
-
 
 class CustomCardWidget extends StatelessWidget {
   final CardModel card;
@@ -10,8 +11,8 @@ class CustomCardWidget extends StatelessWidget {
   CustomCardWidget({required this.card, required this.onTap});
 
   @override
-  Widget build(BuildContext  context) {
-    return Card (
+  Widget build(BuildContext context) {
+    return Card(
       child: InkWell(
         onTap: () {
           onTap();
@@ -21,13 +22,27 @@ class CustomCardWidget extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Image.asset(
-                card.imagePath,
-                height: MediaQuery.of(context).size.width * (1/4),
-                width: MediaQuery.of(context).size.width,
-              ),
+              // Image.asset(
+              //   card.imagePath,
+              //   height: MediaQuery.of(context).size.width * (1/4),
+              //   width: MediaQuery.of(context).size.width,
+              // ),
+              if (card.imagePath[0] == '/')
+                Image.file(
+                  File(card.imagePath),
+                  height: MediaQuery.of(context).size.width * (1 / 4),
+                  width: MediaQuery.of(context).size.width,
+                )
+              else
+                Image.asset(
+                  card.imagePath,
+                  height: MediaQuery.of(context).size.width * (1 / 4),
+                  width: MediaQuery.of(context).size.width,
+                ),
 
-              const SizedBox(height: 8.0,),
+              const SizedBox(
+                height: 8.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
