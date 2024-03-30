@@ -24,18 +24,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: const DhwaniApp_LoginPage(),
-//       theme: ThemeData(primarySwatch: Colors.teal),
-//     );
-//   }
-// }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
