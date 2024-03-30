@@ -6,7 +6,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:string_similarity/string_similarity.dart';
-
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/home_page.dart';

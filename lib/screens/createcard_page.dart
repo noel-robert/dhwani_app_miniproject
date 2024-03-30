@@ -1,11 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import '../models/card_model.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 
 class CreateCardPage extends StatefulWidget {
   const CreateCardPage({Key? key}) : super(key: key);
@@ -18,11 +18,12 @@ class _CreateCardPageState extends State<CreateCardPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  final hf = HfInference('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');
+  final hf = HfInference('your token here');
 
-  String tag = 'none'; // Default tag is none
+  String tag = 'None'; // Default tag is none
   bool isFav = false; // Default value for isFav
   File? imageFile; // File to store the picked image
+  String? imagePath; // Path to store the image
 
   Future<void> _assignTag() async {
     var result = await hf.zeroShotClassification(
@@ -54,6 +55,22 @@ class _CreateCardPageState extends State<CreateCardPage> {
       model: "Helsinki-NLP/opus-mt-en-ml",
     );
     return result[0]['translation_text'];
+  }
+
+  Future<void> _getImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      final Directory appDirectory = await getApplicationDocumentsDirectory();
+      String newPath =
+          '${appDirectory.path}/${DateTime.now().toIso8601String()}.png';
+      imageFile = File(pickedImage.path);
+      await imageFile!.copySync(newPath);
+      setState(() {
+        // Use copySync to ensure it completes before setting imagePath
+        imagePath = newPath;
+      });
+    }
   }
 
   @override
@@ -92,39 +109,44 @@ class _CreateCardPageState extends State<CreateCardPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                String malluDescription =
-                    await _translateToMalayalam(descriptionController.text);
+              onPressed: imagePath != null
+                  ? () async {
+                      String malluDescription = await _translateToMalayalam(
+                          descriptionController.text);
+                      var decodedDescription =
+                          utf8.decode(malluDescription.runes.toList());
+                      int clickCount = isFav ? 5 : 0;
 
-                // Ensure proper encoding for Malayalam text
-                var decodedDescription =
-                    utf8.decode(malluDescription.runes.toList());
+                      CardModel newCard = CardModel(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        tags: [tag],
+                        imagePath: imagePath!,
+                        isFav: isFav,
+                        malluDescription: decodedDescription,
+                        clickCount: clickCount,
+                        emotion: [],
+                      );
 
-                // Set clickCount based on whether the card is marked as favorite
-                int clickCount = isFav ? 5 : 0;
+                      var box = await Hive.openBox<CardModel>('cards_HiveBox');
+                      await box.add(newCard);
 
-                CardModel newCard = CardModel(
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  tags: [tag],
-                  imagePath: 'assets/PNG/noodles.png',
-                  isFav: isFav,
-                  malluDescription: decodedDescription,
-                  clickCount: clickCount,
-                  emotion: [],
-                );
-
-                // Open the Hive box
-                var box = await Hive.openBox<CardModel>('cards_HiveBox');
-
-                // Add the new card to the box
-                await box.add(newCard);
-
-                // Navigate back to the home page
-                Navigator.pop(context);
-              },
+                      Navigator.pop(context);
+                    }
+                  : null,
               child: Text('Create Card'),
             ),
+            ElevatedButton(
+              onPressed: _getImage,
+              child: Text('Upload Image'),
+            ),
+            if (imagePath != null) // Display selected image if available
+              Image.file(
+                File(imagePath!),
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
           ],
         ),
       ),

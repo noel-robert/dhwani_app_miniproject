@@ -42,12 +42,6 @@ class CardModel {
   });
 
   Image getImage() {
-    if (imagePath.startsWith('/')) {
-      // The imagePath is a file path, not an asset path
-      return Image.file(File(imagePath));
-    } else {
-      // The imagePath is an asset path
-      return Image.asset(imagePath);
-    }
+    return Image.file(File(imagePath));
   }
 }
