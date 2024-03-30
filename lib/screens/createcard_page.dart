@@ -6,6 +6,7 @@ import '../models/card_model.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 
 class CreateCardPage extends StatefulWidget {
   const CreateCardPage({Key? key}) : super(key: key);
@@ -93,11 +94,23 @@ class _CreateCardPageState extends State<CreateCardPage> {
               decoration: InputDecoration(labelText: 'Description'),
               maxLines: 3,
             ),
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: _assignTag,
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: ElevatedButton(
+                  child: Text('Generate Tag'),
+                  onPressed: _assignTag,
+                ),
+              ),
             ),
-            Text('Tag: $tag'),
+            Padding(
+              padding: const EdgeInsets.all(11.7),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Tag: $tag'),
+              ),
+            ),
             CheckboxListTile(
               title: Text('Favorite'),
               value: isFav,
@@ -108,45 +121,56 @@ class _CreateCardPageState extends State<CreateCardPage> {
               },
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: imagePath != null
-                  ? () async {
-                      String malluDescription = await _translateToMalayalam(
-                          descriptionController.text);
-                      var decodedDescription =
-                          utf8.decode(malluDescription.runes.toList());
-                      int clickCount = isFav ? 5 : 0;
-
-                      CardModel newCard = CardModel(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        tags: [tag],
-                        imagePath: imagePath!,
-                        isFav: isFav,
-                        malluDescription: decodedDescription,
-                        clickCount: clickCount,
-                        emotion: [],
-                      );
-
-                      var box = await Hive.openBox<CardModel>('cards_HiveBox');
-                      await box.add(newCard);
-
-                      Navigator.pop(context);
-                    }
-                  : null,
-              child: Text('Create Card'),
-            ),
-            ElevatedButton(
-              onPressed: _getImage,
-              child: Text('Upload Image'),
-            ),
-            if (imagePath != null) // Display selected image if available
-              Image.file(
-                File(imagePath!),
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: _getImage,
+                child: Text('Upload Image'),
               ),
+            ),
+            Center(
+              child: imagePath == null
+                  ? Image.asset('assets/PNG/logomask.png',
+                      width: 200, height: 200, fit: BoxFit.cover)
+                  : Image.file(
+                      File(imagePath!),
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: imagePath != null
+                    ? () async {
+                        String malluDescription = await _translateToMalayalam(
+                            descriptionController.text);
+                        var decodedDescription =
+                            utf8.decode(malluDescription.runes.toList());
+                        int clickCount = isFav ? 5 : 0;
+
+                        CardModel newCard = CardModel(
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          tags: [tag],
+                          imagePath: imagePath!,
+                          isFav: isFav,
+                          malluDescription: decodedDescription,
+                          clickCount: clickCount,
+                          emotion: [],
+                        );
+
+                        var box =
+                            await Hive.openBox<CardModel>('cards_HiveBox');
+                        await box.add(newCard);
+
+                        Navigator.pop(context);
+                      }
+                    : null,
+                child: Text('Create Card'),
+              ),
+            ),
           ],
         ),
       ),
