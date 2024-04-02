@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,18 +21,12 @@ class _CreateCardPageState extends State<CreateCardPage> {
 
   final hf = HfInference('your token here');
 
-  String tag = 'None';
-  bool isFav = false;
-  File? imageFile;
-  String? imagePath;
-
-  bool isLoading = false;
+  String tag = 'None'; // Default tag is none
+  bool isFav = false; // Default value for isFav
+  File? imageFile; // File to store the picked image
+  String? imagePath; // Path to store the image
 
   Future<void> _assignTag() async {
-    setState(() {
-      isLoading = true;
-    });
-
     var result = await hf.zeroShotClassification(
       inputs: [descriptionController.text],
       parameters: {
@@ -55,7 +47,6 @@ class _CreateCardPageState extends State<CreateCardPage> {
     var maxScoreIndex = scores.indexOf(maxScore);
     setState(() {
       tag = labels[maxScoreIndex];
-      isLoading = false;
     });
   }
 
@@ -77,40 +68,10 @@ class _CreateCardPageState extends State<CreateCardPage> {
       imageFile = File(pickedImage.path);
       await imageFile!.copySync(newPath);
       setState(() {
+        // Use copySync to ensure it completes before setting imagePath
         imagePath = newPath;
       });
     }
-  }
-
-  Future<void> _createCard() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    String malluDescription =
-        await _translateToMalayalam(descriptionController.text);
-    var decodedDescription = utf8.decode(malluDescription.runes.toList());
-    int clickCount = isFav ? 5 : 0;
-
-    CardModel newCard = CardModel(
-      title: titleController.text,
-      description: descriptionController.text,
-      tags: [tag],
-      imagePath: imagePath!,
-      isFav: isFav,
-      malluDescription: decodedDescription,
-      clickCount: clickCount,
-      emotion: [],
-    );
-
-    var box = await Hive.openBox<CardModel>('cards_HiveBox');
-    await box.add(newCard);
-
-    setState(() {
-      isLoading = false;
-    });
-
-    Navigator.pop(context);
   }
 
   @override
@@ -119,93 +80,99 @@ class _CreateCardPageState extends State<CreateCardPage> {
       appBar: AppBar(
         title: Text('Create New Card'),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
-                ),
-                TextFormField(
-                  controller: descriptionController,
-                  decoration: InputDecoration(labelText: 'Description'),
-                  maxLines: 3,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: ElevatedButton(
-                      child: Text('Generate Tag'),
-                      onPressed: _assignTag,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(11.7),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Tag: $tag',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ),
-                CheckboxListTile(
-                  title: Text('Favorite', style: TextStyle(fontSize: 18)),
-                  value: isFav,
-                  onChanged: (value) {
-                    setState(() {
-                      isFav = value!;
-                    });
-                  },
-                ),
-                SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: _getImage,
-                    child: Text('Upload Image'),
-                  ),
-                ),
-                Center(
-                  child: imagePath == null
-                      ? Image.asset(
-                          'assets/PNG/logomask.png',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.file(
-                          File(imagePath!),
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed:
-                        imagePath != null && !isLoading ? _createCard : null,
-                    child: Text('Create Card'),
-                  ),
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: titleController,
+              decoration: InputDecoration(labelText: 'Title'),
             ),
-          ),
-          if (isLoading)
-            Container(
-              color: Colors.black.withOpacity(0.5),
-              child: Center(
-                child: CircularProgressIndicator(),
+            TextFormField(
+              controller: descriptionController,
+              decoration: InputDecoration(labelText: 'Description'),
+              maxLines: 3,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: ElevatedButton(
+                  child: Text('Generate Tag'),
+                  onPressed: _assignTag,
+                ),
               ),
             ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(11.7),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Tag: $tag'),
+              ),
+            ),
+            CheckboxListTile(
+              title: Text('Favorite'),
+              value: isFav,
+              onChanged: (value) {
+                setState(() {
+                  isFav = value!;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: _getImage,
+                child: Text('Upload Image'),
+              ),
+            ),
+            Center(
+              child: imagePath == null
+                  ? Image.asset('assets/PNG/logomask.png',
+                      width: 200, height: 200, fit: BoxFit.cover)
+                  : Image.file(
+                      File(imagePath!),
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: imagePath != null
+                    ? () async {
+                        String malluDescription = await _translateToMalayalam(
+                            descriptionController.text);
+                        var decodedDescription =
+                            utf8.decode(malluDescription.runes.toList());
+                        int clickCount = isFav ? 5 : 0;
+
+                        CardModel newCard = CardModel(
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          tags: [tag],
+                          imagePath: imagePath!,
+                          isFav: isFav,
+                          malluDescription: decodedDescription,
+                          clickCount: clickCount,
+                          emotion: [],
+                        );
+
+                        var box =
+                            await Hive.openBox<CardModel>('cards_HiveBox');
+                        await box.add(newCard);
+
+                        Navigator.pop(context);
+                      }
+                    : null,
+                child: Text('Create Card'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
