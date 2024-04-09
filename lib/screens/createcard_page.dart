@@ -31,12 +31,12 @@ class _CreateCardPageState extends State<CreateCardPage> {
       inputs: [descriptionController.text],
       parameters: {
         "candidate_labels": [
-          'food',
-          'drinks',
-          'numbers',
-          'play',
-          'weather',
-          'animals'
+          'Food',
+          'Drinks',
+          'Numbers',
+          'Play',
+          'Weather',
+          'Animals'
         ]
       },
       model: "facebook/bart-large-mnli",
