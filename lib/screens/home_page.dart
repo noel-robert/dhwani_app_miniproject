@@ -1,4 +1,3 @@
-import 'package:DhwaniApp/screens/createcard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,10 @@ import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/search_page.dart';
 import '../screens/camera_page.dart';
+import '../screens/createcard_page.dart';
+import '../screens/library_page.dart';
 import '../widgets/custom_card_widget.dart';
+
 
 class DhwaniApp_HomePage extends StatefulWidget {
   const DhwaniApp_HomePage({Key? key}) : super(key: key);
@@ -141,14 +143,14 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
         title: const Text('DhwaniApp HomePage'),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               color: Colors.red,
               size: 30,
             ),
             onPressed: () {
               Navigator.push(currentContext,
-                  MaterialPageRoute(builder: (context) => CreateCardPage()));
+                  MaterialPageRoute(builder: (context) => const CreateCardPage()));
             },
           ),
         ],
@@ -182,7 +184,12 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                 GButton(
                   icon: LineIcons.book,
                   text: 'Libraries',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        currentContext,
+                        MaterialPageRoute(
+                            builder: (context) => const DhwaniApp_LibraryPage()));
+                  },
                 ),
                 GButton(
                   icon: LineIcons.search,
@@ -191,7 +198,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                     Navigator.push(
                         currentContext,
                         MaterialPageRoute(
-                            builder: (context) => DhwaniApp_SearchPage()));
+                            builder: (context) => const DhwaniApp_SearchPage()));
                   },
                 ),
                 GButton(
@@ -201,8 +208,7 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
                     Navigator.push(
                         currentContext,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const DhwaniApp_CameraPage()));
+                            builder: (context) => const DhwaniApp_CameraPage()));
                   },
                 ),
               ],
