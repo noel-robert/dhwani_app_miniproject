@@ -52,6 +52,7 @@ dependencies:
   tflite_v2: ^1.0.0
   multi_dropdown: ^2.1.4
   provider: ^6.1.2
+  huggingface_dart: ^0.0.2
 
 
 dev_dependencies:
