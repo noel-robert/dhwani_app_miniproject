@@ -24,10 +24,27 @@ class DhwaniApp_LibraryPage extends StatefulWidget {
 class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   late Box<CardModel> cardBox;
   List<String> categories = [
-    'Food', 'Drinks', 'Snack', 'Activity', 'Emotion', 'Body',
-    'Clothing', 'Kitchen', 'School', 'Animals', 'Technology', 'Weather',
-    'Plants', 'Sports', 'Transport', 'Places', 'Toys', 'Actions',
-    'Questions', 'Hygiene', 'Number'
+    'Food',
+    'Drinks',
+    'Snack',
+    'Activity',
+    'Emotion',
+    'Body',
+    'Clothing',
+    'Kitchen',
+    'School',
+    'Animals',
+    'Technology',
+    'Weather',
+    'Plants',
+    'Sports',
+    'Transport',
+    'Places',
+    'Toys',
+    'Actions',
+    'Questions',
+    'Hygiene',
+    'Number'
   ];
 
   bool showFilteredCards = false; // State variable to show filtered cards
@@ -69,7 +86,8 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   }
 
   void _navigateToCardList(String category) async {
-    final filteredCards = cardBox.values.where((card) => card.tags.contains(category)).toList();
+    final filteredCards =
+        cardBox.values.where((card) => card.tags.contains(category)).toList();
     setState(() {
       showFilteredCards = true;
       filteredCardList = filteredCards;
@@ -80,7 +98,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   void _onCardTap(CardModel card) {
     setState(() {
       selectedCardTexts.add(card);
-      combinedSentence.add(card.title);
+      combinedSentence.add(card.description);
       showFilteredCards = false;
     });
   }
@@ -115,7 +133,6 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,24 +146,22 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
               itemCount: filteredCardList.length,
               itemBuilder: (context, index) => CustomCardWidget(
                   card: filteredCardList[index],
-                  onTap: () => _onCardTap(filteredCardList[index])
-              ),
+                  onTap: () => _onCardTap(filteredCardList[index])),
             )
           : Column(
               children: [
                 _buildCategoriesList(),
                 if (selectedCardTexts.isNotEmpty)
                   Expanded(
-                      child: ListView.builder(
+                    child: ListView.builder(
                         itemCount: selectedCardTexts.length,
                         itemBuilder: (context, index) {
                           final selectedCard = selectedCardTexts[index];
                           return CustomCardWidget(
-                              card: selectedCard,
-                              onTap: () => _removeSelectedCard(selectedCard),
+                            card: selectedCard,
+                            onTap: () => _removeSelectedCard(selectedCard),
                           );
-                        }
-                      ),
+                        }),
                   ),
                 if (selectedCardTexts.isEmpty)
                   const SizedBox(
@@ -165,16 +180,14 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton(
-                onPressed: _clearSelectedCards,
-                child: const Text('Clear Selection'),
+              onPressed: _clearSelectedCards,
+              child: const Text('Clear Selection'),
             ),
             ElevatedButton(
-                onPressed: _onEnterButtonPressed,
-                child: const Text('Enter')
-            ),
+                onPressed: _onEnterButtonPressed, child: const Text('Enter')),
             ElevatedButton(
-                onPressed: _onBackspacePressed,
-                child: const Text('Backspace'),
+              onPressed: _onBackspacePressed,
+              child: const Text('Backspace'),
             ),
           ],
         ),
