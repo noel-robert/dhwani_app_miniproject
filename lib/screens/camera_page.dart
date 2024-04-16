@@ -1,5 +1,11 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:dhwani_app_miniproject/screens/home_page.dart';
+import 'package:dhwani_app_miniproject/screens/search_page.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,12 +13,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 import 'package:dhwani_app_miniproject/main.dart';
 
+import '../controllers/bottom_bar_controller.dart';
+import 'library_page.dart';
+
 class DhwaniApp_CameraPage extends StatefulWidget {
   const DhwaniApp_CameraPage({super.key});
 
   @override
   State<DhwaniApp_CameraPage> createState() => DhwaniApp_CameraPageState();
 }
+
+final BottomBarController controller = Get.put(BottomBarController());
 
 class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
   String output = '';
@@ -65,9 +76,13 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
   }
 
   loadModel() async {
+    // await Tflite.loadModel(
+    //   model: "assets/cnnModels/fer_model.tflite",
+    //   labels: "assets/cnnModels/fer_labels.txt",
+    // );
     await Tflite.loadModel(
-      model: "assets/cnnModels/fer_model.tflite",
-      labels: "assets/cnnModels/fer_labels.txt",
+      model: "assets/cnnModels/ferplus_model_pd_best.tflite",
+      labels: "assets/cnnModels/fer_model.txt",
     );
   }
 
@@ -166,6 +181,71 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
               child: const Icon(Icons.refresh),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1)),
+        ]),
+        child: SafeArea(
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: GNav(
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.black,
+              tabs: [
+                GButton(
+                  icon: LineIcons.home,
+                  text: 'Home',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DhwaniApp_HomePage()));
+                  },
+                ),
+                GButton(
+                  icon: LineIcons.book,
+                  text: 'Libraries',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DhwaniApp_LibraryPage()));
+                  },
+                ),
+                GButton(
+                  icon: LineIcons.search,
+                  text: 'Search',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DhwaniApp_SearchPage()));
+                  },
+                ),
+                GButton(
+                  icon: LineIcons.camera,
+                  text: 'Camera',
+                  onPressed: () {}
+                ),
+              ],
+              selectedIndex: controller.selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  controller.updateIndex(index);
+                });
+              },
+            ),
+          ),
         ),
       ),
       floatingActionButton: Column(
