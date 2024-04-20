@@ -98,7 +98,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   void _onCardTap(CardModel card) {
     setState(() {
       selectedCardTexts.add(card);
-      combinedSentence.add(card.description);
+      combinedSentence.add(card.title);
       showFilteredCards = false;
     });
   }
