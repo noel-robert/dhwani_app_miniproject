@@ -103,7 +103,7 @@ class DhwaniApp_SignupPageState extends State<DhwaniApp_SignupPage> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_QuestionnairePage()));
 
       // debug
-      // print("checking");
+      print("checking");
       // print(userData);
       // print(userBox.get(username, defaultValue: ''));
     }

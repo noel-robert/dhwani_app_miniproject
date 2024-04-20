@@ -17,10 +17,10 @@ class CardModelAdapter extends TypeAdapter<CardModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CardModel(
-      imagePath: fields[0] as String,
-      title: fields[1] as String,
-      isFav: fields[2] as bool,
-      description: fields[3] as String,
+      imagePath: fields[2] as String,
+      title: fields[0] as String,
+      isFav: fields[3] as bool,
+      description: fields[1] as String,
       malluDescription: fields[4] as String,
       tags: (fields[5] as List).cast<String>(),
       clickCount: fields[6] as int,
@@ -33,13 +33,13 @@ class CardModelAdapter extends TypeAdapter<CardModel> {
     writer
       ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.imagePath)
-      ..writeByte(1)
       ..write(obj.title)
-      ..writeByte(2)
-      ..write(obj.isFav)
-      ..writeByte(3)
+      ..writeByte(1)
       ..write(obj.description)
+      ..writeByte(2)
+      ..write(obj.imagePath)
+      ..writeByte(3)
+      ..write(obj.isFav)
       ..writeByte(4)
       ..write(obj.malluDescription)
       ..writeByte(5)
