@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:huggingface_dart/huggingface_dart.dart';
 
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
@@ -23,6 +24,10 @@ class DhwaniApp_LibraryPage extends StatefulWidget {
 
 class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   late Box<CardModel> cardBox;
+  final hf = HfInference('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');
+  String searchValue = '';
+  List<String> predictedWords = [];
+
   List<String> categories = [
     'Food',
     'Drinks',
@@ -48,8 +53,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   ];
 
   bool showFilteredCards = false; // State variable to show filtered cards
-  List<CardModel> filteredCardList =
-      []; // List to store cards filtered using tags
+  List<CardModel> filteredCardList = []; // List to store cards filtered using tags
 
   List<CardModel> selectedCardsList = [];
 
@@ -102,6 +106,9 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
       selectedCardsList.add(card);
       combinedSentence.add(card.title);
       showFilteredCards = false;
+
+      searchValue = combinedSentence.join(' ');
+      _onTextChanged();
     });
   }
 
@@ -126,12 +133,51 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
     await flutterTts.speak(text);
   }
 
-  void _onBackspacePressed() {
-    if (selectedCardsList.isNotEmpty) {
+  // void _onBackspacePressed() {
+  //   if (selectedCardsList.isNotEmpty) {
+  //     setState(() {
+  //       selectedCardsList.removeLast();
+  //       combinedSentence.removeLast();
+  //     });
+  //   }
+  // }
+
+  // functions for using HuggingFace
+  String capitalize(String s) {
+    if (s.isEmpty) return s;
+
+    s = s.replaceAllMapped(RegExp(r'\bi\b'), (match) => 'I');
+
+    return s[0].toUpperCase() + s.substring(1);
+  }
+
+  Future<void> _fillMask(String inputText) async {
+    final List completions = await hf.fillMask(
+      model: 'bert-base-uncased',
+      inputs: ['$inputText [MASK] .'],
+    );
+
+    if (completions.isEmpty) {
+      print('No completion found.');
+    } else {
+      List<String> recommendedWords = [];
+      for (var completion in completions) {
+        String sentence = completion['sequence'].toString();
+        List<String> words = sentence.split(' ');
+        String lastWord = words.last.replaceAll('.', '');
+        recommendedWords.add(lastWord);
+        // print(recommendedWords);
+      }
       setState(() {
-        selectedCardsList.removeLast();
-        combinedSentence.removeLast();
+        predictedWords = recommendedWords;
       });
+    }
+  }
+
+  void _onTextChanged() {
+    String inputText = searchValue;
+    if (inputText.isNotEmpty) {
+      _fillMask(inputText);
     }
   }
 
@@ -214,54 +260,87 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
             )
           : Column(
               children: [
-                selectedCardsList.isNotEmpty
-                    ? Container(
-                        height: 150,
-                        color: Colors.grey[200],
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: selectedCardsList.length,
-                                  itemBuilder: (context, index) {
-                                    final selectedCard = selectedCardsList[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: InkWell(
-                                        onTap: () => _removeSelectedCard(selectedCard),
-                                        child: Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              children: [
-                                                Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
-                                                Center(child: Text(selectedCard.title)),
-                                              ],
-                                            ),
-                                          ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Container(
+                    height: 150,
+                    color: Colors.grey[200],
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: selectedCardsList.length,
+                              itemBuilder: (context, index) {
+                                final selectedCard = selectedCardsList[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: InkWell(
+                                    onTap: () => _removeSelectedCard(selectedCard),
+                                    child: Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          children: [
+                                            Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
+                                            Center(child: Text(selectedCard.title)),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  }),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  // ElevatedButton(onPressed: _clearSelectedCards, child: const Text('Clear Selection')),
-                                  // ElevatedButton(onPressed: _onEnterButtonPressed, child: const Text('Enter')),
-                                  // ElevatedButton(onPressed: _onBackspacePressed, child: const Text('Backspace')),
-                                  ElevatedButton(onPressed: _clearSelectedCards, child: const Icon(Icons.clear)),
-                                  ElevatedButton(onPressed: _onEnterButtonPressed, child: const Icon(Icons.check)),
-                                ],
-                              ),
-                            ),
-                          ],
+                                    ),
+                                  ),
+                                );
+                              }),
                         ),
-                      )
-                    : const SizedBox(),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // ElevatedButton(onPressed: _clearSelectedCards, child: const Text('Clear Selection')),
+                              // ElevatedButton(onPressed: _onEnterButtonPressed, child: const Text('Enter')),
+                              // ElevatedButton(onPressed: _onBackspacePressed, child: const Text('Backspace')),
+                              ElevatedButton(onPressed: _clearSelectedCards, child: const Icon(Icons.clear)),
+                              ElevatedButton(onPressed: _onEnterButtonPressed, child: const Icon(Icons.check)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const PageScrollPhysics(),
+                    children: List.generate(predictedWords.length, (index) {
+                      final predictedWord = predictedWords[index];
+                      final filteredCards = cardBox.values
+                          .where((card) => card.title.contains(predictedWord))
+                          .toList();
+                      if (filteredCards.isEmpty) {
+                        print('No cards found for $predictedWord');
+                        return const SizedBox(height: 0, width: 0,); // Return an empty SizedBox
+                      }
+                      return Column(
+                        children: [
+                          // Text(predictedWord),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const PageScrollPhysics(),
+                            itemCount: filteredCards.length,
+                            itemBuilder: (context, index) => CustomCardWidget(
+                              card: filteredCards[index],
+                              onTap: () => _onCardTap(filteredCards[index]),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                ),
                 _buildCategoriesList()
               ],
             ),
