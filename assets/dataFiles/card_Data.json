@@ -1,5 +1,41 @@
 [
   {
+    "imagePath": "assets/PNG/chocolate_chips.png",
+    "title": "chips",
+    "isFav": false,
+    "description": "chips",
+    "malluDescription": "ചിപ്സ്",
+    "tags": ["Snack"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/chocolate_bar.png",
+    "title": "bars",
+    "isFav": false,
+    "description": "bars",
+    "malluDescription": "ബാറുകൾ",
+    "tags": ["Food"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/milk_bottle.png",
+    "title": "milk",
+    "isFav": false,
+    "description": "milk",
+    "malluDescription": "പാൽ",
+    "tags": ["Drinks"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/want_,_to.png",
+    "title": "I want",
+    "isFav": false,
+    "description": "I want",
+    "malluDescription": "എനിക്ക്",
+    "tags": ["Activity"],
+    "emotion": []
+  },
+  {
     "imagePath": "assets/PNG/noodles.png",
     "title": "Noodles",
     "isFav": false,
@@ -91,7 +127,7 @@
   },
   {
     "imagePath": "assets/PNG/crisps.png",
-    "title": "Chips",
+    "title": "Crisps",
     "isFav": false,
     "description": "I want to eat chips",
     "malluDescription": "എനിക്ക് ചിപ്സ് കഴിക്കണം",
