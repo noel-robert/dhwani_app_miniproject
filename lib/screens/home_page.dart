@@ -5,7 +5,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:dhwani_app_miniproject/main.dart';
 import '../controllers/bottom_bar_controller.dart';
@@ -86,50 +85,43 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
   }
 
   Widget _buildCardList() {
-    if (cardBox != null) {
+    List<CardModel> cards = cardBox.values.toList()..sort(compareCards);
 
-      List<CardModel> cards = cardBox.values.toList()..sort(compareCards);
+    return Column(children: [
+      Switch(
+        value: _languageSwitchState,
+        onChanged: (value) {
+          _toggleVocalLanguage();
+        },
+      ),
+      Expanded(
+        child: ValueListenableBuilder(
+          valueListenable: cardBox.listenable(),
+          builder: (context, box, widget) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: cards.length,
+              itemBuilder: (context, index) {
+                final card = cards[index];
+                return CustomCardWidget(
+                  card: card,
+                  onTap: () => {
+                    _speakDescription(card),
+                    _incrementCounter(card),
+                  },
+                );
+              },
+            );
 
-      return Column(children: [
-        Switch(
-          value: _languageSwitchState,
-          onChanged: (value) {
-            _toggleVocalLanguage();
           },
         ),
-        Expanded(
-          child: ValueListenableBuilder(
-            valueListenable: cardBox.listenable(),
-            builder: (context, box, widget) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: cards.length,
-                itemBuilder: (context, index) {
-                  final card = cards[index];
-                  return CustomCardWidget(
-                    card: card,
-                    onTap: () => {
-                      _speakDescription(card),
-                      _incrementCounter(card),
-                    },
-                  );
-                },
-              );
-
-            },
-          ),
-        )
-      ]);
-    } else {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      )
+    ]);
     }
-  }
 
   @override
   Widget build(BuildContext context) {
