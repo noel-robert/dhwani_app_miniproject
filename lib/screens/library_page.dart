@@ -24,7 +24,7 @@ class DhwaniApp_LibraryPage extends StatefulWidget {
 
 class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   late Box<CardModel> cardBox;
-  final hf = HfInference('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');
+  final hf = HfInference('API key');
   String searchValue = '';
   List<String> predictedWords = [];
 
