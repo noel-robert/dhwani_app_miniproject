@@ -7,6 +7,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 
 import '../controllers/bottom_bar_controller.dart';
+import '../env/env.dart';
 import '../models/card_model.dart';
 import '../screens/search_page.dart';
 import '../screens/camera_page.dart';
@@ -24,7 +25,7 @@ class DhwaniApp_LibraryPage extends StatefulWidget {
 
 class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   late Box<CardModel> cardBox;
-  final hf = HfInference('API key');
+  final hf = HfInference(Env.hfApiKey);
   String searchValue = '';
   List<String> predictedWords = [];
 

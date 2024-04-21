@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import '../env/env.dart';
 import '../models/card_model.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'dart:convert';
@@ -19,7 +20,7 @@ class _CreateCardPageState extends State<CreateCardPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  final hf = HfInference('your token here');
+  final hf = HfInference(Env.hfApiKey);
 
   String tag = 'None'; // Default tag is none
   bool isFav = false; // Default value for isFav

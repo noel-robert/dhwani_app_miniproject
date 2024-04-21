@@ -6,7 +6,9 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:string_similarity/string_similarity.dart';
+
 import '../controllers/bottom_bar_controller.dart';
+import '../env/env.dart';
 import '../models/card_model.dart';
 import '../screens/home_page.dart';
 import '../screens/library_page.dart';
@@ -26,7 +28,7 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   late Box<CardModel> cardBox;
   String searchValue = '';
   bool _languageSwitchState = false; // language is malayalam | english
-  final hf = HfInference('your token here');
+  final hf = HfInference(Env.hfApiKey);
   FlutterTts flutterTts = FlutterTts();
   List<String> completedSentences = [];
 
