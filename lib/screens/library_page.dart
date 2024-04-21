@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -221,29 +222,46 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
                     ? Container(
                         height: 150,
                         color: Colors.grey[200],
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: selectedCardsList.length,
-                            itemBuilder: (context, index) {
-                              final selectedCard = selectedCardsList[index];
-                              return Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: InkWell(
-                                  onTap: () => _removeSelectedCard(selectedCard),
-                                  child: Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
-                                          Center(child: Text(selectedCard.title)),
-                                        ],
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: selectedCardsList.length,
+                                  itemBuilder: (context, index) {
+                                    final selectedCard = selectedCardsList[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: InkWell(
+                                        onTap: () => _removeSelectedCard(selectedCard),
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: [
+                                                Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
+                                                Center(child: Text(selectedCard.title)),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+                                    );
+                                  }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ElevatedButton(onPressed: _clearSelectedCards, child: const Text('Clear Selection')),
+                                  ElevatedButton(onPressed: _onEnterButtonPressed, child: const Text('Enter')),
+                                  ElevatedButton(onPressed: _onBackspacePressed, child: const Text('Backspace')),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     : const SizedBox(),
                 _buildCategoriesList()
