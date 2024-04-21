@@ -7,7 +7,6 @@ import '../models/card_model.dart';
 import 'package:huggingface_dart/huggingface_dart.dart';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/material.dart';
 
 class CreateCardPage extends StatefulWidget {
   const CreateCardPage({Key? key}) : super(key: key);

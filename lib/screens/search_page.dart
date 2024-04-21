@@ -134,111 +134,105 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
   }
 
   Widget _buildCardList() {
-    if (cardBox != null) {
-      List<CardModel> cards = cardBox.values.toList()
-        ..sort((a, b) => b.clickCount.compareTo(a.clickCount));
-      List<CardModel> filtered = [];
-      for (CardModel card in cards) {
-        if (card.title.toLowerCase().contains(searchValue.toLowerCase()) ||
-            card.tags.any((tag) =>
-                StringSimilarity.compareTwoStrings(
-                    tag.toLowerCase(), searchValue) >
-                0.5)) {
-          filtered.add(card);
-        }
+    List<CardModel> cards = cardBox.values.toList()
+      ..sort((a, b) => b.clickCount.compareTo(a.clickCount));
+    List<CardModel> filtered = [];
+    for (CardModel card in cards) {
+      if (card.title.toLowerCase().contains(searchValue.toLowerCase()) ||
+          card.tags.any((tag) =>
+              StringSimilarity.compareTwoStrings(
+                  tag.toLowerCase(), searchValue) >
+              0.5)) {
+        filtered.add(card);
       }
-      return Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      searchValue = value;
-                      _onTextChanged(); // Call the _onTextChanged method
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search...',
-                    hintStyle: const TextStyle(
-                      color: Colors.black,
-                    ),
-                    prefixIcon: const Icon(Icons.search),
-                    filled: true,
-                    fillColor:
-                        const Color(0xFFF3D6F5), // Set the background color
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none, // Remove the border
-                    ),
+    }
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    searchValue = value;
+                    _onTextChanged(); // Call the _onTextChanged method
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  hintStyle: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  prefixIcon: const Icon(Icons.search),
+                  filled: true,
+                  fillColor:
+                      const Color(0xFFF3D6F5), // Set the background color
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none, // Remove the border
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Switch(
-          value: _languageSwitchState,
-          onChanged: (value) {
-            _toggleVocalLanguage();
+      ),
+      Switch(
+        value: _languageSwitchState,
+        onChanged: (value) {
+          _toggleVocalLanguage();
+        },
+      ),
+      Expanded(
+        child: ValueListenableBuilder(
+          valueListenable: cardBox.listenable(),
+          builder: (context, box, widget) {
+            return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: filtered.length,
+                itemBuilder: (context, index) {
+                  final card = filtered[index];
+                  return CustomCardWidget(
+                      card: card,
+                      onTap: () => {
+                            _speakDescription(card),
+                            _incrementCounter(card),
+                          });
+                });
           },
         ),
-        Expanded(
-          child: ValueListenableBuilder(
-            valueListenable: cardBox.listenable(),
-            builder: (context, box, widget) {
-              return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: filtered.length,
-                  itemBuilder: (context, index) {
-                    final card = filtered[index];
-                    return CustomCardWidget(
-                        card: card,
-                        onTap: () => {
-                              _speakDescription(card),
-                              _incrementCounter(card),
-                            });
-                  });
-            },
-          ),
-        ),
-        SizedBox(height: 20),
-        Expanded(
-          child: ListView.builder(
-            itemCount: completedSentences.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  _speak(completedSentences[index]);
-                },
-                child: Card(
-                  elevation: 2,
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      completedSentences[index],
-                      style: TextStyle(fontSize: 16),
-                    ),
+      ),
+      SizedBox(height: 20),
+      Expanded(
+        child: ListView.builder(
+          itemCount: completedSentences.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                _speak(completedSentences[index]);
+              },
+              child: Card(
+                elevation: 2,
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    completedSentences[index],
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
-      ]);
-    } else {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      ),
+    ]);
     }
-  }
 
   @override
   Widget build(BuildContext context) {
