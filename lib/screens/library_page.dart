@@ -13,6 +13,9 @@ import '../models/card_model.dart';
 import '../screens/search_page.dart';
 import '../screens/camera_page.dart';
 import '../widgets/custom_card_widget.dart';
+import 'home_page.dart';
+
+final BottomBarController controller = Get.put(BottomBarController());
 
 class DhwaniApp_LibraryPage extends StatefulWidget {
   const DhwaniApp_LibraryPage({super.key});
@@ -48,8 +51,10 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   ];
 
   bool showFilteredCards = false; // State variable to show filtered cards
-  List<CardModel> filteredCardList = []; // List to store filtered cards
-  List<CardModel> selectedCardTexts = [];
+  List<CardModel> filteredCardList =
+      []; // List to store cards filtered using tags
+
+  List<CardModel> selectedCardsList = [];
 
   List<String> combinedSentence = [];
   FlutterTts flutterTts = FlutterTts();
@@ -97,7 +102,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   // on tapping a card, push it to top section
   void _onCardTap(CardModel card) {
     setState(() {
-      selectedCardTexts.add(card);
+      selectedCardsList.add(card);
       combinedSentence.add(card.description);
       showFilteredCards = false;
     });
@@ -105,14 +110,14 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
 
   void _removeSelectedCard(CardModel card) {
     setState(() {
-      selectedCardTexts.remove(card);
+      selectedCardsList.remove(card);
       combinedSentence.remove(card.title);
     });
   }
 
   void _clearSelectedCards() {
     setState(() {
-      selectedCardTexts.clear();
+      selectedCardsList.clear();
       combinedSentence.clear();
     });
   }
@@ -125,13 +130,75 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   }
 
   void _onBackspacePressed() {
-    if (selectedCardTexts.isNotEmpty) {
+    if (selectedCardsList.isNotEmpty) {
       setState(() {
-        selectedCardTexts.removeLast();
+        selectedCardsList.removeLast();
         combinedSentence.removeLast();
       });
     }
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     backgroundColor: Colors.white,
+  //     appBar: AppBar(
+  //       title: const Text('DhwaniApp Library Page'),
+  //       elevation: 8,
+  //     ),
+  //     body: showFilteredCards
+  //         ? ListView.builder(
+  //             itemCount: filteredCardList.length,
+  //             itemBuilder: (context, index) => CustomCardWidget(
+  //                 card: filteredCardList[index],
+  //                 onTap: () => _onCardTap(filteredCardList[index])),
+  //           )
+  //         : Column(
+  //             children: [
+  //               _buildCategoriesList(),
+  //               if (selectedCardsList.isNotEmpty)
+  //                 Expanded(
+  //                   child: ListView.builder(
+  //                       itemCount: selectedCardsList.length,
+  //                       itemBuilder: (context, index) {
+  //                         final selectedCard = selectedCardsList[index];
+  //                         return CustomCardWidget(
+  //                           card: selectedCard,
+  //                           onTap: () => _removeSelectedCard(selectedCard),
+  //                         );
+  //                       }),
+  //                 ),
+  //               if (selectedCardsList.isEmpty)
+  //                 const SizedBox(
+  //                   height: 50,
+  //                   child: Center(
+  //                     child: Text(
+  //                       'No cards selected',
+  //                       style: TextStyle(fontSize: 24),
+  //                     ),
+  //                   ),
+  //                 )
+  //             ],
+  //           ),
+  //     bottomNavigationBar: BottomAppBar(
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //         children: [
+  //           ElevatedButton(
+  //             onPressed: _clearSelectedCards,
+  //             child: const Text('Clear Selection'),
+  //           ),
+  //           ElevatedButton(
+  //               onPressed: _onEnterButtonPressed, child: const Text('Enter')),
+  //           ElevatedButton(
+  //             onPressed: _onBackspacePressed,
+  //             child: const Text('Backspace'),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -150,46 +217,92 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
             )
           : Column(
               children: [
-                _buildCategoriesList(),
-                if (selectedCardTexts.isNotEmpty)
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: selectedCardTexts.length,
-                        itemBuilder: (context, index) {
-                          final selectedCard = selectedCardTexts[index];
-                          return CustomCardWidget(
-                            card: selectedCard,
-                            onTap: () => _removeSelectedCard(selectedCard),
-                          );
-                        }),
-                  ),
-                if (selectedCardTexts.isEmpty)
-                  const SizedBox(
-                    height: 50,
-                    child: Center(
-                      child: Text(
-                        'No cards selected',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  )
+                selectedCardsList.isNotEmpty
+                    ? Container(
+                        height: 150,
+                        color: Colors.grey[200],
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: selectedCardsList.length,
+                            itemBuilder: (context, index) {
+                              final selectedCard = selectedCardsList[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: InkWell(
+                                  onTap: () => _removeSelectedCard(selectedCard),
+                                  child: Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
+                                          Center(child: Text(selectedCard.title)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    : const SizedBox(),
+                _buildCategoriesList()
               ],
             ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-              onPressed: _clearSelectedCards,
-              child: const Text('Clear Selection'),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1)),
+        ]),
+        child: SafeArea(
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: GNav(
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.black,
+              tabs: [
+                GButton(
+                  icon: LineIcons.home,
+                  text: 'Home',
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
+                  },
+                ),
+                GButton(
+                  icon: LineIcons.book,
+                  text: 'Libraries',
+                  onPressed: () {},
+                ),
+                GButton(
+                  icon: LineIcons.search,
+                  text: 'Search',
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_SearchPage()));
+                  },
+                ),
+                GButton(
+                  icon: LineIcons.camera,
+                  text: 'Camera',
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
+                  }
+                ),
+              ],
+              selectedIndex: controller.selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  controller.updateIndex(index);
+                });
+              },
             ),
-            ElevatedButton(
-                onPressed: _onEnterButtonPressed, child: const Text('Enter')),
-            ElevatedButton(
-              onPressed: _onBackspacePressed,
-              child: const Text('Backspace'),
-            ),
-          ],
+          ),
         ),
       ),
     );
