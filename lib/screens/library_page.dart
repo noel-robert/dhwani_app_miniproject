@@ -104,7 +104,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
   void _onCardTap(CardModel card) {
     setState(() {
       selectedCardsList.add(card);
-      combinedSentence.add(card.description);
+      combinedSentence.add(card.title);
       showFilteredCards = false;
     });
   }
@@ -229,18 +229,25 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: selectedCardsList.length,
                                   itemBuilder: (context, index) {
-                                    final selectedCard = selectedCardsList[index];
+                                    final selectedCard =
+                                        selectedCardsList[index];
                                     return Padding(
                                       padding: const EdgeInsets.all(4.0),
                                       child: InkWell(
-                                        onTap: () => _removeSelectedCard(selectedCard),
+                                        onTap: () =>
+                                            _removeSelectedCard(selectedCard),
                                         child: Card(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Column(
                                               children: [
-                                                Image.asset(selectedCard.imagePath, height: 64.0, width: 48),
-                                                Center(child: Text(selectedCard.title)),
+                                                Image.asset(
+                                                    selectedCard.imagePath,
+                                                    height: 64.0,
+                                                    width: 48),
+                                                Center(
+                                                    child: Text(
+                                                        selectedCard.title)),
                                               ],
                                             ),
                                           ),
@@ -254,9 +261,15 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  ElevatedButton(onPressed: _clearSelectedCards, child: const Text('Clear Selection')),
-                                  ElevatedButton(onPressed: _onEnterButtonPressed, child: const Text('Enter')),
-                                  ElevatedButton(onPressed: _onBackspacePressed, child: const Text('Backspace')),
+                                  ElevatedButton(
+                                      onPressed: _clearSelectedCards,
+                                      child: const Text('Clear Selection')),
+                                  ElevatedButton(
+                                      onPressed: _onEnterButtonPressed,
+                                      child: const Text('Enter')),
+                                  ElevatedButton(
+                                      onPressed: _onBackspacePressed,
+                                      child: const Text('Backspace')),
                                 ],
                               ),
                             ),
@@ -274,7 +287,7 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
         child: SafeArea(
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
@@ -290,7 +303,10 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
                   icon: LineIcons.home,
                   text: 'Home',
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_HomePage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DhwaniApp_HomePage()));
                   },
                 ),
                 GButton(
@@ -302,16 +318,23 @@ class DhwaniApp_LibraryPageState extends State<DhwaniApp_LibraryPage> {
                   icon: LineIcons.search,
                   text: 'Search',
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_SearchPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const DhwaniApp_SearchPage()));
                   },
                 ),
                 GButton(
-                  icon: LineIcons.camera,
-                  text: 'Camera',
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DhwaniApp_CameraPage()));
-                  }
-                ),
+                    icon: LineIcons.camera,
+                    text: 'Camera',
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const DhwaniApp_CameraPage()));
+                    }),
               ],
               selectedIndex: controller.selectedIndex,
               onTabChange: (index) {

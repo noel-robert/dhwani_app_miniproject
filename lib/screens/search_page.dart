@@ -9,6 +9,7 @@ import 'package:string_similarity/string_similarity.dart';
 import '../controllers/bottom_bar_controller.dart';
 import '../models/card_model.dart';
 import '../screens/home_page.dart';
+import '../screens/library_page.dart';
 import '../widgets/custom_card_widget.dart';
 import 'camera_page.dart';
 
@@ -279,7 +280,13 @@ class DhwaniApp_SearchPageState extends State<DhwaniApp_SearchPage> {
                 GButton(
                   icon: LineIcons.book,
                   text: 'Libraries',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        currentContext,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const DhwaniApp_LibraryPage()));
+                  },
                 ),
                 GButton(
                   icon: LineIcons.search,
