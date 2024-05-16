@@ -934,5 +934,168 @@
     "malluDescription": "പത്ത്",
     "tags": ["Number"],
     "emotion": []
+  },
+
+  {
+    "imagePath": "assets/PNG/bad.png",
+    "title": "Bad",
+    "isFav": false,
+    "description": "Bad",
+    "malluDescription": "",
+    "tags": ["Emotion"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/barbeque_,_to.png",
+    "title": "Barbeque",
+    "isFav": false,
+    "description": "Barbeque",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/call_out_,_to.png",
+    "title": "Call out",
+    "isFav": false,
+    "description": "Call out",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/carry_,_to.png",
+    "title": "Carry to",
+    "isFav": false,
+    "description": "Carry to",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/carry_books_,_to.png",
+    "title": "Carry books",
+    "isFav": false,
+    "description": "Carry books",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/catch_2_,_to.png",
+    "title": "Catch",
+    "isFav": false,
+    "description": "Catch",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/celebrate_2_,_to.png",
+    "title": "Celebrate",
+    "isFav": false,
+    "description": "Celebrate",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/celebrate_birthday.png",
+    "title": "Celebrate birthday",
+    "isFav": false,
+    "description": "Celebrate birthday",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/change_clothes_,_to.png",
+    "title": "Change clothes",
+    "isFav": false,
+    "description": "Change clothes",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/clap_hands_,_to.png",
+    "title": "Clap hands",
+    "isFav": false,
+    "description": "Clap hands",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/clean_hands.png",
+    "title": "Clean hands",
+    "isFav": false,
+    "description": "Clean hands",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/close_door_,_to.png",
+    "title": "Close door",
+    "isFav": false,
+    "description": "Close door",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/drink_,_to.png",
+    "title": "Drink",
+    "isFav": false,
+    "description": "Drink",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/eat_1_,_to.png",
+    "title": "Eat",
+    "isFav": false,
+    "description": "Eat",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/find_,_to.png",
+    "title": "Find",
+    "isFav": false,
+    "description": "Find",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/go_,_to.png",
+    "title": "Go to",
+    "isFav": false,
+    "description": "Go to",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/good.png",
+    "title": "Good",
+    "isFav": false,
+    "description": "Good",
+    "malluDescription": "",
+    "tags": ["Action"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/hello.png",
+    "title": "Hello",
+    "isFav": false,
+    "description": "Hello",
+    "malluDescription": "",
+    "tags": ["Action", "Greet"],
+    "emotion": []
   }
 ]
