@@ -941,7 +941,7 @@
     "title": "Bad",
     "isFav": false,
     "description": "Bad",
-    "malluDescription": "",
+    "malluDescription": "മോശം",
     "tags": ["Emotion"],
     "emotion": []
   },
@@ -950,7 +950,7 @@
     "title": "Barbeque",
     "isFav": false,
     "description": "Barbeque",
-    "malluDescription": "",
+    "malluDescription": "ബാർബിക്യൂ",
     "tags": ["Action"],
     "emotion": []
   },
@@ -959,7 +959,7 @@
     "title": "Call out",
     "isFav": false,
     "description": "Call out",
-    "malluDescription": "",
+    "malluDescription": "വിളിക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -968,7 +968,7 @@
     "title": "Carry to",
     "isFav": false,
     "description": "Carry to",
-    "malluDescription": "",
+    "malluDescription": "വരെ കൊണ്ടുപോകുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -977,7 +977,7 @@
     "title": "Carry books",
     "isFav": false,
     "description": "Carry books",
-    "malluDescription": "",
+    "malluDescription": "പുസ്തകങ്ങൾ കൊണ്ടുപോകുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -986,7 +986,7 @@
     "title": "Catch",
     "isFav": false,
     "description": "Catch",
-    "malluDescription": "",
+    "malluDescription": "പിടിക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -995,7 +995,7 @@
     "title": "Celebrate",
     "isFav": false,
     "description": "Celebrate",
-    "malluDescription": "",
+    "malluDescription": "ആഘോഷിക്കാൻ",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1004,7 +1004,7 @@
     "title": "Celebrate birthday",
     "isFav": false,
     "description": "Celebrate birthday",
-    "malluDescription": "",
+    "malluDescription": "ജന്മദിനം ആഘോഷിക്കൂ",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1013,7 +1013,7 @@
     "title": "Change clothes",
     "isFav": false,
     "description": "Change clothes",
-    "malluDescription": "",
+    "malluDescription": "വസ്ത്രം മാറുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1022,7 +1022,7 @@
     "title": "Clap hands",
     "isFav": false,
     "description": "Clap hands",
-    "malluDescription": "",
+    "malluDescription": "കൈകൊട്ടുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1031,7 +1031,7 @@
     "title": "Clean hands",
     "isFav": false,
     "description": "Clean hands",
-    "malluDescription": "",
+    "malluDescription": "കൈകൾ വൃത്തിയാക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1040,7 +1040,7 @@
     "title": "Close door",
     "isFav": false,
     "description": "Close door",
-    "malluDescription": "",
+    "malluDescription": "വാതിൽ അടയ്ക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1049,7 +1049,7 @@
     "title": "Drink",
     "isFav": false,
     "description": "Drink",
-    "malluDescription": "",
+    "malluDescription": "കുടിക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1058,7 +1058,7 @@
     "title": "Eat",
     "isFav": false,
     "description": "Eat",
-    "malluDescription": "",
+    "malluDescription": "കഴിക്കുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1067,7 +1067,7 @@
     "title": "Find",
     "isFav": false,
     "description": "Find",
-    "malluDescription": "",
+    "malluDescription": "കണ്ടെത്തുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1076,7 +1076,7 @@
     "title": "Go to",
     "isFav": false,
     "description": "Go to",
-    "malluDescription": "",
+    "malluDescription": "പോകുക",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1085,7 +1085,7 @@
     "title": "Good",
     "isFav": false,
     "description": "Good",
-    "malluDescription": "",
+    "malluDescription": "നല്ലത്",
     "tags": ["Action"],
     "emotion": []
   },
@@ -1094,8 +1094,98 @@
     "title": "Hello",
     "isFav": false,
     "description": "Hello",
-    "malluDescription": "",
+    "malluDescription": "ഹലോ",
     "tags": ["Action", "Greet"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/afraid_man.png",
+    "title": "Afraid",
+    "isFav": false,
+    "description": "I am afraid",
+    "malluDescription": "എനിക്ക് ഭയം തോന്നുന്നു",
+    "tags": ["Emotion","Fear","Scared"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/sad_man.png",
+    "title": "Sad",
+    "isFav": false,
+    "description": "I am feeling sad",
+    "malluDescription": "എനിക്ക് സങ്കടം തോന്നുന്നു",
+    "tags": ["Emotion","Sad","Despair"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/happy_man.png",
+    "title": "Happy",
+    "isFav": false,
+    "description": "I am feeling happy",
+    "malluDescription": "എനിക്ക് സന്തോഷം തോന്നുന്നു",
+    "tags": ["Emotion","Happy","Smile"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/surprised_man.png",
+    "title": "Surprised",
+    "isFav": false,
+    "description": "I am surprised",
+    "malluDescription": "ഞാൻ ആശ്ചര്യപ്പെട്ടു",
+    "tags": ["Emotion","Surprise"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/excited_man.png",
+    "title": "Excited",
+    "isFav": false,
+    "description": "I am feeling excited",
+    "malluDescription": "എനിക്ക് ആവേശം തോന്നുന്നു",
+    "tags": ["Emotion","Excitement","Excited"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/sad_lady.png",
+    "title": "Sorry",
+    "isFav": false,
+    "description": "I am sorry",
+    "malluDescription": "ഞാൻ മാപ്പപേക്ഷിക്കുന്നു",
+    "tags": ["Emotion","Sorry","Apology"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/jam.png",
+    "title": "Jam",
+    "isFav": false,
+    "description": "I want jam",
+    "malluDescription": "എനിക്ക് ജാം വേണം",
+    "tags": ["Snack","Spread","Jam"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/cheese.png",
+    "title": "Cheese",
+    "isFav": false,
+    "description": "I want cheese",
+    "malluDescription": "എനിക്ക് ചീസ് വേണം",
+    "tags": ["Snack","Spread","Cheese"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/butter.png",
+    "title": "Butter",
+    "isFav": false,
+    "description": "I want butter",
+    "malluDescription": "എനിക്ക് വെണ്ണ വേണം",
+    "tags": ["Snack","Spread","Butter"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/bread.png",
+    "title": "Bread",
+    "isFav": false,
+    "description": "I want bread",
+    "malluDescription": "എനിക്ക് റൊട്ടി വേണം",
+    "tags": ["Snack","Spread","Bread"],
     "emotion": []
   }
 ]
