@@ -951,7 +951,7 @@
     "isFav": false,
     "description": "Barbeque",
     "malluDescription": "ബാർബിക്യൂ",
-    "tags": ["Action"],
+    "tags": ["Food"],
     "emotion": []
   },
   {
@@ -960,7 +960,7 @@
     "isFav": false,
     "description": "Call out",
     "malluDescription": "വിളിക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -969,7 +969,7 @@
     "isFav": false,
     "description": "Carry to",
     "malluDescription": "വരെ കൊണ്ടുപോകുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -978,7 +978,7 @@
     "isFav": false,
     "description": "Carry books",
     "malluDescription": "പുസ്തകങ്ങൾ കൊണ്ടുപോകുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -987,7 +987,7 @@
     "isFav": false,
     "description": "Catch",
     "malluDescription": "പിടിക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -996,7 +996,7 @@
     "isFav": false,
     "description": "Celebrate",
     "malluDescription": "ആഘോഷിക്കാൻ",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1005,7 +1005,7 @@
     "isFav": false,
     "description": "Celebrate birthday",
     "malluDescription": "ജന്മദിനം ആഘോഷിക്കൂ",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1014,7 +1014,7 @@
     "isFav": false,
     "description": "Change clothes",
     "malluDescription": "വസ്ത്രം മാറുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1023,7 +1023,7 @@
     "isFav": false,
     "description": "Clap hands",
     "malluDescription": "കൈകൊട്ടുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1032,7 +1032,7 @@
     "isFav": false,
     "description": "Clean hands",
     "malluDescription": "കൈകൾ വൃത്തിയാക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1041,7 +1041,7 @@
     "isFav": false,
     "description": "Close door",
     "malluDescription": "വാതിൽ അടയ്ക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1050,7 +1050,7 @@
     "isFav": false,
     "description": "Drink",
     "malluDescription": "കുടിക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1059,7 +1059,7 @@
     "isFav": false,
     "description": "Eat",
     "malluDescription": "കഴിക്കുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1068,7 +1068,7 @@
     "isFav": false,
     "description": "Find",
     "malluDescription": "കണ്ടെത്തുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1077,7 +1077,7 @@
     "isFav": false,
     "description": "Go to",
     "malluDescription": "പോകുക",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1086,7 +1086,7 @@
     "isFav": false,
     "description": "Good",
     "malluDescription": "നല്ലത്",
-    "tags": ["Action"],
+    "tags": ["Activity"],
     "emotion": []
   },
   {
@@ -1095,7 +1095,7 @@
     "isFav": false,
     "description": "Hello",
     "malluDescription": "ഹലോ",
-    "tags": ["Action", "Greet"],
+    "tags": ["Activity", "Greet"],
     "emotion": []
   },
   {
@@ -1186,6 +1186,15 @@
     "description": "I want bread",
     "malluDescription": "എനിക്ക് റൊട്ടി വേണം",
     "tags": ["Snack","Spread","Bread"],
+    "emotion": []
+  },
+  {
+    "imagePath": "assets/PNG/i_am.png",
+    "title": "I am",
+    "isFav": false,
+    "description": "I am",
+    "malluDescription": "",
+    "tags": ["Activity"],
     "emotion": []
   }
 ]
