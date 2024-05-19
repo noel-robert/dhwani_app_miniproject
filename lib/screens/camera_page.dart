@@ -1,20 +1,18 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:dhwani_app_miniproject/screens/home_page.dart';
-import 'package:dhwani_app_miniproject/screens/search_page.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tflite_v2/tflite_v2.dart';
-import 'package:dhwani_app_miniproject/main.dart';
 
 import '../controllers/bottom_bar_controller.dart';
-import 'library_page.dart';
+import '../main.dart';
+import '../screens/library_page.dart';
+import '../screens/home_page.dart';
+import '../screens/search_page.dart';
 
 class DhwaniApp_CameraPage extends StatefulWidget {
   const DhwaniApp_CameraPage({super.key});
@@ -107,24 +105,45 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
   }
 
   void _setTargetEmotion() {
-    List<String> emotions = ['angry', 'fear', 'happy', 'sad', 'surprise'];
+    // List<String> emotions = ['angry', 'fear', 'happy', 'sad', 'surprise'];
+    List<String> emotions = ['anger', 'fear', 'happy', 'sad', 'surprised', 'neutral', 'disgust', 'contempt'];
     _targetEmotion = emotions[Random().nextInt(emotions.length)];
   }
 
   String getIconForEmotion(String emotion) {
-    switch (emotion) {
-      case 'angry':
-        return '\u{1F621}';
-      case 'fear':
-        return '\u{1F630}';
-      case 'happy':
-        return '\u{1F600}';
-      case 'sad':
-        return '\u{1F61E}';
-      case 'surprise':
-        return '\u{1F62E}';
-      default:
-        return '';
+    // switch (emotion) {
+    //   case 'angry':
+    //     return '\u{1F621}';
+    //   case 'fear':
+    //     return '\u{1F630}';
+    //   case 'happy':
+    //     return '\u{1F600}';
+    //   case 'sad':
+    //     return '\u{1F61E}';
+    //   case 'surprise':
+    //     return '\u{1F62E}';
+    //   default:
+    //     return '';
+    // }
+    final Map<String, List<String>> emojiMap = {
+      'anger': ['\u{1F620}', '\u{1F621}'],
+      'fear': ['\u{1F628}', '\u{1F630}'],
+      'happy': ['\u{1F600}', '\u{1F601}', '\u{1F60A}'],
+      'sad': ['\u{1F622}', '\u{1F61E}'],
+      'surprised': ['\u{1F632}', '\u{1F62E}'],
+      'neutral': ['\u{1F610}', '\u{1F611}'],
+      'disgust': ['\u{1F922}', '\u{1F612}'],
+      'contempt': ['\u{1F624}', '\u{1F644}']
+    };
+
+    // final random = Random();
+
+    if (emojiMap.containsKey(emotion)) {
+      final emojis = emojiMap[emotion]!;
+      // return emojis[random.nextInt(emojis.length)];
+      return emojis[0];
+    } else {
+      return '';
     }
   }
 
@@ -209,7 +228,7 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DhwaniApp_HomePage()));
+                            builder: (context) => const DhwaniApp_HomePage()));
                   },
                 ),
                 GButton(
@@ -219,7 +238,7 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DhwaniApp_LibraryPage()));
+                            builder: (context) => const DhwaniApp_LibraryPage()));
                   },
                 ),
                 GButton(
@@ -229,7 +248,7 @@ class DhwaniApp_CameraPageState extends State<DhwaniApp_CameraPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DhwaniApp_SearchPage()));
+                            builder: (context) => const DhwaniApp_SearchPage()));
                   },
                 ),
                 GButton(
