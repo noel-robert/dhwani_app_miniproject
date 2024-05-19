@@ -101,8 +101,8 @@ class DhwaniApp_HomePageState extends State<DhwaniApp_HomePage> {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
               ),
               itemCount: cards.length,
               itemBuilder: (context, index) {
